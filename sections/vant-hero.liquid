@@ -210,7 +210,10 @@
       if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'instant' });
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
-    window.addEventListener('pageshow', () => requestAnimationFrame(() => requestAnimationFrame(toTop)), { once: true });
+    const later = () => requestAnimationFrame(() => requestAnimationFrame(toTop));
+    /* Our script may load before or after the page's pageshow event, so cover both. */
+    if (document.readyState === 'complete') later();
+    window.addEventListener('pageshow', later, { once: true });
   })();
 {% endjavascript %}
 
