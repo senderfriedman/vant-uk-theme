@@ -92,6 +92,9 @@
         }
       },
       "settings": {
+        "vant_swatch_label": "Order swatches",
+        "vant_swatch_link": "/collections/order-swatches",
+        "vant_phone": "020 3355 9166",
         "logo_position": "left",
         "menu_position": "right",
         "menu_row": "top",
@@ -120,10 +123,7 @@
         "text_color_top": "#2E2A2B",
         "bubble_style": "custom",
         "bubble_background_color": "#E0262B",
-        "bubble_text_color": "#FFFFFF",
-        "vant_swatch_label": "Order swatches",
-        "vant_swatch_link": "/collections/order-swatches",
-        "vant_phone": "020 3355 9166"
+        "bubble_text_color": "#FFFFFF"
       }
     }
   },
