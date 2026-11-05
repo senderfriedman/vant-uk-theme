@@ -1,0 +1,98 @@
+{% doc %}
+  One shared pop-up video player. Any button with data-vant-video="YOUTUBE_ID" opens it.
+  Rendered by sections that have a film button; safe to render more than once
+  (only the first copy is used).
+{% enddoc %}
+<dialog class="vant-video-dialog" data-vant-video-dialog aria-label="Video">
+  <div class="vant-video-dialog__inner">
+    <button type="button" class="vant-video-dialog__close" data-vant-video-close aria-label="Close video">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <div class="vant-video-dialog__frame"></div>
+  </div>
+</dialog>
+
+{% stylesheet %}
+  .vant-video-dialog {
+    border: 0;
+    padding: 0;
+    width: min(1100px, 92vw);
+    max-width: none;
+    background: #000;
+  }
+
+  .vant-video-dialog::backdrop {
+    background: rgb(46 42 43 / 0.85);
+  }
+
+  .vant-video-dialog__inner {
+    position: relative;
+  }
+
+  .vant-video-dialog__frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  .vant-video-dialog__frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .vant-video-dialog__close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    if (window.vantVideoDialogReady) return;
+    window.vantVideoDialogReady = true;
+
+    const getDialog = () => document.querySelector('[data-vant-video-dialog]');
+
+    const close = () => {
+      const dialog = getDialog();
+      if (!dialog) return;
+      dialog.querySelector('.vant-video-dialog__frame').innerHTML = '';
+      if (dialog.open) dialog.close();
+    };
+
+    document.addEventListener('click', (event) => {
+      const opener = event.target.closest('[data-vant-video]');
+      if (opener) {
+        const id = opener.getAttribute('data-vant-video');
+        const dialog = getDialog();
+        if (!id || !dialog) return;
+        event.preventDefault();
+        const frame = dialog.querySelector('.vant-video-dialog__frame');
+        frame.innerHTML =
+          '<iframe src="https://www.youtube-nocookie.com/embed/' +
+          encodeURIComponent(id) +
+          '?autoplay=1&rel=0&modestbranding=1" title="Vänt video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+        dialog.showModal();
+        dialog.querySelector('[data-vant-video-close]').focus();
+        return;
+      }
+      if (event.target.closest('[data-vant-video-close]')) close();
+      if (event.target.matches('[data-vant-video-dialog]')) close();
+    });
+
+    document.addEventListener('close', (event) => {
+      if (event.target.matches && event.target.matches('[data-vant-video-dialog]')) {
+        event.target.querySelector('.vant-video-dialog__frame').innerHTML = '';
+      }
+    }, true);
+  })();
+{% endjavascript %}

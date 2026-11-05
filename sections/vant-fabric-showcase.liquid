@@ -1,0 +1,245 @@
+{% render 'vant-base' %}
+{%- liquid
+  assign exclude = section.settings.exclude_fabrics | downcase | split: ','
+  assign swatch_link = section.settings.button_link | default: section.settings.collection.url | default: '#'
+-%}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div class="vant-fab">
+    <div class="vant-section-head vant-section-head--center">
+      {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.small_print != blank -%}<p class="vant-small vant-muted">{{ section.settings.small_print }}</p>{%- endif -%}
+    </div>
+
+    {%- if section.settings.featured != blank -%}
+      <div class="vant-fab__featured vant-scroll-row">
+        {%- for p in section.settings.featured -%}
+          <a class="vant-fab__swatch" href="{{ swatch_link }}{% if swatch_link contains '?' %}&{% else %}?{% endif %}colour={{ p.handle }}">
+            <span class="vant-fab__circle">
+              {%- if p.featured_image != blank -%}
+                {{ p.featured_image | image_url: width: 500, height: 500, crop: 'center' | image_tag: widths: '240, 360, 500', sizes: '(min-width: 990px) 18vw, 40vw', loading: 'lazy', alt: '' }}
+              {%- endif -%}
+            </span>
+            <span class="vant-fab__name">{{ p.title }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.collection != blank -%}
+      {%- liquid
+        assign fabrics = ''
+        assign colour_count = 0
+        for p in section.settings.collection.products
+          if p.options.size < 2
+            continue
+          endif
+          assign fabric = p.variants.first.option1
+          if fabric == 'Leather'
+            assign fabric = 'Vintage Leather'
+          endif
+          assign fabric_key = fabric | downcase | strip
+          if exclude contains fabric_key
+            continue
+          endif
+          assign colour_count = colour_count | plus: 1
+          unless fabrics contains fabric
+            assign fabrics = fabrics | append: fabric | append: '|'
+          endunless
+        endfor
+        assign fabric_list = fabrics | split: '|'
+      -%}
+      <div class="vant-fab__all">
+        <p class="vant-fab__all-label vant-small">{{ section.settings.all_label | replace: '[count]', colour_count }}</p>
+        <div class="vant-fab__dots vant-scroll-row">
+          {%- for fabric in fabric_list -%}
+            <div class="vant-fab__group" role="group" aria-label="{{ fabric | escape }}">
+              {%- for p in section.settings.collection.products -%}
+                {%- liquid
+                  if p.options.size < 2
+                    continue
+                  endif
+                  assign f = p.variants.first.option1
+                  if f == 'Leather'
+                    assign f = 'Vintage Leather'
+                  endif
+                  if f != fabric
+                    continue
+                  endif
+                -%}
+                <a class="vant-fab__dot" href="{{ swatch_link }}{% if swatch_link contains '?' %}&{% else %}?{% endif %}colour={{ p.handle }}" title="{{ p.title | escape }}" aria-label="{{ p.title | escape }}">
+                  {%- if p.featured_image != blank -%}
+                    {{ p.featured_image | image_url: width: 80, height: 80, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+                  {%- endif -%}
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="vant-buttons vant-fab__cta">
+        <a class="button" href="{{ swatch_link }}">{{ section.settings.button_label }} {% render 'vant-arrow' %}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-fab__featured {
+    grid-auto-columns: calc((100% - 4 * 28px) / 5);
+    gap: 28px;
+    margin-top: 8px;
+  }
+
+  .vant-fab__swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .vant-fab__circle {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e9e5e2;
+    box-shadow: 0 8px 22px rgb(46 42 43 / 0.08);
+    transition: transform 0.25s ease;
+  }
+
+  .vant-fab__swatch:hover .vant-fab__circle {
+    transform: translateY(-3px);
+  }
+
+  .vant-fab__circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .vant-fab__all {
+    margin-top: 44px;
+    text-align: center;
+  }
+
+  .vant-fab__all-label {
+    margin: 0 0 14px;
+  }
+
+  .vant-fab__dots {
+    grid-auto-columns: max-content;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .vant-fab__group {
+    display: flex;
+    gap: 8px;
+    padding-inline: 12px;
+    border-left: 1px solid #dcd8d5;
+  }
+
+  .vant-fab__group:first-child {
+    border-left: 0;
+  }
+
+  .vant-fab__dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e9e5e2;
+    outline: 1px solid rgb(46 42 43 / 0.12);
+    outline-offset: -1px;
+    position: relative;
+  }
+
+  .vant-fab__dot::after {
+    content: '';
+    position: absolute;
+    inset: -7px;
+  }
+
+  .vant-fab__dot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .vant-fab__cta {
+    justify-content: center;
+    margin-top: 36px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .vant-fab__featured {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .vant-fab__dots {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    .vant-fab__dots {
+      justify-content: start;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-fab__featured {
+      grid-auto-columns: 38%;
+      gap: 16px;
+    }
+
+    .vant-fab__swatch {
+      font-size: 13px;
+    }
+
+    .vant-fab__cta .button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt fabric showcase",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Make words italic to show them in red.", "default": "Feel the fabric <em>before you choose.</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage." },
+    { "type": "text", "id": "small_print", "label": "Small print", "default": "Colours vary by screen. A swatch shows the real shade." },
+    { "type": "product_list", "id": "featured", "label": "Featured swatches (big circles)", "limit": 5 },
+    { "type": "collection", "id": "collection", "label": "All colours row: swatch collection", "info": "Shows every colour in this collection, grouped by fabric (the product's first option)." },
+    { "type": "text", "id": "exclude_fabrics", "label": "Fabrics to leave out of the row", "info": "Comma separated, e.g. Wood", "default": "Wood" },
+    { "type": "text", "id": "all_label", "label": "Row label", "info": "[count] is replaced by the number of colours.", "default": "All [count] colours" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Order swatches" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Uses the collection link if empty." },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "Vänt fabric showcase" }]
+}
+{% endschema %}

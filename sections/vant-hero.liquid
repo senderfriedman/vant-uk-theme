@@ -1,0 +1,196 @@
+{% render 'vant-base' %}
+{%- liquid
+  assign desktop_image = section.settings.image
+  assign mobile_image = section.settings.mobile_image | default: section.settings.image
+  assign focal_style = ''
+  if desktop_image != blank
+    assign focal_style = 'object-position: ' | append: desktop_image.presentation.focal_point
+  endif
+-%}
+
+<div class="vant-hero" style="--vant-hero-h: {{ section.settings.height }}px;">
+  <div class="vant-hero__media">
+    {%- if desktop_image != blank -%}
+      <picture>
+        {%- if section.settings.mobile_image != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        {{
+          desktop_image
+          | image_url: width: 2400
+          | image_tag:
+            widths: '750, 1100, 1500, 1800, 2400',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'vant-img-cover',
+            style: focal_style,
+            alt: desktop_image.alt
+        }}
+      </picture>
+    {%- else -%}
+      <div class="vant-placeholder">{{ 'hero-apparel-1' | placeholder_svg_tag }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="vant-hero__panel">
+    <div class="vant-hero__card">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="vant-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="vant-hero__heading vant-hl">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="vant-hero__text vant-rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      <div class="vant-hero__buttons">
+        {%- if section.settings.button_label != blank -%}
+          <a class="button" href="{{ section.settings.button_link | default: '#' }}">
+            {{- section.settings.button_label -}}
+            {% render 'vant-arrow' %}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a class="button button-secondary" href="{{ section.settings.button2_link | default: '#' }}">
+            {{- section.settings.button2_label -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.caption != blank -%}
+        <p class="vant-hero__caption">
+          {%- if section.settings.caption_link != blank -%}
+            <a href="{{ section.settings.caption_link }}">{{ section.settings.caption }}</a>
+          {%- else -%}
+            {{ section.settings.caption }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-hero {
+    position: relative;
+    display: grid;
+  }
+
+  .vant-hero__media {
+    grid-area: 1 / 1;
+    height: var(--vant-hero-h, 720px);
+    max-height: 85svh;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  .vant-hero__media picture {
+    display: block;
+    height: 100%;
+  }
+
+  .vant-hero__panel {
+    grid-area: 1 / 1;
+    align-self: start;
+    width: 100%;
+    max-width: calc(var(--page-width, 1440px));
+    margin-inline: auto;
+    padding: 48px var(--page-margin, 40px);
+    pointer-events: none;
+  }
+
+  .vant-hero__card {
+    pointer-events: auto;
+    background: #fff;
+    max-width: 380px;
+    padding: 36px 30px 30px;
+  }
+
+  .vant-hero__heading {
+    font-size: clamp(32px, 3.2vw, 44px);
+    line-height: 1.12;
+    margin-bottom: 18px;
+  }
+
+  .vant-hero__text {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .vant-hero__buttons {
+    display: grid;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .vant-hero__buttons .button {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vant-hero__caption {
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 20px 0 0;
+    color: #4a4446;
+  }
+
+  .vant-hero__caption a {
+    color: inherit;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-hero__media {
+      grid-area: auto;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      aspect-ratio: 4 / 3.6;
+    }
+
+    .vant-hero__panel {
+      grid-area: auto;
+      padding: 28px var(--page-margin, 16px) 8px;
+    }
+
+    .vant-hero__card {
+      max-width: none;
+      padding: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt hero",
+  "tag": "section",
+  "class": "vant-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "Set the focal point on the image in Files so the headboard stays in frame on every screen." },
+    { "type": "image_picker", "id": "mobile_image", "label": "Image (mobile, optional)", "info": "Shown on phones. Uses the desktop image if empty." },
+    { "type": "range", "id": "height", "label": "Desktop height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 720 },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Upholstered headboard walls" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Make words italic to show them in red.", "default": "Start with a hotel headboard wall." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Padded panels on secure wall brackets – made for the bed you already have.</p>" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_label", "label": "Main button", "default": "Shop headboard walls" },
+    { "type": "url", "id": "button_link", "label": "Main button link" },
+    { "type": "text", "id": "button2_label", "label": "Second button", "default": "Order swatches" },
+    { "type": "url", "id": "button2_link", "label": "Second button link" },
+    { "type": "header", "content": "Caption" },
+    { "type": "text", "id": "caption", "label": "Caption under the buttons", "default": "Shown: Bouclé Ivory" },
+    { "type": "url", "id": "caption_link", "label": "Caption link" }
+  ],
+  "presets": [{ "name": "Vänt hero" }]
+}
+{% endschema %}

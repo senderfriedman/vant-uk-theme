@@ -1,0 +1,116 @@
+{% render 'vant-base' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div>
+    {%- if section.settings.heading != blank -%}
+      <div class="vant-section-head"><h2 class="vant-hl">{{ section.settings.heading }}</h2></div>
+    {%- endif -%}
+    <div class="vant-nf" style="--vant-nf-cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }};">
+      {%- for block in section.blocks -%}
+        <div class="vant-nf__item" {{ block.shopify_attributes }}>
+          {%- if section.settings.show_numbers -%}
+            <span class="vant-nf__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          {%- endif -%}
+          {%- if block.settings.icon != 'none' -%}{% render 'vant-icon', icon: block.settings.icon %}{%- endif -%}
+          <h3 class="vant-nf__title">{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<div class="vant-nf__text vant-rte">{{ block.settings.text }}</div>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-nf {
+    display: grid;
+    grid-template-columns: repeat(var(--vant-nf-cols, 4), 1fr);
+    gap: 22px;
+  }
+
+  .vant-nf__item {
+    border-top: 1px solid #dcd8d5;
+    padding-top: 24px;
+  }
+
+  .vant-nf__item .vant-icon {
+    color: #4a4446;
+    margin-bottom: 14px;
+  }
+
+  .vant-nf__num {
+    display: block;
+    color: #ef2e32;
+    font-family: var(--font-heading--family);
+    font-size: 26px;
+    margin-bottom: 18px;
+  }
+
+  .vant-nf__title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .vant-nf__text {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6b6466;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-nf {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 32px;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    .vant-nf__title {
+      font-size: 17px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt numbered points",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Why a Vänt headboard wall?" },
+    { "type": "checkbox", "id": "show_numbers", "label": "Show numbers (01, 02…)", "default": true },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "none", "label": "None" }, { "value": "layers", "label": "Layers (base)" }, { "value": "padding", "label": "Padding" },
+          { "value": "batting", "label": "Batting" }, { "value": "bracket", "label": "Bracket" }, { "value": "delivery", "label": "Delivery" },
+          { "value": "returns", "label": "Shield" }, { "value": "warranty", "label": "Shield with tick" }
+        ], "default": "none" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Sized to your room, not just your bed" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt numbered points",
+      "blocks": [
+        { "type": "point", "settings": { "title": "Sized to your room, not just your bed", "text": "<p>From a neat upholstered headboard to a generous wall-to-wall statement.</p>" } },
+        { "type": "point", "settings": { "title": "Fixed to brackets, not stuck to paint", "text": "<p>Secure aluminium brackets support the headboard wall. No sagging or sliding.</p>" } },
+        { "type": "point", "settings": { "title": "Works with the bed you have", "text": "<p>Keep the bed you love. Give the whole room a new focal point.</p>" } },
+        { "type": "point", "settings": { "title": "Looks bespoke, costs less", "text": "<p>A made-to-measure look without paying for a bespoke headboard.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

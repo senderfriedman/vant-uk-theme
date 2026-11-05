@@ -6,280 +6,570 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "hero": {
+      "type": "vant-hero",
+      "settings": {
+        "image": "shopify://shop_images/vant-home-hero-boucle-ivory.webp",
+        "mobile_image": "shopify://shop_images/vant-home-hero-mobile-boucle-ivory.webp",
+        "height": 720,
+        "eyebrow": "Upholstered headboard walls",
+        "heading": "Start with a hotel headboard wall.",
+        "text": "<p>Padded panels on secure wall brackets – made for the bed you already have.</p>",
+        "button_label": "Shop headboard walls",
+        "button_link": "/collections/panels",
+        "button2_label": "Order swatches",
+        "button2_link": "/collections/order-swatches",
+        "caption": "Shown: Bouclé Ivory",
+        "caption_link": "/collections/order-swatches?colour=boucle-ivory"
+      }
+    },
+    "trust": {
+      "type": "vant-trust-strip",
+      "settings": {
+        "logos_label": "As seen on",
+        "padding_top": 28,
+        "padding_bottom": 28
+      },
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "l1": {
+          "type": "logo",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "name": "HGTV",
+            "image": "shopify://shop_images/logo--hgtv.png"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "l2": {
+          "type": "logo",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "name": "Netflix · Queer Eye",
+            "image": "shopify://shop_images/logo--netflix.png"
+          }
+        },
+        "l3": {
+          "type": "logo",
+          "settings": {
+            "name": "DIY Network"
+          }
+        },
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "delivery",
+            "text": "Free UK delivery"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "swatch",
+            "text": "Fabric swatches",
+            "link": "/collections/order-swatches"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "bracket",
+            "text": "Secure brackets, won’t sag or slide"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "returns",
+            "text": "14-day returns"
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "icon": "warranty",
+            "text": "1-year warranty"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
-      }
+        "l1",
+        "l2",
+        "l3",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ]
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "categories": {
+      "type": "vant-category-cards",
+      "settings": {
+        "heading": "Shop the bedroom",
+        "padding_top": 72,
+        "padding_bottom": 40
+      },
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "c1": {
+          "type": "card",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "collection": "panels",
+            "title": "Headboard walls",
+            "price_text": "from £160"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "c2": {
+          "type": "card",
           "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "collection": "platform-beds",
+            "title": "Beds",
+            "price_text": "from £619"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "collection": "table",
+            "title": "Bedside tables",
+            "price_text": "from £289.99"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "collection": "bench",
+            "title": "Bed benches",
+            "price_text": "from £269"
+          }
         }
       },
-      "name": "t:names.product_list",
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "film": {
+      "type": "vant-video-feature",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "image": "shopify://shop_images/vant-home-hero-mobile-boucle-ivory.webp",
+        "youtube_id": "g2ugde7Zth8",
+        "play_label": "Watch the film · 1 min",
+        "media_position": "left",
+        "heading": "Fitted in an afternoon",
+        "text": "<p>Padded panels click onto aluminium brackets. No tradesperson needed.</p>",
+        "button_label": "Shop headboard walls",
+        "button_link": "/collections/panels",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
+    },
+    "sizes": {
+      "type": "vant-size-cards",
+      "settings": {
+        "heading": "Shop by bed size",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "s1": {
+          "type": "size",
+          "settings": {
+            "product": "romulus-layout-39-x-46",
+            "dimension": "91cm",
+            "title": "Single bed",
+            "price_text": "from £165",
+            "link_label": "Shop Single",
+            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Twin"
+          }
+        },
+        "s2": {
+          "type": "size",
+          "settings": {
+            "product": "victoria-layout-60-x-46",
+            "dimension": "152cm",
+            "badge": "Most popular",
+            "title": "Double & King beds",
+            "price_text": "from £160",
+            "link_label": "Shop Double & King",
+            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Double"
+          }
+        },
+        "s3": {
+          "type": "size",
+          "settings": {
+            "product": "midas-layout-78-x-46",
+            "dimension": "183cm",
+            "title": "Super King beds",
+            "price_text": "from £165",
+            "link_label": "Shop Super King",
+            "link": "/collections/pre-configured-layouts?filter.p.tag=style_King"
+          }
+        },
+        "s4": {
+          "type": "size",
+          "settings": {
+            "product": "the-new-yorker-layout-117-x-69",
+            "dimension": "Up to 305cm",
+            "title": "Feature walls",
+            "price_text": "from £330",
+            "link_label": "Shop feature walls",
+            "link": "/collections/accent-wall"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ]
+    },
+    "why": {
+      "type": "vant-numbered-features",
+      "settings": {
+        "heading": "Why a Vänt headboard wall?",
+        "show_numbers": true,
+        "background_color": "#F5F3F1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "w1": {
+          "type": "point",
+          "settings": {
+            "icon": "none",
+            "title": "Sized to your room, not just your bed",
+            "text": "<p>From a neat upholstered headboard to a generous wall-to-wall statement.</p>"
+          }
+        },
+        "w2": {
+          "type": "point",
+          "settings": {
+            "icon": "none",
+            "title": "Fixed to brackets, not stuck to paint",
+            "text": "<p>Secure aluminium brackets support the headboard wall. No sagging or sliding.</p>"
+          }
+        },
+        "w3": {
+          "type": "point",
+          "settings": {
+            "icon": "none",
+            "title": "Works with the bed you have",
+            "text": "<p>Keep the bed you love. Give the whole room a new focal point.</p>"
+          }
+        },
+        "w4": {
+          "type": "point",
+          "settings": {
+            "icon": "none",
+            "title": "Looks bespoke, costs less",
+            "text": "<p>A made-to-measure look without paying for a bespoke headboard.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ]
+    },
+    "simplemount": {
+      "type": "vant-steps-media",
+      "settings": {
+        "video": "shopify://files/videos/vant-simplemount-animation.mp4",
+        "pause_label": "Pause animation",
+        "eyebrow": "Meet SimpleMount",
+        "heading": "How it fixes to your wall",
+        "youtube_id": "g2ugde7Zth8",
+        "film_label": "Watch the fitting film",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "p1": {
+          "type": "step",
+          "settings": {
+            "title": "Fix the brackets",
+            "text": "<p>Screw the aluminium brackets to your wall. No wall plugs needed on plasterboard; pre-drill 5mm holes on brick or concrete.</p>"
+          }
+        },
+        "p2": {
+          "type": "step",
+          "settings": {
+            "title": "Click the panels on",
+            "text": "<p>Once the brackets are up, each box of four clicks on in around five minutes.</p>"
+          }
+        },
+        "p3": {
+          "type": "step",
+          "settings": {
+            "title": "Change it whenever",
+            "text": "<p>Lift sections off to clean, rearrange or take with you when you move.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    },
+    "styles": {
+      "type": "vant-style-gallery",
+      "settings": {
+        "heading": "Three ways to style it",
+        "padding_top": 40,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "g1": {
+          "type": "look",
+          "settings": {
+            "image": "shopify://shop_images/vant-style-taupe-velvet.webp",
+            "caption": "Taupe velvet",
+            "link": "/collections/get-inspired"
+          }
+        },
+        "g2": {
+          "type": "look",
+          "settings": {
+            "image": "shopify://shop_images/vant-style-dark-velvet.webp",
+            "caption": "Dark velvet",
+            "link": "/collections/get-inspired"
+          }
+        },
+        "g3": {
+          "type": "look",
+          "settings": {
+            "image": "shopify://shop_images/vant-style-charcoal-velvet.webp",
+            "caption": "Charcoal velvet",
+            "link": "/collections/get-inspired"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3"
+      ]
+    },
+    "fabrics": {
+      "type": "vant-fabric-showcase",
+      "settings": {
+        "heading": "Feel the fabric <em>before you choose.</em>",
+        "text": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage.",
+        "small_print": "Colours vary by screen. A swatch shows the real shade.",
+        "featured": [
+          "boucle-ivory",
+          "velevt-sand-storm",
+          "micro-suede-neutral-sand",
+          "velvet-ivory",
+          "vintage-leather-dusty-taupe"
+        ],
+        "collection": "order-swatches",
+        "exclude_fabrics": "Wood",
+        "all_label": "All [count] colours",
+        "button_label": "Order swatches",
+        "button_link": "/collections/order-swatches",
+        "background_color": "#F5F3F1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "furniture": {
+      "type": "vant-furniture-match",
+      "settings": {
+        "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
+        "heading": "Furniture to match",
+        "text": "Beds, bedside tables and benches to match your headboard wall.",
+        "button_label": "Shop the bedroom collection",
+        "button_link": "/collections/platform-beds",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "f1": {
+          "type": "product",
+          "settings": {
+            "product": "vant-platform-bed-full-size",
+            "note": "Available in matching fabrics"
+          }
+        },
+        "f2": {
+          "type": "product",
+          "settings": {
+            "product": "vant-night-stand",
+            "note": "Wood and metal finishes to coordinate"
+          }
+        },
+        "f3": {
+          "type": "product",
+          "settings": {
+            "product": "vant-upholstered-bed-bench-burnished-brass",
+            "note": "Available in matching fabrics"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ]
+    },
+    "compare": {
+      "type": "vant-comparison",
+      "settings": {
+        "heading": "How it compares",
+        "col0": "Your options",
+        "col1": "Vänt headboard wall",
+        "col2": "Stick-on panels",
+        "col3": "Bed-store headboard",
+        "footnote": "Other products vary by manufacturer.",
+        "background_color": "#F5F3F1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "label": "Fixing",
+            "us": "Secure aluminium wall brackets",
+            "other1": "Adhesive or hook-and-loop",
+            "other2": "Bolted to the bed base"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Width",
+            "us": "Bed-width to wall-to-wall",
+            "other1": "Small panels, many packs",
+            "other2": "Bed width only"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Remove or rearrange",
+            "us": "Sections lift off the brackets",
+            "other1": "Can pull paint when removed",
+            "other2": "One fixed design"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "label": "Works with your existing bed",
+            "us": "Yes, any bed",
+            "other1": "Yes",
+            "other2": "Usually divan bases"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ]
+    },
+    "band": {
+      "type": "vant-cta-band",
+      "settings": {
+        "heading": "Planning <em>a bigger wall?</em>",
+        "text": "Our free layout service helps you find the right arrangement for your space. Working on a project? Talk to our trade team.",
+        "button_label": "Free layout help",
+        "button_link": "/pages/contact-us",
+        "button2_label": "Trade enquiries",
+        "button2_link": "/pages/contact-us",
+        "background_color": "#2E2A2B",
+        "text_color": "#FFFFFF",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "faq": {
+      "type": "vant-faq",
+      "settings": {
+        "heading": "Common questions",
+        "contact_text": "Still have a question? Our UK team is here to help.",
+        "phone": "020 3355 9166",
+        "email": "",
+        "hours": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Will it work with my existing bed?",
+            "answer": "<p>Yes. The headboard wall fixes to the wall using SimpleMount, independently of your bed. Check your wall space and the full width of your bed frame before choosing a layout.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Will the headboard wall stay securely in place?",
+            "answer": "<p>The upholstered sections click onto secure aluminium wall brackets. Use the supplied patented screws and step-by-step instructions.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the right size and colour?",
+            "answer": "<p>Measure your wall and bed frame, then order fabric swatches to see the colour in your own light. Choose as many colours as you like, for one flat £3.50 postage. Our free layout service can help you plan a whole wall.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Are the fabrics fire-tested?",
+            "answer": "<p>Fire safety information is available on request. Please contact our team.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>UK delivery is free. Orders are dispatched the next working day and arrive in 3–5 working days.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "What about returns and the warranty?",
+            "answer": "<p>Returns can be requested within 14 days of delivery, subject to the returns policy. Every headboard wall comes with a 1-year warranty.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ]
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "hero",
+    "trust",
+    "categories",
+    "film",
+    "sizes",
+    "why",
+    "simplemount",
+    "styles",
+    "fabrics",
+    "furniture",
+    "compare",
+    "band",
+    "faq"
   ]
 }

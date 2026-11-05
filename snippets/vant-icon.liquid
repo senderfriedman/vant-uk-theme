@@ -1,0 +1,30 @@
+{%- doc -%}
+  Thin line icons for Vänt sections.
+  @param {string} icon - delivery | swatch | bracket | returns | warranty | phone | mail | layers | padding | batting
+{%- enddoc -%}
+<svg class="vant-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {%- case icon -%}
+    {%- when 'delivery' -%}
+      <path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="6.5" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/>
+    {%- when 'swatch' -%}
+      <path d="M5 3.5h10v15H5z"/><path d="M8 6.5h7.5M8 9.5h7.5M8 12.5h7.5"/><path d="M15 6.5h4v14H9v-2"/>
+    {%- when 'bracket' -%}
+      <path d="M3 7h18v3H3z"/><path d="M6 10v6M18 10v6M4 16h16"/><circle cx="7" cy="8.5" r=".6"/><circle cx="17" cy="8.5" r=".6"/>
+    {%- when 'returns' -%}
+      <path d="M12 3.5 19.5 6v6c0 4.2-3.2 7.4-7.5 8.5C7.7 19.4 4.5 16.2 4.5 12V6z"/>
+    {%- when 'warranty' -%}
+      <path d="M12 3.5 19.5 6v6c0 4.2-3.2 7.4-7.5 8.5C7.7 19.4 4.5 16.2 4.5 12V6z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/>
+    {%- when 'phone' -%}
+      <path d="M6.5 3.5h3l1.5 4-2 1.5a10 10 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/>
+    {%- when 'mail' -%}
+      <path d="M3.5 6h17v12h-17z"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>
+    {%- when 'layers' -%}
+      <path d="m12 4 8.5 4.5L12 13 3.5 8.5z"/><path d="m3.5 12.5 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5"/>
+    {%- when 'padding' -%}
+      <rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9.5h8M8 14.5h8"/>
+    {%- when 'batting' -%}
+      <path d="M3.5 8c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0M3.5 12c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0M3.5 16c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0"/>
+    {%- else -%}
+      <circle cx="12" cy="12" r="8"/>
+  {%- endcase -%}
+</svg>

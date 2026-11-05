@@ -1,0 +1,132 @@
+{% render 'vant-base' %}
+{% render 'vant-video-dialog' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="vant-vf{% if section.settings.media_position == 'right' %} vant-vf--right{% endif %}">
+    <div class="vant-vf__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
+      {%- else -%}
+        <div class="vant-placeholder">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+      {%- if section.settings.youtube_id != blank -%}
+        <button type="button" class="vant-vf__play" data-vant-video="{{ section.settings.youtube_id | escape }}" aria-label="Play: {{ section.settings.play_label | escape }}">
+          <span class="vant-vf__play-icon"><svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 3v10l8-5z"/></svg></span>
+          {%- if section.settings.play_label != blank -%}<span class="vant-vf__play-label">{{ section.settings.play_label }}</span>{%- endif -%}
+        </button>
+      {%- endif -%}
+    </div>
+    <div class="vant-vf__content">
+      {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="vant-vf__text vant-rte">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="vant-buttons">
+          <a class="button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }} {% render 'vant-arrow' %}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-vf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #f5f3f1;
+    min-height: 480px;
+  }
+
+  .vant-vf--right .vant-vf__media {
+    order: 2;
+  }
+
+  .vant-vf__media {
+    position: relative;
+    min-height: 360px;
+  }
+
+  .vant-vf__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 14px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .vant-vf__play-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #2e2a2b;
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease;
+  }
+
+  .vant-vf__play:hover .vant-vf__play-icon {
+    transform: scale(1.06);
+  }
+
+  .vant-vf__play-label {
+    background: rgb(46 42 43 / 0.85);
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .vant-vf__content {
+    align-self: center;
+    padding: 56px 64px;
+  }
+
+  .vant-vf__text {
+    margin-top: 20px;
+    max-width: 440px;
+    line-height: 1.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-vf {
+      grid-template-columns: 1fr;
+    }
+
+    .vant-vf--right .vant-vf__media {
+      order: 0;
+    }
+
+    .vant-vf__media {
+      aspect-ratio: 4 / 3.4;
+      min-height: 0;
+    }
+
+    .vant-vf__content {
+      padding: 32px 24px 36px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt video feature",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Cover image" },
+    { "type": "text", "id": "youtube_id", "label": "YouTube video ID", "info": "The code after watch?v= in the YouTube link, e.g. g2ugde7Zth8", "default": "g2ugde7Zth8" },
+    { "type": "text", "id": "play_label", "label": "Play button label", "default": "Watch the film · 1 min" },
+    { "type": "select", "id": "media_position", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Fitted in an afternoon" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Padded panels click onto aluminium brackets. No tradesperson needed.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop headboard walls" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "presets": [{ "name": "Vänt video feature" }]
+}
+{% endschema %}

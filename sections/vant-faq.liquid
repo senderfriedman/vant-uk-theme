@@ -1,0 +1,169 @@
+{% render 'vant-base' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div class="vant-faq">
+    {%- if section.settings.heading != blank -%}
+      <div class="vant-section-head"><h2 class="vant-hl">{{ section.settings.heading }}</h2></div>
+    {%- endif -%}
+    <div class="vant-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="vant-faq__item" {{ block.shopify_attributes }}>
+          <summary class="vant-faq__q">
+            <span>{{ block.settings.question }}</span>
+            <span class="vant-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="vant-faq__a vant-rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- assign s = section.settings -%}
+    {%- if s.contact_text != blank or s.phone != blank or s.email != blank or s.hours != blank -%}
+      <div class="vant-faq__contact">
+        {%- if s.contact_text != blank -%}<p>{{ s.contact_text }}</p>{%- endif -%}
+        <p class="vant-faq__channels">
+          {%- if s.phone != blank -%}
+            <a href="tel:{{ s.phone | remove: ' ' }}">{% render 'vant-icon', icon: 'phone' %}{{ s.phone }}</a>
+          {%- endif -%}
+          {%- if s.email != blank -%}
+            <a href="mailto:{{ s.email }}">{% render 'vant-icon', icon: 'mail' %}{{ s.email }}</a>
+          {%- endif -%}
+          {%- if s.hours != blank -%}<span class="vant-muted">{{ s.hours }}</span>{%- endif -%}
+        </p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-faq {
+    max-width: 840px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .vant-faq__list {
+    border-top: 1px solid #dcd8d5;
+  }
+
+  .vant-faq__item {
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-faq__q {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    min-height: 48px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #2e2a2b;
+  }
+
+  .vant-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .vant-faq__icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+
+  .vant-faq__icon::before,
+  .vant-faq__icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.2s ease;
+  }
+
+  .vant-faq__icon::after {
+    transform: rotate(90deg);
+  }
+
+  .vant-faq__item[open] .vant-faq__icon::after {
+    transform: rotate(0deg);
+  }
+
+  .vant-faq__a {
+    padding: 0 0 24px;
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .vant-faq__contact {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 15px;
+  }
+
+  .vant-faq__contact p {
+    margin: 0;
+  }
+
+  .vant-faq__channels {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-top: 12px !important;
+  }
+
+  .vant-faq__channels a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    min-height: 44px;
+  }
+
+  .vant-faq__channels .vant-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .vant-faq__channels span {
+    align-self: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Common questions" },
+    { "type": "text", "id": "contact_text", "label": "Contact line", "default": "Still have a question? Our UK team is here to help." },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "020 3355 9166" },
+    { "type": "text", "id": "email", "label": "Email", "info": "Hidden if empty." },
+    { "type": "text", "id": "hours", "label": "Opening hours", "info": "Hidden if empty." },
+    { "type": "color", "id": "background_color", "label": "Background" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Will it work with my existing bed?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vänt FAQ", "blocks": [{ "type": "question" }] }]
+}
+{% endschema %}

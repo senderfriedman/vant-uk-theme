@@ -1,0 +1,184 @@
+{% render 'vant-base' %}
+<div
+  class="section section--full-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="vant-fm">
+    <div class="vant-fm__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1500, 1800', sizes: '(min-width: 990px) 60vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
+      {%- else -%}
+        <div class="vant-placeholder">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="vant-fm__content">
+      {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="vant-fm__text">{{ section.settings.text }}</p>{%- endif -%}
+      <div class="vant-fm__products">
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p != blank -%}
+            <a class="vant-fm__card" href="{{ p.url }}" {{ block.shopify_attributes }}>
+              <span class="vant-fm__thumb">
+                {%- if p.featured_image != blank -%}
+                  {{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}
+                {%- endif -%}
+              </span>
+              <span class="vant-fm__info">
+                <span class="vant-fm__title">{{ block.settings.title | default: p.title }}</span>
+                <span class="vant-fm__price">{% if p.price_varies %}from {% endif %}{{ p.price_min | money }}</span>
+                {%- if block.settings.note != blank -%}<span class="vant-fm__note">{{ block.settings.note }}</span>{%- endif -%}
+              </span>
+              <span class="vant-fm__go">{% render 'vant-arrow' %}</span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.button_label != blank -%}
+        <div class="vant-buttons">
+          <a class="button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }} {% render 'vant-arrow' %}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-fm {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    background: #f1ece8;
+  }
+
+  .vant-fm__media {
+    min-height: 520px;
+  }
+
+  .vant-fm__content {
+    padding: 64px max(40px, 4vw);
+    align-self: center;
+  }
+
+  .vant-fm__text {
+    margin: 16px 0 28px;
+    font-size: 15px;
+  }
+
+  .vant-fm__products {
+    display: grid;
+    gap: 10px;
+  }
+
+  .vant-fm__card {
+    display: grid;
+    grid-template-columns: 96px 1fr 20px;
+    gap: 16px;
+    align-items: center;
+    background: #fff;
+    padding: 10px 16px 10px 10px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .vant-fm__card:hover {
+    border-color: #2e2a2b;
+  }
+
+  .vant-fm__thumb {
+    aspect-ratio: 4 / 3;
+    background: #f5f3f1;
+    display: block;
+  }
+
+  .vant-fm__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .vant-fm__info {
+    display: grid;
+    gap: 2px;
+  }
+
+  .vant-fm__title {
+    font-size: 15px;
+    color: #2e2a2b;
+  }
+
+  .vant-fm__price {
+    font-size: 14px;
+  }
+
+  .vant-fm__note {
+    font-size: 12px;
+    color: #6b6466;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-fm {
+      grid-template-columns: 1fr;
+    }
+
+    .vant-fm__media {
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+
+    .vant-fm__content {
+      padding: 40px var(--page-margin, 24px) 48px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-fm__card {
+      grid-template-columns: 84px 1fr 16px;
+    }
+
+    .vant-fm .vant-buttons .button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt furniture to match",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Room image" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Furniture to match" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Beds, bedside tables and benches to match your headboard wall." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop the bedroom collection" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Name (optional, overrides the product title)" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Available in matching fabrics" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt furniture to match",
+      "blocks": [
+        { "type": "product", "settings": { "note": "Available in matching fabrics" } },
+        { "type": "product", "settings": { "note": "Wood and metal finishes to coordinate" } },
+        { "type": "product", "settings": { "note": "Available in matching fabrics" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

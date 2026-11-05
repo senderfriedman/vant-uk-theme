@@ -1,0 +1,205 @@
+{% render 'vant-base' %}
+{% render 'vant-video-dialog' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div class="vant-steps">
+    <div class="vant-steps__media">
+      {%- if section.settings.video != blank -%}
+        <div class="vant-steps__video">
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, image_size: '960x', class: 'vant-img-cover' }}
+          <button type="button" class="vant-steps__pause" aria-pressed="false" data-vant-pause>{{ section.settings.pause_label }}</button>
+        </div>
+      {%- elsif section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
+      {%- else -%}
+        <div class="vant-placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="vant-steps__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="vant-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
+      <ol class="vant-steps__list">
+        {%- for block in section.blocks -%}
+          <li class="vant-steps__step" {{ block.shopify_attributes }}>
+            <span class="vant-steps__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <div>
+              <h3 class="vant-steps__title">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<div class="vant-steps__text vant-rte">{{ block.settings.text }}</div>{%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+      <div class="vant-buttons">
+        {%- if section.settings.youtube_id != blank and section.settings.film_label != blank -%}
+          <button type="button" class="button" data-vant-video="{{ section.settings.youtube_id | escape }}">{{ section.settings.film_label }} {% render 'vant-arrow', direction: 'play' %}</button>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="vant-text-link" href="{{ section.settings.link | default: '#' }}">{{ section.settings.link_label }} {% render 'vant-arrow' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+
+  .vant-steps__media {
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .vant-steps__video {
+    position: relative;
+    height: 100%;
+  }
+
+  .vant-steps__video video {
+    object-fit: contain;
+    background: #fff;
+  }
+
+  .vant-steps__pause {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #2e2a2b;
+    color: #2e2a2b;
+    font-size: 13px;
+    padding: 10px 18px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  .vant-steps__list {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+  }
+
+  .vant-steps__step {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    padding: 20px 0;
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-steps__num {
+    color: #ef2e32;
+    font-size: 17px;
+  }
+
+  .vant-steps__title {
+    font-size: 19px;
+    font-weight: 400;
+  }
+
+  .vant-steps__text {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6b6466;
+  }
+
+  .vant-steps .vant-buttons {
+    align-items: center;
+    gap: 24px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-steps {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .vant-steps__content {
+      order: -1;
+    }
+
+    .vant-steps .vant-buttons .button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vant-steps__video video {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-vant-pause]');
+    if (!btn) return;
+    const video = btn.parentElement.querySelector('video');
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+      btn.setAttribute('aria-pressed', 'false');
+      btn.textContent = btn.dataset.pauseText || 'Pause animation';
+    } else {
+      btn.dataset.pauseText = btn.dataset.pauseText || btn.textContent;
+      video.pause();
+      btn.setAttribute('aria-pressed', 'true');
+      btn.textContent = 'Play animation';
+    }
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.vant-steps__video video').forEach((v) => v.pause());
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Vänt steps with media",
+  "tag": "section",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Animation video (plays silently on loop)" },
+    { "type": "image_picker", "id": "image", "label": "Image (used if no video)" },
+    { "type": "text", "id": "pause_label", "label": "Pause button", "default": "Pause animation" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Meet SimpleMount" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "How it fixes to your wall" },
+    { "type": "text", "id": "youtube_id", "label": "Film YouTube ID", "default": "g2ugde7Zth8" },
+    { "type": "text", "id": "film_label", "label": "Film button", "default": "Watch the fitting film" },
+    { "type": "text", "id": "link_label", "label": "Text link (optional)" },
+    { "type": "url", "id": "link", "label": "Text link URL" },
+    { "type": "color", "id": "background_color", "label": "Background" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Fix the brackets" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt steps with media",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Fix the brackets", "text": "<p>Screw the aluminium brackets to your wall. No wall plugs needed on plasterboard; pre-drill 5mm holes on brick or concrete.</p>" } },
+        { "type": "step", "settings": { "title": "Click the panels on", "text": "<p>Once the brackets are up, each box of four clicks on in around five minutes.</p>" } },
+        { "type": "step", "settings": { "title": "Change it whenever", "text": "<p>Lift sections off to clean, rearrange or take with you when you move.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

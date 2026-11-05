@@ -1,0 +1,139 @@
+{% doc %}
+  Shared Vänt UK styles for the custom vant-* sections.
+  Render once at the top of each vant section: {% render 'vant-base' %}
+{% enddoc %}
+
+{% stylesheet %}
+  .vant-section {
+    padding-block-start: var(--vant-pt, 72px);
+    padding-block-end: var(--vant-pb, 72px);
+    background-color: var(--vant-bg, transparent);
+    color: var(--vant-fg, var(--color-foreground));
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-section {
+      padding-block-start: calc(var(--vant-pt, 72px) * 0.66);
+      padding-block-end: calc(var(--vant-pb, 72px) * 0.66);
+    }
+  }
+
+  .vant-section :is(h1, h2, h3, h4) {
+    color: var(--vant-heading, #2e2a2b);
+    margin: 0;
+  }
+
+  .vant-eyebrow {
+    display: block;
+    font-family: var(--font-subheading--family);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ef2e32;
+    margin: 0 0 16px;
+  }
+
+  /* Italic text in headings is used to mark the red half of a heading. Brand rule: no italics. */
+  .vant-hl em,
+  .vant-hl i {
+    font-style: normal;
+    color: #ef2e32;
+  }
+
+  .vant-muted {
+    color: #6b6466;
+  }
+
+  .vant-small {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .vant-rte > * {
+    margin: 0;
+  }
+
+  .vant-rte > * + * {
+    margin-top: 0.75em;
+  }
+
+  .vant-section-head {
+    margin-bottom: 40px;
+  }
+
+  .vant-section-head--center {
+    text-align: center;
+    margin-inline: auto;
+    max-width: 720px;
+  }
+
+  .vant-section-head p {
+    margin: 16px 0 0;
+  }
+
+  .vant-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .vant-buttons .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vant-arrow {
+    width: 12px;
+    height: 12px;
+    flex: none;
+  }
+
+  .vant-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 4px;
+  }
+
+  .vant-scroll-row {
+    display: grid;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+    mask-image: linear-gradient(to right, #000 85%, transparent);
+  }
+
+  .vant-scroll-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vant-scroll-row > * {
+    scroll-snap-align: start;
+  }
+
+  .vant-img-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vant-placeholder {
+    background: #f5f3f1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .vant-placeholder svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.25;
+  }
+{% endstylesheet %}

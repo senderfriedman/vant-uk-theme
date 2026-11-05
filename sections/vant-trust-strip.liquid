@@ -1,0 +1,177 @@
+{% render 'vant-base' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="vant-trust vant-scroll-row">
+    {%- assign logos = section.blocks | where: 'type', 'logo' -%}
+    {%- if logos.size > 0 -%}
+      <div class="vant-trust__logos">
+        {%- if section.settings.logos_label != blank -%}
+          <span class="vant-trust__label">{{ section.settings.logos_label }}</span>
+        {%- endif -%}
+        {%- for block in logos -%}
+          <span class="vant-trust__logo" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: block.settings.name, style: 'max-height: 26px; width: auto;' }}
+            {%- else -%}
+              <span class="vant-trust__logo-text">{{ block.settings.name }}</span>
+            {%- endif -%}
+          </span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'item' -%}
+        {%- if block.settings.link != blank -%}
+          <a class="vant-trust__item" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        {%- else -%}
+          <div class="vant-trust__item" {{ block.shopify_attributes }}>
+        {%- endif -%}
+          {% render 'vant-icon', icon: block.settings.icon %}
+          <span>{{ block.settings.text }}</span>
+        {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-trust-section {
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-trust {
+    grid-auto-columns: max-content;
+    align-items: center;
+    gap: 40px;
+    justify-content: space-between;
+  }
+
+  .vant-trust__logos {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: #6b6466;
+  }
+
+  .vant-trust__label {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .vant-trust__logo {
+    display: inline-flex;
+    align-items: center;
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+
+  .vant-trust__logo-text {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .vant-trust__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #4a4446;
+    text-decoration: none;
+    max-width: 170px;
+  }
+
+  a.vant-trust__item span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media screen and (min-width: 1100px) {
+    .vant-trust {
+      -webkit-mask-image: none;
+      mask-image: none;
+      overflow: visible;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-trust {
+      gap: 28px;
+      padding-right: 40px;
+    }
+
+    .vant-trust__item {
+      flex-direction: row;
+      text-align: left;
+      max-width: none;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt trust strip",
+  "tag": "section",
+  "class": "vant-trust-section",
+  "settings": [
+    { "type": "text", "id": "logos_label", "label": "Logos label", "default": "As seen on" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Press logo",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "HGTV" },
+        { "type": "image_picker", "id": "image", "label": "Logo image", "info": "Shown in grey. Use the official logo, with permission." }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Trust point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "Delivery van" },
+            { "value": "swatch", "label": "Swatches" },
+            { "value": "bracket", "label": "Bracket" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "phone", "label": "Phone" }
+          ],
+          "default": "delivery"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free UK delivery" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt trust strip",
+      "blocks": [
+        { "type": "logo", "settings": { "name": "HGTV" } },
+        { "type": "logo", "settings": { "name": "Netflix · Queer Eye" } },
+        { "type": "logo", "settings": { "name": "DIY Network" } },
+        { "type": "item", "settings": { "icon": "delivery", "text": "Free UK delivery" } },
+        { "type": "item", "settings": { "icon": "swatch", "text": "Fabric swatches" } },
+        { "type": "item", "settings": { "icon": "bracket", "text": "Secure brackets, won’t sag or slide" } },
+        { "type": "item", "settings": { "icon": "returns", "text": "14-day returns" } },
+        { "type": "item", "settings": { "icon": "warranty", "text": "1-year warranty" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

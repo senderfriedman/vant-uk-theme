@@ -1,0 +1,140 @@
+{% render 'vant-base' %}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div>
+    {%- if section.settings.heading != blank -%}
+      <div class="vant-section-head"><h2 class="vant-hl">{{ section.settings.heading }}</h2></div>
+    {%- endif -%}
+    <div class="vant-cmp" role="region" aria-label="{{ section.settings.heading | strip_html | escape }}" tabindex="0">
+      <table class="vant-cmp__table">
+        <thead>
+          <tr>
+            <th scope="col">{{ section.settings.col0 }}</th>
+            <th scope="col" class="vant-cmp__us">{{ section.settings.col1 }}</th>
+            <th scope="col">{{ section.settings.col2 }}</th>
+            <th scope="col">{{ section.settings.col3 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.label }}</th>
+              <td class="vant-cmp__us">{{ block.settings.us }}</td>
+              <td>{{ block.settings.other1 }}</td>
+              <td>{{ block.settings.other2 }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+    {%- if section.settings.footnote != blank -%}<p class="vant-small vant-muted vant-cmp__foot">{{ section.settings.footnote }}</p>{%- endif -%}
+    <p class="vant-small vant-muted vant-cmp__hint">Swipe the table to compare.</p>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-cmp {
+    overflow-x: auto;
+  }
+
+  .vant-cmp__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    font-size: 15px;
+  }
+
+  .vant-cmp__table th,
+  .vant-cmp__table td {
+    text-align: left;
+    padding: 20px 18px;
+    border-bottom: 1px solid #dcd8d5;
+    vertical-align: top;
+    font-weight: 400;
+  }
+
+  .vant-cmp__table thead th {
+    font-weight: 500;
+    color: #2e2a2b;
+  }
+
+  .vant-cmp__table tbody th {
+    color: #4a4446;
+  }
+
+  .vant-cmp__us {
+    color: #2e2a2b;
+  }
+
+  .vant-cmp__foot {
+    margin: 16px 0 0;
+  }
+
+  .vant-cmp__hint {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-cmp__table {
+      font-size: 14px;
+    }
+
+    .vant-cmp__table thead th:first-child,
+    .vant-cmp__table tbody th {
+      position: sticky;
+      left: 0;
+      background: var(--vant-bg, #fff);
+      z-index: 1;
+      min-width: 120px;
+    }
+
+    .vant-cmp__hint {
+      display: block;
+      margin: 8px 0 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt comparison table",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "How it compares" },
+    { "type": "text", "id": "col0", "label": "First column heading", "default": "Your options" },
+    { "type": "text", "id": "col1", "label": "Our column heading", "default": "Vänt headboard wall" },
+    { "type": "text", "id": "col2", "label": "Comparison column 1", "default": "Stick-on panels" },
+    { "type": "text", "id": "col3", "label": "Comparison column 2", "default": "Bed-store headboard" },
+    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Other products vary by manufacturer." },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Row label", "default": "Fixing" },
+        { "type": "text", "id": "us", "label": "Vänt", "default": "Secure aluminium wall brackets" },
+        { "type": "text", "id": "other1", "label": "Comparison 1", "default": "Adhesive or hook-and-loop" },
+        { "type": "text", "id": "other2", "label": "Comparison 2", "default": "Bolted to the bed base" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt comparison table",
+      "blocks": [
+        { "type": "row", "settings": { "label": "Fixing", "us": "Secure aluminium wall brackets", "other1": "Adhesive or hook-and-loop", "other2": "Bolted to the bed base" } },
+        { "type": "row", "settings": { "label": "Width", "us": "Bed-width to wall-to-wall", "other1": "Small panels, many packs", "other2": "Bed width only" } },
+        { "type": "row", "settings": { "label": "Remove or rearrange", "us": "Sections lift off the brackets", "other1": "Can pull paint when removed", "other2": "One fixed design" } },
+        { "type": "row", "settings": { "label": "Works with your existing bed", "us": "Yes, any bed", "other1": "Yes", "other2": "Usually divan bases" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

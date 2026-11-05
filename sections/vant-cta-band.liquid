@@ -1,0 +1,87 @@
+{% render 'vant-base' %}
+<div
+  class="section section--page-width vant-section vant-band"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }}; --vant-fg: {{ section.settings.text_color }}; --vant-heading: {{ section.settings.text_color }};"
+>
+  <div class="vant-band__inner">
+    <div>
+      {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="vant-band__text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="vant-band__buttons">
+      {%- if section.settings.button_label != blank -%}
+        <a class="vant-band__btn" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }} {% render 'vant-arrow' %}</a>
+      {%- endif -%}
+      {%- if section.settings.button2_label != blank -%}
+        <a class="vant-band__btn" href="{{ section.settings.button2_link | default: '#' }}">{{ section.settings.button2_label }} {% render 'vant-arrow' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-band__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .vant-band__text {
+    margin: 12px 0 0;
+    max-width: 560px;
+    font-size: 15px;
+  }
+
+  .vant-band__buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .vant-band__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #2e2a2b;
+    padding: 14px 22px;
+    min-height: 48px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+  }
+
+  .vant-band__btn:hover {
+    background: #f5f3f1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-band__buttons,
+    .vant-band__btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt call-to-action band",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Make words italic to show them in red.", "default": "Planning <em>a bigger wall?</em>" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Our free layout service helps you find the right arrangement for your space. Working on a project? Talk to our trade team." },
+    { "type": "text", "id": "button_label", "label": "Button 1", "default": "Free layout help" },
+    { "type": "url", "id": "button_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button2_label", "label": "Button 2", "default": "Trade enquiries" },
+    { "type": "url", "id": "button2_link", "label": "Button 2 link" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#2E2A2B" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [{ "name": "Vänt call-to-action band" }]
+}
+{% endschema %}
