@@ -65,8 +65,21 @@
 >
   {%- comment -%} Vänt: "Order swatches" button (desktop). Set in Header section settings. {%- endcomment -%}
   {%- if section.settings.vant_swatch_label != blank -%}
+    {%- liquid
+      assign vant_btn_class = 'button vant-header-swatch'
+      case section.settings.vant_swatch_style
+        when 'outline'
+          assign vant_btn_class = 'button button-secondary vant-header-swatch'
+        when 'red'
+          assign vant_btn_class = 'button vant-header-swatch'
+        else
+          if request.page_type == 'index'
+            assign vant_btn_class = 'button button-secondary vant-header-swatch'
+          endif
+      endcase
+    -%}
     <a
-      class="button button-secondary vant-header-swatch"
+      class="{{ vant_btn_class }}"
       href="{{ section.settings.vant_swatch_link | default: '/collections/order-swatches' }}"
     >
       {{- section.settings.vant_swatch_label -}}

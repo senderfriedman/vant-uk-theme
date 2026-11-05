@@ -119,8 +119,8 @@
     display: grid;
     grid-auto-flow: column;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    overflow-anchor: none;
   }
 
   @media screen and (max-width: 749px) {
@@ -134,8 +134,14 @@
     display: none;
   }
 
-  .vant-scroll-row > * {
-    scroll-snap-align: start;
+  @media screen and (max-width: 749px) {
+    .vant-scroll-row {
+      scroll-snap-type: x proximity;
+    }
+
+    .vant-scroll-row > * {
+      scroll-snap-align: start;
+    }
   }
 
   .vant-img-cover {
