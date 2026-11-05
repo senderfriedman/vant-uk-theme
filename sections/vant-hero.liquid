@@ -104,9 +104,7 @@
     grid-area: 1 / 1;
     align-self: start;
     width: 100%;
-    max-width: calc(var(--page-width, 1440px));
-    margin-inline: auto;
-    padding: 48px var(--page-margin, 40px);
+    padding: 48px clamp(24px, 4vw, 80px);
     pointer-events: none;
   }
 

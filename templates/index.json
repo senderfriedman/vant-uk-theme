@@ -120,7 +120,7 @@
             "price_text": "from £160",
             "product": "victoria-layout-60-x-46",
             "colour": "Champagne",
-            "image_fit": "contain"
+            "image_fit": "cover"
           }
         },
         "c2": {
@@ -140,7 +140,7 @@
             "title": "Bedside tables",
             "price_text": "from £289.99",
             "product": "vant-night-stand",
-            "image_fit": "contain"
+            "image_fit": "cover"
           }
         },
         "c4": {
@@ -151,7 +151,7 @@
             "price_text": "from £269",
             "product": "vant-upholstered-bed-bench-burnished-brass",
             "colour": "Champagne",
-            "image_fit": "contain"
+            "image_fit": "cover"
           }
         }
       },

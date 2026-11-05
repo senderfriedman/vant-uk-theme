@@ -18,8 +18,12 @@
   .vant-section {
     padding-block-start: var(--vant-pt, 72px);
     padding-block-end: var(--vant-pb, 72px);
-    background-color: var(--vant-bg, transparent);
     color: var(--vant-fg, var(--color-foreground));
+  }
+
+  /* Horizon makes .section backgrounds transparent; this selector is more specific so the Vänt band colours show. */
+  html .shopify-section .vant-section.section {
+    background-color: var(--vant-bg, transparent);
   }
 
   @media screen and (max-width: 749px) {

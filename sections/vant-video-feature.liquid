@@ -35,7 +35,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     background: #f5f3f1;
-    min-height: 480px;
   }
 
   .vant-vf--right .vant-vf__media {
@@ -44,7 +43,14 @@
 
   .vant-vf__media {
     position: relative;
-    min-height: 360px;
+    aspect-ratio: 4 / 3.2;
+    overflow: hidden;
+  }
+
+  .vant-vf__media > img,
+  .vant-vf__media > .vant-placeholder {
+    position: absolute;
+    inset: 0;
   }
 
   .vant-vf__play {
@@ -102,7 +108,6 @@
 
     .vant-vf__media {
       aspect-ratio: 4 / 3.4;
-      min-height: 0;
     }
 
     .vant-vf__content {
