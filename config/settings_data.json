@@ -11,7 +11,7 @@
     "logo_height": 36,
     "logo_height_mobile": 30,
     "page_background_color": "{{ settings.color_palette.background }}",
-    "page_width": "normal",
+    "page_width": "narrow",
     "page_text_color": "{{ settings.color_palette.color1 }}",
     "type_body_font": "barlow_n4",
     "type_subheading_font": "barlow_n5",

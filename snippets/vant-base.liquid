@@ -4,6 +4,17 @@
 {% enddoc %}
 
 {% stylesheet %}
+  /* Vänt content width: about 1280px, matching the approved designs (Horizon's narrow width is 1440px). */
+  body.page-width-narrow {
+    --page-content-width: 80rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    body.page-width-narrow {
+      --page-margin: max(56px, var(--safe-area-inset-left, 0px), var(--safe-area-inset-right, 0px));
+    }
+  }
+
   .vant-section {
     padding-block-start: var(--vant-pt, 72px);
     padding-block-end: var(--vant-pb, 72px);
