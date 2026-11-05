@@ -63,6 +63,15 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
+  {%- comment -%} Vänt: "Order swatches" button (desktop). Set in Header section settings. {%- endcomment -%}
+  {%- if section.settings.vant_swatch_label != blank -%}
+    <a
+      class="button button-secondary vant-header-swatch"
+      href="{{ section.settings.vant_swatch_link | default: '/collections/order-swatches' }}"
+    >
+      {{- section.settings.vant_swatch_label -}}
+    </a>
+  {%- endif -%}
   {% if shop.customer_accounts_enabled %}
     {% liquid
       assign account_actions_style = ''
@@ -152,6 +161,21 @@
 ></script>
 
 {% stylesheet %}
+  /* Vänt: "Order swatches" header button, desktop only */
+  .vant-header-swatch {
+    --button-padding-block: 10px;
+    --button-padding-inline: 18px;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-inline-end: 8px;
+    align-self: center;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-header-swatch {
+      display: none;
+    }
+  }
   .account-button {
     /* Remove the background color from the color scheme, we want to inherit the color of the header */
     background: transparent;

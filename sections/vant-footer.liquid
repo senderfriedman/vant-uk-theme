@@ -1,0 +1,282 @@
+{% render 'vant-base' %}
+<footer
+  class="section section--page-width vant-section vant-footer"
+  style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: 32px; --vant-bg: {{ section.settings.background_color }};"
+>
+  <div>
+    {%- if section.settings.show_newsletter -%}
+      <div class="vant-footer__news">
+        <h2 class="vant-footer__news-heading vant-hl">{{ section.settings.news_heading }}</h2>
+        <div class="vant-footer__news-form">
+          {%- form 'customer', id: 'VantNewsletter', class: 'vant-news' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <label class="vant-news__label" for="VantNewsletterEmail">{{ section.settings.news_label }}</label>
+            {%- if form.posted_successfully? -%}
+              <p class="vant-news__success" role="status">{{ section.settings.news_success }}</p>
+            {%- else -%}
+              <div class="vant-news__row">
+                <input
+                  id="VantNewsletterEmail"
+                  type="email"
+                  name="contact[email]"
+                  autocomplete="email"
+                  required
+                  placeholder="{{ section.settings.news_placeholder | escape }}"
+                  {% if form.errors %}aria-invalid="true" aria-describedby="VantNewsletterError"{% endif %}
+                >
+                <button type="submit" class="vant-news__submit">{{ section.settings.news_button }} {% render 'vant-arrow' %}</button>
+              </div>
+              {%- if form.errors -%}
+                <p id="VantNewsletterError" class="vant-news__error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if section.settings.news_small != blank -%}
+              <p class="vant-news__small">{{ section.settings.news_small }}</p>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="vant-footer__main">
+      <div class="vant-footer__brand">
+        {%- if settings.logo != blank -%}
+          <a href="{{ routes.root_url }}" class="vant-footer__logo">
+            {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name, loading: 'lazy', style: 'height: 34px; width: auto;' }}
+          </a>
+        {%- else -%}
+          <a href="{{ routes.root_url }}" class="vant-footer__logo-text">{{ shop.name }}</a>
+        {%- endif -%}
+        {%- if section.settings.tagline != blank -%}<div class="vant-footer__tagline vant-rte">{{ section.settings.tagline }}</div>{%- endif -%}
+      </div>
+
+      {%- assign menus = 'menu_1,menu_2,menu_3' | split: ',' -%}
+      {%- for key in menus -%}
+        {%- assign menu = section.settings[key] -%}
+        {%- assign title_key = key | append: '_title' -%}
+        {%- if menu != blank -%}
+          <nav class="vant-footer__col" aria-label="{{ section.settings[title_key] | default: menu.title | escape }}">
+            <h3 class="vant-footer__col-title">{{ section.settings[title_key] | default: menu.title }}</h3>
+            <ul>
+              {%- for link in menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="vant-footer__bottom">
+      <p>{{ section.settings.bottom_text }}</p>
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <ul class="vant-footer__payments" aria-label="Payment methods">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .vant-footer {
+    font-size: 14px;
+  }
+
+  .vant-footer__news {
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 460px);
+    gap: 40px;
+    align-items: start;
+    padding-bottom: 56px;
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-footer__news-heading {
+    font-size: clamp(26px, 2.6vw, 36px);
+  }
+
+  .vant-news__label {
+    display: block;
+    font-size: 15px;
+    color: #2e2a2b;
+    margin-bottom: 10px;
+  }
+
+  .vant-news__row {
+    display: flex;
+    border-bottom: 1px solid #2e2a2b;
+  }
+
+  .vant-news__row input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #2e2a2b;
+  }
+
+  .vant-news__row input:focus-visible {
+    outline: 2px solid #ef2e32;
+    outline-offset: 2px;
+  }
+
+  .vant-news__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 0;
+    padding: 12px 0 12px 16px;
+    font-size: 15px;
+    color: #2e2a2b;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .vant-news__small {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: #6b6466;
+  }
+
+  .vant-news__small a {
+    color: inherit;
+  }
+
+  .vant-news__success {
+    margin: 0;
+    font-size: 15px;
+    color: #2e2a2b;
+  }
+
+  .vant-news__error {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #c81e23;
+  }
+
+  .vant-footer__main {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: 32px;
+    padding-block: 48px;
+  }
+
+  .vant-footer__logo {
+    display: inline-block;
+  }
+
+  .vant-footer__tagline {
+    margin-top: 14px;
+    color: #4a4446;
+    line-height: 1.6;
+  }
+
+  .vant-footer__col-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 16px !important;
+  }
+
+  .vant-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .vant-footer__col a {
+    display: inline-block;
+    padding: 6px 0;
+    color: #4a4446;
+    text-decoration: none;
+  }
+
+  .vant-footer__col a:hover {
+    color: #2e2a2b;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .vant-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px solid #dcd8d5;
+    font-size: 12px;
+    color: #6b6466;
+  }
+
+  .vant-footer__bottom p {
+    margin: 0;
+  }
+
+  .vant-footer__payments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .vant-footer__payments svg {
+    width: 38px;
+    height: 24px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-footer__main {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .vant-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-footer__news {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding-bottom: 40px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt footer",
+  "tag": "div",
+  "class": "vant-footer-section",
+  "settings": [
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show email sign-up", "default": true },
+    { "type": "inline_richtext", "id": "news_heading", "label": "Sign-up heading", "default": "Bedroom ideas, by email" },
+    { "type": "text", "id": "news_label", "label": "Field label", "default": "Email address" },
+    { "type": "text", "id": "news_placeholder", "label": "Field placeholder", "default": "Your email address" },
+    { "type": "text", "id": "news_button", "label": "Button", "default": "Sign up" },
+    { "type": "inline_richtext", "id": "news_small", "label": "Small print", "default": "Unsubscribe whenever you like. <a href=\"/pages/policy\">Privacy policy</a>" },
+    { "type": "text", "id": "news_success", "label": "Thank-you message", "default": "Thanks, you're signed up. Look out for our next email." },
+    { "type": "richtext", "id": "tagline", "label": "Text under the logo", "default": "<p>Your UK bedroom specialist.<br>Exclusive UK & European distributor.</p>" },
+    { "type": "link_list", "id": "menu_1", "label": "Column 1 menu" },
+    { "type": "text", "id": "menu_1_title", "label": "Column 1 heading", "default": "The collection" },
+    { "type": "link_list", "id": "menu_2", "label": "Column 2 menu" },
+    { "type": "text", "id": "menu_2_title", "label": "Column 2 heading", "default": "Here to help" },
+    { "type": "link_list", "id": "menu_3", "label": "Column 3 menu" },
+    { "type": "text", "id": "menu_3_title", "label": "Column 3 heading", "default": "Explore" },
+    { "type": "text", "id": "bottom_text", "label": "Bottom line", "default": "Vänt UK · United Kingdom · GBP £" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 }
+  ]
+}
+{% endschema %}

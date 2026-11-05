@@ -722,6 +722,23 @@
         {%- endif -%}
       </div>
 
+      {%- comment -%} Vänt: swatch button and phone number in the mobile menu. Set in Header section settings. {%- endcomment -%}
+      {%- if data_header_drawer_type == 'mobile-drawer' and section.settings.vant_swatch_label != blank or data_header_drawer_type == 'mobile-drawer' and section.settings.vant_phone != blank -%}
+        <div class="vant-drawer-extras menu-drawer__animated-element" style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};">
+          {%- if section.settings.vant_swatch_label != blank -%}
+            <a class="button button-secondary vant-drawer-extras__button" href="{{ section.settings.vant_swatch_link | default: '/collections/order-swatches' }}">
+              {{- section.settings.vant_swatch_label -}}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.vant_phone != blank -%}
+            <a class="vant-drawer-extras__phone" href="tel:{{ section.settings.vant_phone | remove: ' ' }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a10 10 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>
+              <span>Call us on {{ section.settings.vant_phone }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
       {% liquid
         if block_settings.menu_style == 'featured_collections'
           assign top_level_featured_collections = linklist.links | where: 'type', 'collection_link'
@@ -785,6 +802,28 @@
 </header-drawer>
 
 {% stylesheet %}
+  /* Vänt: mobile menu extras */
+  .vant-drawer-extras {
+    display: grid;
+    gap: 14px;
+    padding: 24px var(--drawer-padding, 20px) 32px;
+    margin-top: 8px;
+    border-top: 1px solid #dcd8d5;
+  }
+
+  .vant-drawer-extras__button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .vant-drawer-extras__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    color: inherit;
+    font-size: 15px;
+  }
   .icon-caret--forward svg {
     transform: rotate(-90deg);
   }
