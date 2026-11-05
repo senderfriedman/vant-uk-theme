@@ -193,13 +193,24 @@
 {% endstylesheet %}
 
 {% javascript %}
-  /* Vänt: start the homepage at the top on refresh (Chrome otherwise restores a mid-page position,
-     which lands in the wrong place on a long, image-heavy page). Links with #anchors still work. */
+  /* Vänt: on a refresh, start the homepage at the top.
+     Horizon restores a saved scroll position from history.state on every page load (scroll-container.js),
+     which on refresh landed mid-page. We clear that saved position only for reloads, so Back/Forward
+     still return visitors to where they were. Links with #anchors are left alone. */
   (() => {
-    if (!('scrollRestoration' in history)) return;
     if (window.location.hash) return;
-    history.scrollRestoration = 'manual';
-    window.scrollTo(0, 0);
+    const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (!nav || nav.type !== 'reload') return;
+    try {
+      const state = history.state && typeof history.state === 'object' ? history.state : {};
+      if (state.scrollTop != null) history.replaceState({ ...state, scrollTop: 0 }, '');
+    } catch (e) {}
+    const toTop = () => {
+      const wrapper = document.querySelector('.page-wrapper');
+      if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    window.addEventListener('pageshow', () => requestAnimationFrame(() => requestAnimationFrame(toTop)), { once: true });
   })();
 {% endjavascript %}
 
