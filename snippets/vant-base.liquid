@@ -106,8 +106,13 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
-    mask-image: linear-gradient(to right, #000 85%, transparent);
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-scroll-row {
+      -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+      mask-image: linear-gradient(to right, #000 85%, transparent);
+    }
   }
 
   .vant-scroll-row::-webkit-scrollbar {

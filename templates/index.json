@@ -117,7 +117,10 @@
           "settings": {
             "collection": "panels",
             "title": "Headboard walls",
-            "price_text": "from £160"
+            "price_text": "from £160",
+            "product": "victoria-layout-60-x-46",
+            "colour": "Champagne",
+            "image_fit": "contain"
           }
         },
         "c2": {
@@ -125,7 +128,9 @@
           "settings": {
             "collection": "platform-beds",
             "title": "Beds",
-            "price_text": "from £619"
+            "price_text": "from £619",
+            "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
+            "image_fit": "cover"
           }
         },
         "c3": {
@@ -133,7 +138,9 @@
           "settings": {
             "collection": "table",
             "title": "Bedside tables",
-            "price_text": "from £289.99"
+            "price_text": "from £289.99",
+            "product": "vant-night-stand",
+            "image_fit": "contain"
           }
         },
         "c4": {
@@ -141,7 +148,10 @@
           "settings": {
             "collection": "bench",
             "title": "Bed benches",
-            "price_text": "from £269"
+            "price_text": "from £269",
+            "product": "vant-upholstered-bed-bench-burnished-brass",
+            "colour": "Champagne",
+            "image_fit": "contain"
           }
         }
       },

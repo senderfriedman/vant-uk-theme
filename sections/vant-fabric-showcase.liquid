@@ -185,23 +185,11 @@
     margin-top: 36px;
   }
 
-  @media screen and (min-width: 750px) {
-    .vant-fab__featured {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-  }
-
-  @media screen and (min-width: 1200px) {
-    .vant-fab__dots {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-  }
-
   @media screen and (max-width: 1199px) {
-    .vant-fab__dots {
+    .vant-fab__dots.vant-scroll-row {
       justify-content: start;
+      -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+      mask-image: linear-gradient(to right, #000 85%, transparent);
     }
   }
 
