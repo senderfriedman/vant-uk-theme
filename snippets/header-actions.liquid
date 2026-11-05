@@ -63,7 +63,7 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
-  {%- comment -%} Vänt: "Order swatches" button (desktop). Set in Header section settings. {%- endcomment -%}
+  {%- comment -%} Vänt: "Order swatches" button (desktop only). Set in Header section settings. {%- endcomment -%}
   {%- if section.settings.vant_swatch_label != blank -%}
     {%- liquid
       assign vant_btn_class = 'button vant-header-swatch'
