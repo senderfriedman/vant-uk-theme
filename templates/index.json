@@ -342,7 +342,7 @@
           "settings": {
             "image": "shopify://shop_images/vant-style-taupe-velvet.webp",
             "caption": "Taupe velvet",
-            "link": "/collections/get-inspired"
+            "link": "shopify://collections/pre-configured-layouts"
           }
         },
         "g2": {
@@ -350,7 +350,7 @@
           "settings": {
             "image": "shopify://shop_images/vant-style-dark-velvet.webp",
             "caption": "Dark velvet",
-            "link": "/collections/get-inspired"
+            "link": "shopify://collections/pre-configured-layouts"
           }
         },
         "g3": {
@@ -358,7 +358,7 @@
           "settings": {
             "image": "shopify://shop_images/vant-style-charcoal-velvet.webp",
             "caption": "Charcoal velvet",
-            "link": "/collections/get-inspired"
+            "link": "shopify://collections/pre-configured-layouts"
           }
         }
       },

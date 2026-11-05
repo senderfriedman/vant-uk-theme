@@ -1,0 +1,216 @@
+{
+  "sections": {
+    "header": {
+      "type": "vant-page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "heading": "About us",
+        "intro": "Vänt is an American bedroom brand, as seen on HGTV, Netflix’s Queer Eye and DIY Network. Vänt UK is the official UK & European distributor, run from London.",
+        "show_contact": false,
+        "padding_top": 8,
+        "padding_bottom": 24
+      }
+    },
+    "story": {
+      "type": "vant-article",
+      "settings": {
+        "side": "none",
+        "padding_top": 16,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "b1": {
+          "type": "heading",
+          "settings": {
+            "text": "Our story",
+            "size": "h2",
+            "in_contents": false
+          }
+        },
+        "b2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>[STORY TEXT]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ]
+    },
+    "different": {
+      "type": "vant-cards",
+      "settings": {
+        "heading": "What makes the headboard wall different",
+        "columns": 4,
+        "padding_top": 40,
+        "padding_bottom": 32
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "icon": "grid",
+            "title": "Sized to your room",
+            "text": "From bed-width to wall-to-wall. Arrange the panels to fit your space."
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "icon": "bracket",
+            "title": "Secure SimpleMount brackets",
+            "text": "The panels fix to the wall on aluminium brackets, so they won’t sag or slide."
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "icon": "layers",
+            "title": "Works with your existing bed",
+            "text": "The wall-mounted panels work with the bed you already have."
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "icon": "returns",
+            "title": "Panels lift off",
+            "text": "Lift the panels off their brackets to clean them or take them with you when you move."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "collection": {
+      "type": "vant-category-cards",
+      "settings": {
+        "heading": "The bedroom collection",
+        "padding_top": 48,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "collection": "platform-beds",
+            "title": "Beds",
+            "price_text": "from £619",
+            "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
+            "image_fit": "cover"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "collection": "table",
+            "title": "Bedside tables",
+            "price_text": "from £289.99",
+            "product": "vant-night-stand",
+            "image_fit": "cover"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "collection": "bench",
+            "title": "Bed benches",
+            "price_text": "from £269",
+            "product": "vant-upholstered-bed-bench-burnished-brass",
+            "colour": "Champagne",
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "seen": {
+      "type": "vant-trust-strip",
+      "settings": {
+        "logos_label": "As seen on",
+        "padding_top": 32,
+        "padding_bottom": 32
+      },
+      "blocks": {
+        "b1": {
+          "type": "logo",
+          "settings": {
+            "name": "HGTV",
+            "image": "shopify://shop_images/logo--hgtv.png"
+          }
+        },
+        "b2": {
+          "type": "logo",
+          "settings": {
+            "name": "Netflix · Queer Eye",
+            "image": "shopify://shop_images/logo--netflix.png"
+          }
+        },
+        "b3": {
+          "type": "logo",
+          "settings": {
+            "name": "DIY Network"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "company": {
+      "type": "vant-article",
+      "settings": {
+        "side": "none",
+        "padding_top": 8,
+        "padding_bottom": 56
+      },
+      "blocks": {
+        "b1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vänt UK is run by Stamford Furniture Group Ltd. Registered address: [ADDRESS].</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1"
+      ]
+    },
+    "band": {
+      "type": "vant-cta-band",
+      "settings": {
+        "heading": "Explore the collection",
+        "text": "",
+        "button_label": "Shop headboard walls",
+        "button_link": "shopify://collections/panels",
+        "button2_label": "Order swatches",
+        "button2_link": "shopify://collections/order-swatches",
+        "background_color": "#F5F3F1",
+        "text_color": "#2E2A2B",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "header",
+    "story",
+    "different",
+    "collection",
+    "seen",
+    "company",
+    "band"
+  ]
+}
