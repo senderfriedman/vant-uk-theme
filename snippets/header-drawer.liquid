@@ -802,6 +802,24 @@
 </header-drawer>
 
 {% stylesheet %}
+  /* Vänt: picture dropdowns in the desktop menu */
+  .mega-menu__link-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .mega-menu__link:has(.mega-menu__link-image) {
+    font-size: 15px;
+    color: #2e2a2b;
+  }
+
+  .mega-menu__link:has(.mega-menu__link-image) .mega-menu__link-image {
+    transition: opacity 0.2s ease;
+  }
+
+  .mega-menu__link:has(.mega-menu__link-image):hover .mega-menu__link-image {
+    opacity: 0.88;
+  }
+
   /* Vänt: mobile menu extras */
   .vant-drawer-extras {
     display: grid;

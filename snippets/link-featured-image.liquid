@@ -12,7 +12,15 @@
 {% assign image_sizes = sizes | default: 'auto' %}
 
 {% if link.type == 'collection_link' %}
-  {% if link.object.featured_image %}
+  {%- comment -%} Vänt: a collection's "Menu image" (metafield vant.menu_image) wins over its main image. {%- endcomment -%}
+  {% assign vant_menu_image = link.object.metafields.vant.menu_image.value %}
+  {% if vant_menu_image != blank %}
+    {{
+      vant_menu_image
+      | image_url: width: 800
+      | image_tag: loading: 'lazy', class: class, sizes: image_sizes, alt: link.title
+    }}
+  {% elsif link.object.featured_image %}
     {{
       link.object.featured_image
       | image_url: width: 800
