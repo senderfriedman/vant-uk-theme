@@ -1,0 +1,208 @@
+{%- doc -%}
+  Preview helper (only on unpublished copies of the theme, never on the live site).
+  - Sends links for pages that use a new template to that template (e.g. ?view=layouts), so clicking around stays in the new design.
+  - Shows a "not designed yet" message for links to pages that haven't been built in the new theme.
+  Turn off in Theme settings > Vänt > Preview helper.
+{%- enddoc -%}
+{%- if settings.vant_preview_mode and request.design_mode == false -%}
+  {%- liquid
+    assign redirect_lines = settings.vant_preview_redirects | newline_to_br | split: '<br />'
+    assign designed_lines = settings.vant_preview_designed | newline_to_br | split: '<br />'
+  -%}
+  <dialog class="vant-dialog vant-preview" data-vant-preview-dialog aria-labelledby="vant-preview-title">
+    <div class="vant-dialog__inner">
+      <button type="button" class="vant-dialog__close" data-vant-preview-close aria-label="Close">×</button>
+      <p class="vant-eyebrow">Not designed yet</p>
+      <h2 class="vant-dialog__title" id="vant-preview-title" data-vant-preview-name>This page</h2>
+      <p>{{ settings.vant_preview_message }}</p>
+      <p class="vant-preview__url" data-vant-preview-url></p>
+      <div class="vant-preview__actions">
+        <button type="button" class="button" data-vant-preview-close>OK</button>
+        <a class="vant-text-link" href="#" data-vant-preview-open>Open the current page anyway</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      const theme = window.Shopify && window.Shopify.theme;
+      if (!theme || theme.role === 'main') return;
+
+      const clean = (line) => line.replace(/<[^>]*>/g, '').trim();
+      const redirects = [
+        {%- for line in redirect_lines -%}
+          {%- assign parts = line | split: '|' -%}
+          {%- if parts.size > 1 -%}[{{ parts[0] | strip | json }}, {{ parts[1] | strip | json }}],{%- endif -%}
+        {%- endfor -%}
+      ];
+      const designed = [
+        {%- for line in designed_lines -%}
+          {%- assign d = line | strip -%}
+          {%- if d != blank -%}{{ d | json }},{%- endif -%}
+        {%- endfor -%}
+      ];
+
+      const toRegex = (pattern) =>
+        new RegExp('^' + pattern.split('*').map((p) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&')).join('.*') + '$');
+      const designedRx = designed.map(toRegex);
+      // /collections/x/products/y counts as /products/y
+      const normalise = (path) => {
+        const p = path.replace(/^\/collections\/[^/]+(?=\/products\/)/, '');
+        return p.length > 1 ? p.replace(/\/+$/, '') : p;
+      };
+      const isDesigned = (path) => designedRx.some((rx) => rx.test(normalise(path)));
+
+      const ignoredPath = (path) =>
+        /^\/(cart\/(add|change|update|clear)|checkout|checkouts|services|apps|tools|wpm|cdn)/.test(path);
+
+      // Rewrite a link to its new-template version, keeping any extra query (colour, variant…)
+      const mapped = (url) => {
+        const path = normalise(url.pathname);
+        for (const [from, to] of redirects) {
+          if (path !== normalise(from)) continue;
+          const target = new URL(to, window.location.origin);
+          if (normalise(target.pathname) === path && url.searchParams.get('view')) return null;
+          if (normalise(target.pathname) === path) target.pathname = url.pathname;
+          url.searchParams.forEach((value, key) => {
+            if (!target.searchParams.has(key)) target.searchParams.set(key, value);
+          });
+          target.hash = url.hash;
+          return target;
+        }
+        return null;
+      };
+
+      const rewrite = (root) => {
+        root.querySelectorAll('a[href]').forEach((a) => {
+          if (a.dataset.vantPreviewDone === a.getAttribute('href')) return;
+          let url;
+          try {
+            url = new URL(a.getAttribute('href'), window.location.href);
+          } catch (e) {
+            return;
+          }
+          if (url.origin !== window.location.origin && !/vantpanels\.co\.uk$|vantuk\.myshopify\.com$/.test(url.hostname)) return;
+          const target = mapped(url);
+          if (target) {
+            const href = target.pathname + target.search + target.hash;
+            a.setAttribute('href', href);
+            a.dataset.vantPreviewDone = href;
+          } else {
+            a.dataset.vantPreviewDone = a.getAttribute('href');
+          }
+        });
+      };
+
+      const dialog = document.querySelector('[data-vant-preview-dialog]');
+      const nameEl = dialog.querySelector('[data-vant-preview-name]');
+      const urlEl = dialog.querySelector('[data-vant-preview-url]');
+      const openEl = dialog.querySelector('[data-vant-preview-open]');
+
+      const show = (name, href) => {
+        nameEl.textContent = name || 'This page';
+        urlEl.textContent = href ? href.replace(/^https?:\/\/[^/]+/, '') : '';
+        openEl.hidden = !href;
+        openEl.dataset.href = href || '';
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+      };
+
+      openEl.addEventListener('click', (event) => {
+        event.preventDefault();
+        const href = openEl.dataset.href;
+        dialog.close();
+        if (href) window.location.href = href;
+      });
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog || event.target.closest('[data-vant-preview-close]')) dialog.close();
+      });
+
+      const linkName = (a) =>
+        (a.getAttribute('aria-label') || a.textContent || '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 60);
+
+      document.addEventListener(
+        'click',
+        (event) => {
+          if (event.defaultPrevented || event.button !== 0) return;
+
+          // Account sign-in (Shopify's account button)
+          const account = event.target.closest && event.target.closest('shopify-account, .account-button');
+          if (account) {
+            event.preventDefault();
+            event.stopPropagation();
+            show('Account and sign-in', '');
+            return;
+          }
+
+          const a = event.target.closest && event.target.closest('a[href]');
+          if (!a || a.closest('[data-vant-preview-dialog]')) return;
+          const raw = a.getAttribute('href');
+          if (!raw || raw.startsWith('#') || /^(tel|mailto|javascript|sms):/i.test(raw)) return;
+
+          let url;
+          try {
+            url = new URL(raw, window.location.href);
+          } catch (e) {
+            return;
+          }
+          const sameSite =
+            url.origin === window.location.origin || /vantpanels\.co\.uk$|vantuk\.myshopify\.com$/.test(url.hostname);
+          if (!sameSite || ignoredPath(url.pathname)) return;
+          if (url.pathname === window.location.pathname && url.hash) return;
+
+          const target = mapped(url);
+          if (target) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.location.href = target.pathname + target.search + target.hash;
+            return;
+          }
+
+          if (!isDesigned(url.pathname)) {
+            event.preventDefault();
+            event.stopPropagation();
+            show(linkName(a), url.pathname + url.search);
+          }
+        },
+        true
+      );
+
+      rewrite(document);
+      let pending = false;
+      new MutationObserver(() => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          rewrite(document);
+        });
+      }).observe(document.body, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <style>
+    .vant-preview .vant-dialog__inner > p {
+      margin: 0 0 12px;
+    }
+
+    .vant-preview__url {
+      font-size: 12px;
+      color: #6b6466;
+      word-break: break-all;
+    }
+
+    .vant-preview__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .vant-preview__actions .button {
+      margin: 0;
+    }
+  </style>
+{%- endif -%}

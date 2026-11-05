@@ -2184,6 +2184,40 @@
         "id": "vant_cart_mixed_note",
         "label": "Note when swatches and products are both in the basket",
         "default": "Your swatches and panels may arrive separately."
+      },
+      {
+        "type": "header",
+        "content": "Preview helper"
+      },
+      {
+        "type": "paragraph",
+        "content": "Only works on unpublished copies of the theme. It never runs on the live site."
+      },
+      {
+        "type": "checkbox",
+        "id": "vant_preview_mode",
+        "label": "Keep preview clicks in the new design and flag pages not designed yet",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "vant_preview_redirects",
+        "label": "Send these links to the new template",
+        "info": "One per line: path | new address",
+        "default": "/collections/pre-configured-layouts | /collections/pre-configured-layouts?view=layouts\n/collections/accent-wall | /collections/pre-configured-layouts?view=layouts&bed=feature-walls\n/collections/shop-by-box | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-30-x-46 | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-39-x-46 | /products/vant-panel-pack-of-4-panels-39-x-46?view=pack"
+      },
+      {
+        "type": "textarea",
+        "id": "vant_preview_designed",
+        "label": "Pages already designed",
+        "info": "One path per line; * matches anything. Links to any other page on the site show the 'not designed yet' message.",
+        "default": "/\n/collections/panels\n/collections/pre-configured-layouts\n/collections/order-swatches\n/products/vant-panel-pack-of-4-panels-*\n/products/*-layout-*\n/cart"
+      },
+      {
+        "type": "text",
+        "id": "vant_preview_message",
+        "label": "Message",
+        "default": "This page hasn't been designed for the new website yet. It will be built in a later stage."
       }
     ]
   }
