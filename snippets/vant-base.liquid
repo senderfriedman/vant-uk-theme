@@ -156,4 +156,109 @@
     height: 100%;
     opacity: 0.25;
   }
+
+  /* ---------- Motion ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .vant-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+      transition-delay: var(--vant-delay, 0ms);
+    }
+
+    .vant-reveal.vant-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .vant-reveal--fade {
+      transform: none;
+    }
+
+    .vant-reveal--zoom {
+      transform: scale(1.04);
+      transition-duration: 1.2s;
+    }
+
+    .vant-reveal--zoom.vant-in {
+      transform: none;
+    }
+  }
 {% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    if (window.vantRevealReady) return;
+    window.vantRevealReady = true;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const inEditor = window.Shopify && window.Shopify.designMode;
+
+    /* What animates, and how. Groups stagger their children one after another. */
+    const SINGLE = [
+      ['.vant-section-head', ''],
+      ['.vant-vf__media', 'vant-reveal--zoom'],
+      ['.vant-vf__content', ''],
+      ['.vant-steps__media', 'vant-reveal--fade'],
+      ['.vant-steps__content > .vant-eyebrow, .vant-steps__content > h2', ''],
+      ['.vant-fm__media', 'vant-reveal--zoom'],
+      ['.vant-fm__content > h2, .vant-fm__content > .vant-fm__text', ''],
+      ['.vant-band__inner', ''],
+      ['.vant-cmp', ''],
+      ['.vant-fab__all', 'vant-reveal--fade'],
+      ['.vant-buttons', ''],
+      ['.vant-faq__contact', 'vant-reveal--fade'],
+    ];
+    const GROUPS = [
+      ['.vant-cat', '.vant-cat__card'],
+      ['.vant-size', '.vant-size__card'],
+      ['.vant-nf', '.vant-nf__item'],
+      ['.vant-steps__list', '.vant-steps__step'],
+      ['.vant-sg', '.vant-sg__item'],
+      ['.vant-fab__featured', '.vant-fab__swatch'],
+      ['.vant-fm__products', '.vant-fm__card'],
+      ['.vant-faq__list', '.vant-faq__item'],
+      ['.vant-trust', '.vant-trust__item, .vant-trust__logos'],
+    ];
+
+    let observer = null;
+    if (!reduce && !inEditor && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('vant-in');
+            observer.unobserve(entry.target);
+          });
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+      );
+    }
+
+    const prepare = (el, extra, delay) => {
+      if (!observer || el.dataset.vantReveal) return;
+      el.dataset.vantReveal = '1';
+      /* Leave anything already on screen alone so nothing flickers on load. */
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) return;
+      el.classList.add('vant-reveal');
+      if (extra) el.classList.add(extra);
+      if (delay) el.style.setProperty('--vant-delay', delay + 'ms');
+      observer.observe(el);
+    };
+
+    const init = (root) => {
+      if (!observer) return;
+      SINGLE.forEach(([sel, extra]) => root.querySelectorAll(sel).forEach((el) => prepare(el, extra, 0)));
+      GROUPS.forEach(([parentSel, childSel]) => {
+        root.querySelectorAll(parentSel).forEach((parent) => {
+          parent.querySelectorAll(childSel).forEach((el, i) => prepare(el, '', Math.min(i, 5) * 90));
+        });
+      });
+    };
+
+    const start = () => init(document);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+{% endjavascript %}
