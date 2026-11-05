@@ -211,7 +211,7 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     const later = () => requestAnimationFrame(() => requestAnimationFrame(toTop));
-    /* Our script may load before or after the page's pageshow event, so cover both. */
+    /* The script may load before or after pageshow, so cover both cases. */
     if (document.readyState === 'complete') later();
     window.addEventListener('pageshow', later, { once: true });
   })();
