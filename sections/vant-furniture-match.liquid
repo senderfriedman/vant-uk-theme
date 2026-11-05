@@ -26,7 +26,7 @@
               </span>
               <span class="vant-fm__info">
                 <span class="vant-fm__title">{{ block.settings.title | default: p.title }}</span>
-                <span class="vant-fm__price">{% if p.price_varies %}from {% endif %}{{ p.price_min | money }}</span>
+                <span class="vant-fm__price">{% if p.price_varies %}from {% endif %}{{ p.price_min | money_without_trailing_zeros }}</span>
                 {%- if block.settings.note != blank -%}<span class="vant-fm__note">{{ block.settings.note }}</span>{%- endif -%}
               </span>
               <span class="vant-fm__go">{% render 'vant-arrow' %}</span>
