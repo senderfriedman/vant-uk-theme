@@ -22,8 +22,10 @@
         "button_link": "/collections/panels",
         "button2_label": "Order swatches",
         "button2_link": "/collections/order-swatches",
-        "caption": "Shown: Bouclé Ivory",
-        "caption_link": "/collections/order-swatches?colour=boucle-ivory"
+        "caption": "Shown: Bouclé Ivory · Cleopatra layout",
+        "caption_product": "cleopatra-layout-120-x-92",
+        "caption_show_price": true,
+        "caption_suffix": ", delivered free"
       }
     },
     "trust": {

@@ -64,12 +64,17 @@
       </div>
 
       {%- if section.settings.caption != blank -%}
+        {%- liquid
+          assign cap_product = section.settings.caption_product
+          assign cap_link = section.settings.caption_link
+          if cap_link == blank and cap_product != blank
+            assign cap_link = cap_product.url
+          endif
+        -%}
         <p class="vant-hero__caption">
-          {%- if section.settings.caption_link != blank -%}
-            <a href="{{ section.settings.caption_link }}">{{ section.settings.caption }}</a>
-          {%- else -%}
-            {{ section.settings.caption }}
-          {%- endif -%}
+          {%- if cap_link != blank -%}<a href="{{ cap_link }}">{{ section.settings.caption }}</a>{%- else -%}{{ section.settings.caption }}{%- endif -%}
+          {%- if cap_product != blank and section.settings.caption_show_price %} · from {{ cap_product.price_min | money_without_trailing_zeros }}{%- endif -%}
+          {%- if section.settings.caption_suffix != blank -%}{{ section.settings.caption_suffix }}{%- endif -%}
         </p>
       {%- endif -%}
     </div>
@@ -189,7 +194,10 @@
     { "type": "url", "id": "button2_link", "label": "Second button link" },
     { "type": "header", "content": "Caption" },
     { "type": "text", "id": "caption", "label": "Caption under the buttons", "default": "Shown: Bouclé Ivory" },
-    { "type": "url", "id": "caption_link", "label": "Caption link" }
+    { "type": "product", "id": "caption_product", "label": "Product shown in the photo", "info": "Links the caption to it and can add its live price." },
+    { "type": "checkbox", "id": "caption_show_price", "label": "Add the product's 'from' price", "default": true },
+    { "type": "text", "id": "caption_suffix", "label": "Text after the price (optional)", "info": "Starts straight after the price, e.g. ', delivered free'", "default": ", delivered free" },
+    { "type": "url", "id": "caption_link", "label": "Caption link (overrides the product link)" }
   ],
   "presets": [{ "name": "Vänt hero" }]
 }
