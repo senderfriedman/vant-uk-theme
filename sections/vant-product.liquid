@@ -124,7 +124,7 @@
   {%- endif -%}
 
   <div class="vant-pdp__grid">
-    {%- comment -------------------------------------------------- Gallery -------------------------------------------------- -%}
+    {%- comment -%} Gallery {%- endcomment -%}
     <div class="vant-pdp__gallery">
       {%- assign main_img = current.featured_image | default: product.featured_image -%}
       <figure class="vant-pdp__main">
@@ -173,7 +173,7 @@
       </div>
     </div>
 
-    {%- comment -------------------------------------------------- Buy box -------------------------------------------------- -%}
+    {%- comment -%} Buy box {%- endcomment -%}
     <div class="vant-pdp__info">
       {%- if is_layout and g[1] != blank -%}
         <a class="vant-pdp__back" href="{{ s.layouts_collection.url | default: '/collections/pre-configured-layouts' }}?bed={{ g[1] | handleize }}">
