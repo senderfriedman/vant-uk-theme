@@ -30,7 +30,7 @@
         "b2": {
           "type": "text",
           "settings": {
-            "text": "<p>[STORY TEXT]</p>"
+            "text": "<p>Vänt started in the USA with one simple idea: an upholstered headboard wall that looks made-to-measure, costs far less and goes up in an afternoon. Vänt panels have featured on HGTV, Netflix’s Queer Eye and DIY Network.</p><p>Vänt UK brings the full range to the UK and Europe. We’re the official distributor, run from London, with a UK team you can call and stock that’s dispatched the next working day.</p>"
           }
         }
       },
@@ -180,7 +180,7 @@
         "b1": {
           "type": "text",
           "settings": {
-            "text": "<p>Vänt UK is run by Stamford Furniture Group Ltd. Registered address: [ADDRESS].</p>"
+            "text": "<p>Vänt is a brand of Tubav Ventures Corporation, USA. Vänt UK is run by Stamford Furniture Group Ltd, a company registered in England and Wales, 45 Craven Park Road, London N15 6AH.</p>"
           }
         }
       },

@@ -27,8 +27,8 @@
           "type": "card",
           "settings": {
             "icon": "delivery",
-            "title": "Free UK delivery",
-            "text": "Dispatched next working day, 3–5 working days"
+            "title": "Free delivery",
+            "text": "England, Scotland and Wales · 3–5 working days"
           }
         },
         "b2": {
@@ -44,7 +44,7 @@
           "settings": {
             "icon": "warranty",
             "title": "1-year warranty",
-            "text": "[WARRANTY SUMMARY]"
+            "text": "Frames, brackets and aluminium parts"
           }
         }
       },
@@ -76,7 +76,7 @@
         "b2": {
           "type": "text",
           "settings": {
-            "text": "<p>UK delivery is free on panels and furniture. Orders are dispatched the next working day and delivered in 3–5 working days.</p><p>Fabric swatches have one flat £3.50 postage charge per order, however many colours you choose. Panels and swatches may arrive separately.</p><p>Areas and exceptions: [CONFIRM: Northern Ireland, Highlands and islands].</p>"
+            "text": "<p>Delivery is free to England, Scotland and Wales on panels and furniture. Orders are dispatched the next working day and usually arrive in 3–5 working days.</p><p>Northern Ireland: a delivery charge applies and is shown at checkout.</p><p>Fabric swatches have one flat £3.50 postage charge per order, however many colours you choose.</p><p>Larger orders may arrive in more than one parcel, and panels and swatches can arrive separately. Each delivery note lists what’s inside. If something seems to be missing, email us your order number and we’ll sort it out.</p><p>We can’t change an order once it’s placed, but we can cancel it before it’s dispatched so you can order again.</p>"
           }
         },
         "b3": {
@@ -91,7 +91,7 @@
         "b4": {
           "type": "text",
           "settings": {
-            "text": "<p>Return unused items in their original packaging within 14 days. Swatch postage isn’t refundable.</p><p>How to return: [RETURNS PROCESS].</p>"
+            "text": "<p>You can return items within 14 days of receiving your order. They need to be unused and in their original condition and packaging, including the cardboard boxes and the protective wrapping around each panel or piece of furniture. We can’t accept panels once they’ve been mounted on the wall.</p><p><strong>How to return:</strong> email info@vantpanels.co.uk or call 020 3355 9166 and our team will arrange it with you. Return postage is deducted from your refund. Items returned without their original packaging may have a restocking fee of up to 20%.</p><p>Once your return reaches our warehouse, refunds can take up to two weeks to process and go back to your original payment method. To exchange an item, return it and place a new order. Please don’t refuse a delivery, as a large restocking fee may apply.</p><p>Swatch postage isn’t refundable.</p><p>Returns address: Vänt Panels, Unit 1 Avon Mill Industrial Estate, Mill Road, Linlithgow Bridge, EH49 7QY.</p>"
           }
         },
         "b5": {
@@ -106,7 +106,7 @@
         "b6": {
           "type": "text",
           "settings": {
-            "text": "<p>What it covers: [WARRANTY DETAILS].</p>"
+            "text": "<p>Your Vänt furniture and panels have a 1-year warranty from the date of purchase. It covers manufacturing defects in frames, brackets and aluminium parts.</p><p>We’ll repair or replace a faulty item free of charge (excluding delivery). The warranty doesn’t cover damage to the upholstery, such as stains, holes or tears, or damage from misuse. Products need to be fitted and used as described in our instructions. Replacing a part doesn’t restart the warranty.</p><p>This doesn’t affect your statutory rights.</p>"
           }
         }
       },

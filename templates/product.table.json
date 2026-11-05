@@ -34,28 +34,28 @@
           "type": "detail",
           "settings": {
             "title": "Dimensions",
-            "text": "<p>[DIMENSIONS]</p>"
+            "text": "<p>62cm wide × 46cm deep × 56cm high. Weight: 25kg.</p>"
           }
         },
         "d2": {
           "type": "detail",
           "settings": {
             "title": "What’s included",
-            "text": "<p>[WHAT’S INCLUDED]</p>"
+            "text": "<p>One nightstand with one drawer.</p>"
           }
         },
         "d3": {
           "type": "detail",
           "settings": {
             "title": "Assembly",
-            "text": "<p>[ASSEMBLY INFO]</p>"
+            "text": "<p>Arrives fully assembled.</p>"
           }
         },
         "d4": {
           "type": "detail",
           "settings": {
             "title": "Materials",
-            "text": "<p>[MATERIALS]</p>"
+            "text": "<p>Real oak wood veneer in a choice of 3 finishes, with a gold or chrome metal base. The drawer has dovetail joints and metal runners for a smooth action.</p>"
           }
         },
         "d5": {

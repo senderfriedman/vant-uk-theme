@@ -37,21 +37,21 @@
           "type": "detail",
           "settings": {
             "title": "Dimensions",
-            "text": "<p>[DIMENSIONS]</p>"
+            "text": "<p>137cm long × 45cm deep × 44cm high, with a 10cm padded seat.</p>"
           }
         },
         "d2": {
           "type": "detail",
           "settings": {
             "title": "Assembly",
-            "text": "<p>[ASSEMBLY INFO]</p>"
+            "text": "<p>Easy to assemble.</p>"
           }
         },
         "d3": {
           "type": "detail",
           "settings": {
             "title": "Materials",
-            "text": "<p>[MATERIALS]</p>"
+            "text": "<p>Plywood and solid wood frame, multi-layer high-density foam and your choice of fabric, on gold or chrome metal legs.</p>"
           }
         },
         "d4": {

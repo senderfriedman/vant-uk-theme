@@ -37,28 +37,28 @@
           "type": "detail",
           "settings": {
             "title": "Dimensions",
-            "text": "<p>[DIMENSIONS]</p>"
+            "text": "<p>Double: 141cm wide × 196cm long, for a 135 × 190cm mattress.<br>King: 156cm wide × 206cm long, for a 150 × 200cm mattress.<br>Super King: for a 180 × 200cm mattress, about 185cm wide × 205cm long.</p><p>Height: 35.5cm. Weight capacity: 430kg (Double), 452kg (King and Super King).</p>"
           }
         },
         "d2": {
           "type": "detail",
           "settings": {
             "title": "What’s included",
-            "text": "<p>[CONFIRM: mattress not included]</p>"
+            "text": "<p>The upholstered platform bed frame. Mattress not included.</p>"
           }
         },
         "d3": {
           "type": "detail",
           "settings": {
             "title": "Assembly",
-            "text": "<p>[ASSEMBLY INFO]</p>"
+            "text": "<p>Easy to assemble, with no tools needed. Works with adjustable bases.</p>"
           }
         },
         "d4": {
           "type": "detail",
           "settings": {
             "title": "Materials",
-            "text": "<p>[MATERIALS]</p>"
+            "text": "<p>Plywood and solid wood frame, high-density foam and your choice of fabric.</p>"
           }
         },
         "d5": {
