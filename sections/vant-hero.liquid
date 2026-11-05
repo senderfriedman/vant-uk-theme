@@ -8,6 +8,27 @@
   endif
 -%}
 
+{%- if section.settings.show_breadcrumb -%}
+  {%- liquid
+    assign crumb = section.settings.breadcrumb_label
+    if crumb == blank
+      if collection
+        assign crumb = collection.title
+      elsif page
+        assign crumb = page.title
+      endif
+    endif
+  -%}
+  <nav class="vant-crumbs section section--page-width" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{{ routes.root_url }}">Home</a></li>
+      {%- if section.settings.breadcrumb_parent_label != blank -%}
+        <li><a href="{{ section.settings.breadcrumb_parent_link | default: '#' }}">{{ section.settings.breadcrumb_parent_label }}</a></li>
+      {%- endif -%}
+      <li aria-current="page">{{ crumb }}</li>
+    </ol>
+  </nav>
+{%- endif -%}
 <div class="vant-hero" style="--vant-hero-h: {{ section.settings.height }}px;">
   <div class="vant-hero__media">
     {%- if desktop_image != blank -%}
@@ -82,6 +103,27 @@
 </div>
 
 {% stylesheet %}
+  .vant-crumbs ol {
+    list-style: none;
+    margin: 0;
+    padding: 14px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 13px;
+    color: #6b6466;
+  }
+
+  .vant-crumbs li + li::before {
+    content: '›';
+    margin-right: 6px;
+  }
+
+  .vant-crumbs a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
   .vant-hero {
     position: relative;
     display: grid;
@@ -223,25 +265,143 @@
   "tag": "section",
   "class": "vant-hero-section",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "Set the focal point on the image in Files so the headboard stays in frame on every screen." },
-    { "type": "image_picker", "id": "mobile_image", "label": "Image (mobile, optional)", "info": "Shown on phones. Uses the desktop image if empty." },
-    { "type": "range", "id": "height", "label": "Desktop height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 720 },
-    { "type": "header", "content": "Text" },
-    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Upholstered headboard walls" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Make words italic to show them in red.", "default": "Start with a hotel headboard wall." },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Padded panels on secure wall brackets – made for the bed you already have.</p>" },
-    { "type": "header", "content": "Buttons" },
-    { "type": "text", "id": "button_label", "label": "Main button", "default": "Shop headboard walls" },
-    { "type": "url", "id": "button_link", "label": "Main button link" },
-    { "type": "text", "id": "button2_label", "label": "Second button", "default": "Order swatches" },
-    { "type": "url", "id": "button2_link", "label": "Second button link" },
-    { "type": "header", "content": "Caption" },
-    { "type": "text", "id": "caption", "label": "Caption under the buttons", "default": "Shown: Bouclé Ivory" },
-    { "type": "product", "id": "caption_product", "label": "Product shown in the photo", "info": "Links the caption to it and can add its live price." },
-    { "type": "checkbox", "id": "caption_show_price", "label": "Add the product's 'from' price", "default": true },
-    { "type": "text", "id": "caption_suffix", "label": "Text after the price (optional)", "info": "Starts straight after the price, e.g. ', delivered free'", "default": ", delivered free" },
-    { "type": "url", "id": "caption_link", "label": "Caption link (overrides the product link)" }
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (desktop)",
+      "info": "Set the focal point on the image in Files so the headboard stays in frame on every screen."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Image (mobile, optional)",
+      "info": "Shown on phones. Uses the desktop image if empty."
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small label",
+      "default": "Upholstered headboard walls"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Make words italic to show them in red.",
+      "default": "Start with a hotel headboard wall."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Padded panels on secure wall brackets – made for the bed you already have.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Main button",
+      "default": "Shop headboard walls"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Main button link"
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Second button",
+      "default": "Order swatches"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Second button link"
+    },
+    {
+      "type": "header",
+      "content": "Caption"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption under the buttons",
+      "default": "Shown: Bouclé Ivory"
+    },
+    {
+      "type": "product",
+      "id": "caption_product",
+      "label": "Product shown in the photo",
+      "info": "Links the caption to it and can add its live price."
+    },
+    {
+      "type": "checkbox",
+      "id": "caption_show_price",
+      "label": "Add the product's 'from' price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "caption_suffix",
+      "label": "Text after the price (optional)",
+      "info": "Starts straight after the price, e.g. ', delivered free'",
+      "default": ", delivered free"
+    },
+    {
+      "type": "url",
+      "id": "caption_link",
+      "label": "Caption link (overrides the product link)"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb above the hero",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_parent_label",
+      "label": "Middle crumb (optional)",
+      "info": "e.g. Headboard walls, on a sub-page."
+    },
+    {
+      "type": "url",
+      "id": "breadcrumb_parent_link",
+      "label": "Middle crumb link"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_label",
+      "label": "Current page name",
+      "info": "Uses the collection or page title if empty."
+    }
   ],
-  "presets": [{ "name": "Vänt hero" }]
+  "presets": [
+    {
+      "name": "Vänt hero"
+    }
+  ]
 }
 {% endschema %}

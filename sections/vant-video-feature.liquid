@@ -4,13 +4,9 @@
   class="section section--page-width vant-section"
   style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="vant-vf{% if section.settings.media_position == 'right' %} vant-vf--right{% endif %}">
-    <div class="vant-vf__media">
-      {%- if section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
-      {%- else -%}
-        <div class="vant-placeholder">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
-      {%- endif -%}
+  <div class="vant-vf{% if section.settings.media_position == 'right' %} vant-vf--right{% endif %}" style="background: {{ section.settings.panel_color }};">
+    <div class="vant-vf__media vant-vf__media--{{ section.settings.image_fit }}">
+      {% render 'vant-pick-image', image: section.settings.image, product: section.settings.product, colour: section.settings.colour, widths: '600, 900, 1200, 1400', sizes: '(min-width: 750px) 50vw, 100vw', class: 'vant-img-cover' %}
       {%- if section.settings.youtube_id != blank -%}
         <button type="button" class="vant-vf__play" data-vant-video="{{ section.settings.youtube_id | escape }}" aria-label="Play: {{ section.settings.play_label | escape }}">
           <span class="vant-vf__play-icon"><svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 3v10l8-5z"/></svg></span>
@@ -51,6 +47,16 @@
   .vant-vf__media > .vant-placeholder {
     position: absolute;
     inset: 0;
+  }
+
+  .vant-vf__media--contain > img {
+    object-fit: contain;
+    padding: 6%;
+    mix-blend-mode: multiply;
+  }
+
+  .vant-vf__text ul {
+    padding-left: 1.1em;
   }
 
   .vant-vf__play {
@@ -118,20 +124,124 @@
 
 {% schema %}
 {
-  "name": "Vänt video feature",
+  "name": "Vänt image with text",
   "tag": "section",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Cover image" },
-    { "type": "text", "id": "youtube_id", "label": "YouTube video ID", "info": "The code after watch?v= in the YouTube link, e.g. g2ugde7Zth8", "default": "g2ugde7Zth8" },
-    { "type": "text", "id": "play_label", "label": "Play button label", "default": "Watch the film · 1 min" },
-    { "type": "select", "id": "media_position", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Fitted in an afternoon" },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Padded panels click onto aluminium brackets. No tradesperson needed.</p>" },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop headboard walls" },
-    { "type": "url", "id": "button_link", "label": "Button link" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 40 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 40 }
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Cover image"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Or use a product's photo"
+    },
+    {
+      "type": "text",
+      "id": "colour",
+      "label": "Product colour to show (optional)",
+      "info": "e.g. Neutral Sand"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Picture fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Fill the frame (room photos)"
+        },
+        {
+          "value": "contain",
+          "label": "Show whole (product photos)"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "text",
+      "id": "youtube_id",
+      "label": "YouTube video ID",
+      "info": "Leave empty for no play button.",
+      "default": "g2ugde7Zth8"
+    },
+    {
+      "type": "text",
+      "id": "play_label",
+      "label": "Play button label",
+      "default": "Watch the film · 1 min"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Fitted in an afternoon"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Padded panels click onto aluminium brackets. No tradesperson needed.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button",
+      "default": "Shop headboard walls"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "panel_color",
+      "label": "Panel background",
+      "default": "#F5F3F1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
   ],
-  "presets": [{ "name": "Vänt video feature" }]
+  "presets": [
+    {
+      "name": "Vänt video feature"
+    }
+  ]
 }
 {% endschema %}

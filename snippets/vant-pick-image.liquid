@@ -1,0 +1,34 @@
+{%- doc -%}
+  Renders the best image from: an uploaded image, else a product's photo for a given colour, else the product's main photo.
+  @param {object} [image] - Uploaded image (wins if set)
+  @param {object} [product] - Product to take the photo from
+  @param {string} [colour] - Colour word to match a variant photo, e.g. 'Champagne'
+  @param {string} [sizes] - sizes attribute
+  @param {string} [widths] - widths list
+  @param {string} [class] - class for the img
+{%- enddoc -%}
+{%- liquid
+  assign pick = image
+  if pick == blank and product != blank
+    if colour != blank
+      assign wanted = colour | downcase
+      for v in product.variants
+        assign vt = v.title | downcase
+        if vt contains wanted and v.featured_image != blank
+          assign pick = v.featured_image
+          break
+        endif
+      endfor
+    endif
+    if pick == blank
+      assign pick = product.featured_image
+    endif
+  endif
+  assign w = widths | default: '500, 800, 1200, 1600'
+  assign sz = sizes | default: '100vw'
+-%}
+{%- if pick != blank -%}
+  {{ pick | image_url: width: 1600 | image_tag: widths: w, sizes: sz, loading: 'lazy', class: class, alt: pick.alt }}
+{%- else -%}
+  <div class="vant-placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+{%- endif -%}

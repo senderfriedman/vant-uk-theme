@@ -7,7 +7,7 @@
   class="section section--page-width vant-section"
   style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }};"
 >
-  <div class="vant-fab">
+  <div class="vant-fab vant-fab--{{ section.settings.layout }}">
     <div class="vant-section-head vant-section-head--center">
       {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
@@ -91,6 +91,61 @@
 </div>
 
 {% stylesheet %}
+  /* Compact strip: text left, small circles middle, button right */
+  .vant-fab--compact {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.1fr) 2fr auto;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .vant-fab--compact .vant-section-head {
+    text-align: left;
+    margin: 0;
+    max-width: none;
+  }
+
+  .vant-fab--compact .vant-section-head h2 {
+    font-size: 28px;
+  }
+
+  .vant-fab--compact .vant-section-head p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .vant-fab--compact .vant-fab__featured {
+    grid-auto-columns: minmax(64px, 1fr);
+    gap: 14px;
+    margin: 0;
+  }
+
+  .vant-fab--compact .vant-fab__swatch {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .vant-fab--compact .vant-fab__circle {
+    max-width: 88px;
+  }
+
+  .vant-fab--compact .vant-fab__cta {
+    margin: 0;
+  }
+
+  .vant-fab--compact .vant-fab__cta .button {
+    background: transparent;
+    color: #2e2a2b;
+    box-shadow: inset 0 0 0 1px #2e2a2b;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-fab--compact {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
   .vant-fab__featured {
     grid-auto-columns: calc((100% - 4 * 28px) / 5);
     gap: 28px;
@@ -215,19 +270,110 @@
   "name": "Vänt fabric showcase",
   "tag": "section",
   "settings": [
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Make words italic to show them in red.", "default": "Feel the fabric <em>before you choose.</em>" },
-    { "type": "text", "id": "text", "label": "Text", "default": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage." },
-    { "type": "text", "id": "small_print", "label": "Small print", "default": "Colours vary by screen. A swatch shows the real shade." },
-    { "type": "product_list", "id": "featured", "label": "Featured swatches (big circles)", "limit": 5 },
-    { "type": "collection", "id": "collection", "label": "All colours row: swatch collection", "info": "Shows every colour in this collection, grouped by fabric (the product's first option)." },
-    { "type": "text", "id": "exclude_fabrics", "label": "Fabrics to leave out of the row", "info": "Comma separated, e.g. Wood", "default": "Wood" },
-    { "type": "text", "id": "all_label", "label": "Row label", "info": "[count] is replaced by the number of colours.", "default": "All [count] colours" },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "Order swatches" },
-    { "type": "url", "id": "button_link", "label": "Button link", "info": "Uses the collection link if empty." },
-    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Large (centred, big circles)"
+        },
+        {
+          "value": "compact",
+          "label": "Compact strip"
+        }
+      ],
+      "default": "stacked"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Make words italic to show them in red.",
+      "default": "Feel the fabric <em>before you choose.</em>"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage."
+    },
+    {
+      "type": "text",
+      "id": "small_print",
+      "label": "Small print",
+      "default": "Colours vary by screen. A swatch shows the real shade."
+    },
+    {
+      "type": "product_list",
+      "id": "featured",
+      "label": "Featured swatches (big circles)",
+      "limit": 5
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "All colours row: swatch collection",
+      "info": "Shows every colour in this collection, grouped by fabric (the product's first option)."
+    },
+    {
+      "type": "text",
+      "id": "exclude_fabrics",
+      "label": "Fabrics to leave out of the row",
+      "info": "Comma separated, e.g. Wood",
+      "default": "Wood"
+    },
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "Row label",
+      "info": "[count] is replaced by the number of colours.",
+      "default": "All [count] colours"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button",
+      "default": "Order swatches"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Uses the collection link if empty."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F5F3F1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
   ],
-  "presets": [{ "name": "Vänt fabric showcase" }]
+  "presets": [
+    {
+      "name": "Vänt fabric showcase"
+    }
+  ]
 }
 {% endschema %}
