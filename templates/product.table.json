@@ -126,14 +126,6 @@
             "note": "Double, King and Super King"
           }
         },
-        "f3": {
-          "type": "product",
-          "settings": {
-            "product": "vant-night-stand",
-            "title": "Vänt Nightstand",
-            "note": "Wood and metal finishes to coordinate"
-          }
-        },
         "f4": {
           "type": "product",
           "settings": {
@@ -146,7 +138,6 @@
       "block_order": [
         "f1",
         "f2",
-        "f3",
         "f4"
       ]
     },

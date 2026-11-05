@@ -128,21 +128,12 @@
             "title": "Vänt Nightstand",
             "note": "Wood and metal finishes to coordinate"
           }
-        },
-        "f4": {
-          "type": "product",
-          "settings": {
-            "product": "vant-upholstered-bed-bench-burnished-brass",
-            "title": "Vänt Upholstered Bed Bench",
-            "note": "Available in matching fabrics"
-          }
         }
       },
       "block_order": [
         "f1",
         "f2",
-        "f3",
-        "f4"
+        "f3"
       ]
     },
     "contact": {

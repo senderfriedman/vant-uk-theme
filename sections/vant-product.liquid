@@ -1,4 +1,7 @@
 {% render 'vant-base' %}
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
 {%- liquid
   assign s = section.settings
   assign is_layout = false

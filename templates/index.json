@@ -193,7 +193,7 @@
             "title": "Single bed",
             "price_text": "from £165",
             "link_label": "Shop Single",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Twin"
+            "link": "/collections/pre-configured-layouts?bed=single"
           }
         },
         "s2": {
@@ -205,7 +205,7 @@
             "title": "Double & King beds",
             "price_text": "from £160",
             "link_label": "Shop Double & King",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Double"
+            "link": "/collections/pre-configured-layouts?bed=double-king"
           }
         },
         "s3": {
@@ -216,7 +216,7 @@
             "title": "Super King beds",
             "price_text": "from £165",
             "link_label": "Shop Super King",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_King"
+            "link": "/collections/pre-configured-layouts?bed=super-king"
           }
         },
         "s4": {
@@ -227,7 +227,7 @@
             "title": "Feature walls",
             "price_text": "from £330",
             "link_label": "Shop feature walls",
-            "link": "/collections/accent-wall"
+            "link": "/collections/pre-configured-layouts?bed=feature-walls"
           }
         }
       },

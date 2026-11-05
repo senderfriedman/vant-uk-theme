@@ -121,14 +121,6 @@
             "note": "Ready-made layouts in the same fabrics"
           }
         },
-        "f2": {
-          "type": "product",
-          "settings": {
-            "product": "vant-platform-bed-full-size",
-            "title": "Vänt Platform Bed",
-            "note": "Double, King and Super King"
-          }
-        },
         "f3": {
           "type": "product",
           "settings": {
@@ -148,7 +140,6 @@
       },
       "block_order": [
         "f1",
-        "f2",
         "f3",
         "f4"
       ]

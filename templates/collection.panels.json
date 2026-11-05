@@ -92,7 +92,7 @@
             "title": "Single bed",
             "price_text": "from £165",
             "link_label": "Shop Single",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Twin"
+            "link": "/collections/pre-configured-layouts?bed=single"
           }
         },
         "s2": {
@@ -104,7 +104,7 @@
             "title": "Double & King beds",
             "price_text": "from £160",
             "link_label": "Shop Double & King",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_Double"
+            "link": "/collections/pre-configured-layouts?bed=double-king"
           }
         },
         "s3": {
@@ -115,7 +115,7 @@
             "title": "Super King beds",
             "price_text": "from £165",
             "link_label": "Shop Super King",
-            "link": "/collections/pre-configured-layouts?filter.p.tag=style_King"
+            "link": "/collections/pre-configured-layouts?bed=super-king"
           }
         },
         "s4": {
@@ -126,7 +126,7 @@
             "title": "Feature walls",
             "price_text": "from £330",
             "link_label": "Shop feature walls",
-            "link": "/collections/accent-wall"
+            "link": "/collections/pre-configured-layouts?bed=feature-walls"
           }
         }
       },
@@ -149,7 +149,7 @@
         "heading": "Want a custom size? Buy by the box.",
         "text": "<p>Each box has 4 panels and the brackets to fit them. Add as many as your wall needs.</p><ul><li>76cm × 30cm panels · from £160 a box</li><li>91cm × 30cm panels · from £165 a box</li></ul><p>A Double or King headboard is usually 2 boxes.</p>",
         "button_label": "Shop packs of 4",
-        "button_link": "/collections/shop-by-box",
+        "button_link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
         "panel_color": "#F5F3F1",
         "padding_top": 40,
         "padding_bottom": 56
@@ -189,7 +189,7 @@
         "film_label": "",
         "play_label": "Watch the video",
         "link_label": "See fitting instructions",
-        "link": "/blogs/faq",
+        "link": "/pages/fitting-guide",
         "padding_top": 80,
         "padding_bottom": 72
       },

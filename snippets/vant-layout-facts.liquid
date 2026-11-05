@@ -56,8 +56,8 @@
           assign a = rest | divided_by: 30
           assign p76 = a | times: rows_n
           assign p91 = b | times: rows_n
-          assign b76 = p76 | divided_by: 4
-          assign b91 = p91 | divided_by: 4
+          assign b76 = p76 | plus: 3 | divided_by: 4
+          assign b91 = p91 | plus: 3 | divided_by: 4
           assign panels = p76 | plus: p91
           assign rows = rows_n
           assign cols76 = a
