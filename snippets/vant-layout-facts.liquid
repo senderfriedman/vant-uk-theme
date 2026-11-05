@@ -1,6 +1,6 @@
 {%- doc -%}
   Works out a layout's size and panel make-up from the product title ("Victoria Layout - 152cm X 117cm") and handle ("victoria-layout-60-x-46", inches).
-  Prints: width_cm|height_cm|layout_name|height_label|panels|boxes_76|boxes_91|rows
+  Prints: width_cm|height_cm|layout_name|height_label|panels|boxes_76|boxes_91|rows|columns_76|columns_91
   Any part it can't work out is left empty.
   @param {object} product - Layout product
 {%- enddoc -%}
@@ -41,6 +41,8 @@
   assign b76 = ''
   assign b91 = ''
   assign rows = ''
+  assign cols76 = ''
+  assign cols91 = ''
   if n > 3 and hp[i_x] == 'x'
     assign w_in = hp[i_w] | times: 1
     assign h_in = hp[i_h] | times: 1
@@ -58,10 +60,12 @@
           assign b91 = p91 | divided_by: 4
           assign panels = p76 | plus: p91
           assign rows = rows_n
+          assign cols76 = a
+          assign cols91 = b
           break
         endif
       endif
     endfor
   endif
-  echo w_cm | append: '|' | append: h_cm | append: '|' | append: name | append: '|' | append: h_label | append: '|' | append: panels | append: '|' | append: b76 | append: '|' | append: b91 | append: '|' | append: rows
+  echo w_cm | append: '|' | append: h_cm | append: '|' | append: name | append: '|' | append: h_label | append: '|' | append: panels | append: '|' | append: b76 | append: '|' | append: b91 | append: '|' | append: rows | append: '|' | append: cols76 | append: '|' | append: cols91
 -%}

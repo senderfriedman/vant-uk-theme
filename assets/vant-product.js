@@ -57,6 +57,11 @@
       caption: $('[data-vant-caption]'),
       thumbVariant: $('[data-vant-thumb="variant"]'),
       thumbCloseup: $('[data-vant-thumb="closeup"]'),
+      thumbCompanion: $('[data-vant-thumb="companion"]'),
+      alt: $('[data-vant-alt]'),
+      note: $('[data-vant-gallery-note]'),
+      diagramTpl: $('template[data-vant-diagram]'),
+      videoTpl: $('template[data-vant-video]'),
       bar: $('[data-vant-bar]'),
       barName: $('[data-vant-bar-name]'),
       barPrice: $('[data-vant-bar-price]'),
@@ -88,7 +93,29 @@
 
     const quantity = () => Math.max(1, Math.min(50, parseInt(els.qty && els.qty.value, 10) || 1));
 
+    const showAlt = (template) => {
+      if (!els.alt) return;
+      els.alt.innerHTML = '';
+      if (template) {
+        els.alt.appendChild(template.content.cloneNode(true));
+        const video = els.alt.querySelector('video');
+        if (video) {
+          video.muted = true;
+          video.play().catch(() => {});
+        }
+      }
+      els.alt.hidden = !template;
+    };
+
+    const setNote = (text) => {
+      if (!els.note) return;
+      els.note.textContent = text || '';
+      els.note.hidden = !text;
+    };
+
     const setMainImage = (src, srcset, cover) => {
+      showAlt(null);
+      setNote('');
       if (!els.mainImg || !src) return;
       if (els.mainImg.getAttribute('src') === src) return;
       els.mainImg.classList.add('is-loading');
@@ -152,6 +179,8 @@
         try {
           const url = new URL(a.href, window.location.origin);
           url.searchParams.set('colour', variant.key);
+          const view = params.get('view');
+          if (view && !url.searchParams.get('view')) url.searchParams.set('view', view);
           a.href = url.pathname + url.search;
         } catch (e) {}
       });
@@ -169,7 +198,20 @@
           if (galleryMode === 'closeup') galleryMode = 'variant';
         }
       }
-      if (galleryMode === 'closeup' && variant.closeup) {
+      if (els.thumbCompanion) {
+        if (variant.companionThumb) {
+          els.thumbCompanion.hidden = false;
+          els.thumbCompanion.innerHTML = `<img src="${variant.companionThumb}" alt="" loading="lazy">`;
+        } else {
+          els.thumbCompanion.hidden = true;
+          if (galleryMode === 'companion') galleryMode = 'variant';
+        }
+      }
+      if (galleryMode === 'companion' && variant.companion) {
+        setMainImage(variant.companion, variant.companionSrcset, false);
+        if (els.caption) els.caption.textContent = els.thumbCompanion.dataset.caption || label();
+        setActiveThumb(els.thumbCompanion);
+      } else if (galleryMode === 'closeup' && variant.closeup) {
         setMainImage(variant.closeup, '', true);
         if (els.caption) els.caption.textContent = `${label()} close-up`;
         setActiveThumb(els.thumbCloseup);
@@ -229,6 +271,13 @@
       thumb.addEventListener('click', () => {
         const kind = thumb.dataset.vantThumb;
         galleryMode = kind;
+        if (kind === 'diagram' || kind === 'video') {
+          showAlt(kind === 'diagram' ? els.diagramTpl : els.videoTpl);
+          if (els.caption) els.caption.textContent = thumb.dataset.caption || '';
+          setNote(thumb.dataset.note || '');
+          setActiveThumb(thumb);
+          return;
+        }
         if (kind === 'extra') {
           setMainImage(thumb.dataset.src, thumb.dataset.srcset, true);
           if (els.caption) els.caption.textContent = thumb.dataset.caption || '';

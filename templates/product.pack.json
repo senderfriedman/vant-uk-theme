@@ -32,7 +32,13 @@
         "help_button_label": "Get free layout help",
         "help_button_link": "/pages/contact-us",
         "padding_top": 8,
-        "padding_bottom": 64
+        "padding_bottom": 64,
+        "companion_product": "victoria-layout-60-x-46",
+        "companion_caption": "Shown as a headboard wall",
+        "diagram_caption": "Each panel [width] × 30cm",
+        "diagram_note": "Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.",
+        "gallery_video": "shopify://files/videos/vant-simplemount-animation.mp4",
+        "gallery_video_caption": "Secure aluminium wall brackets · SimpleMount"
       },
       "blocks": {
         "d1": {

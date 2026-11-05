@@ -1,0 +1,70 @@
+{%- doc -%}
+  Draws a simple to-scale panel plan (SVG) with width and height lines.
+  @param {number} cols_76 - Columns of 76cm panels
+  @param {number} cols_91 - Columns of 91cm panels
+  @param {number} rows - Panels high
+  @param {string} width_label - e.g. "152cm"
+  @param {string} height_label - e.g. "117cm"
+{%- enddoc -%}
+{%- liquid
+  assign a = cols_76 | times: 1
+  assign b = cols_91 | times: 1
+  assign r = rows | times: 1
+  if r < 1
+    assign r = 1
+  endif
+  assign ncols = a | plus: b
+  assign total_cm = a | times: 76 | plus: 0
+  assign b_cm = b | times: 91
+  assign total_cm = total_cm | plus: b_cm
+  assign height_cm = r | times: 30
+  assign sx = 500.0 | divided_by: total_cm
+  assign sy = 270.0 | divided_by: height_cm
+  assign scale = sx
+  if sy < sx
+    assign scale = sy
+  endif
+  assign w_px = total_cm | times: scale
+  assign h_px = height_cm | times: scale
+  assign x0 = 600.0 | minus: w_px | divided_by: 2 | plus: 20
+  assign y0 = 380.0 | minus: h_px | divided_by: 2 | plus: 18
+  assign row_px = 30 | times: scale
+  assign left_b = b | divided_by: 2
+  assign x1 = x0 | plus: w_px
+  assign y1 = y0 | plus: h_px
+  assign mid_x = w_px | divided_by: 2 | plus: x0
+  assign mid_y = h_px | divided_by: 2 | plus: y0
+  assign top_y = y0 | minus: 22
+  assign left_x = x0 | minus: 22
+-%}
+<svg class="vant-diagram" viewBox="0 0 600 420" role="img" aria-label="Panel plan: {{ width_label }} wide, {{ height_label }} high">
+  <g fill="#e6e0da" stroke="#8f8789" stroke-width="1">
+    {%- assign cx = x0 -%}
+    {%- for c in (1..ncols) -%}
+      {%- liquid
+        assign before_76 = left_b | plus: a
+        if c <= left_b or c > before_76
+          assign col_cm = 91
+        else
+          assign col_cm = 76
+        endif
+        assign col_px = col_cm | times: scale
+        assign rw = col_px | minus: 3 | round: 1
+        assign rh = row_px | minus: 3 | round: 1
+      -%}
+      {%- for k in (1..r) -%}
+        {%- assign ry = k | minus: 1 | times: row_px | plus: y0 | plus: 1.5 | round: 1 -%}
+        <rect x="{{ cx | plus: 1.5 | round: 1 }}" y="{{ ry }}" width="{{ rw }}" height="{{ rh }}" rx="3"/>
+      {%- endfor -%}
+      {%- assign cx = cx | plus: col_px -%}
+    {%- endfor -%}
+  </g>
+  <g stroke="#4a4446" stroke-width="1" fill="none">
+    <path d="M{{ x0 | round: 1 }} {{ top_y | round: 1 }}H{{ x1 | round: 1 }}M{{ x0 | round: 1 }} {{ top_y | minus: 6 | round: 1 }}v12M{{ x1 | round: 1 }} {{ top_y | minus: 6 | round: 1 }}v12"/>
+    <path d="M{{ left_x | round: 1 }} {{ y0 | round: 1 }}V{{ y1 | round: 1 }}M{{ left_x | minus: 6 | round: 1 }} {{ y0 | round: 1 }}h12M{{ left_x | minus: 6 | round: 1 }} {{ y1 | round: 1 }}h12"/>
+  </g>
+  <g font-family="inherit" font-size="15" fill="#2e2a2b" text-anchor="middle" stroke="#f5f3f1" stroke-width="7" paint-order="stroke">
+    <text x="{{ mid_x | round: 1 }}" y="{{ top_y | plus: 5 | round: 1 }}">{{ width_label }}</text>
+    <text x="{{ left_x | round: 1 }}" y="{{ mid_y | plus: 5 | round: 1 }}" transform="rotate(-90 {{ left_x | round: 1 }} {{ mid_y | round: 1 }})">{{ height_label }}</text>
+  </g>
+</svg>

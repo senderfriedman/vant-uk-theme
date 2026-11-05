@@ -158,10 +158,10 @@
     "swatches": {
       "type": "vant-fabric-showcase",
       "settings": {
-        "layout": "compact",
-        "heading": "Not sure which colour?",
-        "text": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage.",
-        "small_print": "",
+        "layout": "feature",
+        "heading": "Not sure which <em>colour?</em>",
+        "text": "7 fabrics, 26 colours. Feel the real fabric at home and see it in your own light before you choose.",
+        "small_print": "Choose as many colours as you like, for one flat £3.50 postage.",
         "featured": [
           "boucle-ivory",
           "micro-suede-neutral-sand",
@@ -170,11 +170,12 @@
           "vintage-leather-dusty-taupe"
         ],
         "exclude_fabrics": "Wood",
-        "button_label": "Order swatches",
+        "button_label": "Order free swatches",
         "button_link": "/collections/order-swatches",
-        "background_color": "#F5F3F1",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "background_color": "#F1ECE8",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "eyebrow": "Free fabric swatches"
       }
     },
     "fitting": {

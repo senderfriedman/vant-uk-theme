@@ -32,7 +32,13 @@
         "padding_bottom": 64,
         "crumb_2_link": "shopify://collections/pre-configured-layouts",
         "includes_text": "Includes [boxes] panels · [panels] panels · brackets and all fixings",
-        "layouts_collection": "pre-configured-layouts"
+        "layouts_collection": "pre-configured-layouts",
+        "companion_product": "vant-panel-pack-of-4-panels-30-x-46",
+        "companion_caption": "Delivered in boxes of 4 panels",
+        "diagram_caption": "Each panel [width] × 30cm",
+        "diagram_note": "Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.",
+        "gallery_video": "shopify://files/videos/vant-simplemount-animation.mp4",
+        "gallery_video_caption": "Secure aluminium wall brackets · SimpleMount"
       },
       "blocks": {
         "d1": {
@@ -218,7 +224,8 @@
         "button_link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
         "panel_color": "#F5F3F1",
         "padding_top": 56,
-        "padding_bottom": 24
+        "padding_bottom": 24,
+        "button_style": "secondary"
       }
     },
     "contact": {
