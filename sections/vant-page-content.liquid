@@ -1,0 +1,115 @@
+{% render 'vant-base' %}
+{%- assign s = section.settings -%}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+>
+  <div class="vant-art{% if s.show_contents %} vant-art--side vant-pc--left{% endif %}" data-vant-page-content>
+    {%- if s.show_contents -%}
+      <aside class="vant-art__side">
+        <nav class="vant-art__box" aria-label="On this page" data-vant-toc hidden>
+          <p class="vant-art__box-title">{{ s.contents_title }}</p>
+          <ul class="vant-art__toc" data-vant-toc-list></ul>
+        </nav>
+      </aside>
+    {%- endif -%}
+    <div class="vant-art__main">
+      {%- if s.updated_text != blank -%}<p class="vant-pc__updated">{{ s.updated_text }}</p>{%- endif -%}
+      <div class="vant-pc__body vant-rte">{{ page.content }}</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const init = (root) => {
+      if (!root || root.dataset.ready) return;
+      root.dataset.ready = '1';
+      const toc = root.querySelector('[data-vant-toc]');
+      const list = root.querySelector('[data-vant-toc-list]');
+      if (!toc || !list) return;
+      const heads = Array.from(root.querySelectorAll('.vant-pc__body h2, .vant-pc__body h3'));
+      const used = new Set();
+      heads.forEach((h) => {
+        const text = h.textContent.trim();
+        if (!text) return;
+        let id = h.id || text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'section';
+        while (used.has(id)) id += '-2';
+        used.add(id);
+        h.id = id;
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = text.length > 60 ? text.slice(0, 57) + '…' : text;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      toc.hidden = list.children.length < 2;
+    };
+    document.querySelectorAll('[data-vant-page-content]').forEach(init);
+    document.addEventListener('shopify:section:load', (e) => init(e.target.querySelector('[data-vant-page-content]')));
+  })();
+</script>
+
+{% stylesheet %}
+  .vant-pc--left {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+
+  .vant-pc--left .vant-art__main {
+    max-width: 820px;
+  }
+
+  .vant-pc__updated {
+    margin: 0 0 24px;
+    font-size: 14px;
+    color: #6b6466;
+  }
+
+  .vant-pc__body {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .vant-pc__body h2,
+  .vant-pc__body h3 {
+    margin-top: 1.8em;
+    scroll-margin-top: calc(var(--header-height, 80px) + 24px);
+    color: #2e2a2b;
+  }
+
+  .vant-pc__body h2 {
+    font-size: 26px;
+  }
+
+  .vant-pc__body h3 {
+    font-size: 20px;
+  }
+
+  .vant-pc__body a {
+    color: #2e2a2b;
+    text-underline-offset: 3px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-pc--left {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt page text",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Shows the page's own text from Online Store > Pages, with a contents list built from its headings." },
+    { "type": "checkbox", "id": "show_contents", "label": "Show 'On this page' list", "default": true },
+    { "type": "text", "id": "contents_title", "label": "List heading", "default": "On this page" },
+    { "type": "text", "id": "updated_text", "label": "Small line above the text", "info": "e.g. Last updated 1 November 2026" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "Vänt page text" }]
+}
+{% endschema %}

@@ -49,6 +49,17 @@
 
   endcomment
   assign fabric_values = product.options_with_values[fabric_index].values
+  assign option1_label = product.options_with_values[fabric_index].name | replace: 'Color', 'Colour'
+  if option1_label contains ' Colour'
+    assign option1_label = option1_label | remove: ' Colour'
+  endif
+  assign option2_label = 'Colour'
+  if colour_index >= 0
+    assign option2_label = product.options_with_values[colour_index].name | replace: 'Color', 'Colour'
+    if option2_label contains ' Colour'
+      assign option2_label = option2_label | remove: ' Colour'
+    endif
+  endif
   assign order_lines = settings.vant_fabric_names | newline_to_br | split: '<br />'
   assign fabrics_sorted = ''
   for line in order_lines
@@ -265,14 +276,27 @@
       {%- if s.intro != blank -%}<p class="vant-pdp__intro">{{ s.intro }}</p>{%- endif -%}
 
       {%- comment -%} Size switcher: links to the sibling products (e.g. 76cm and 91cm packs) {%- endcomment -%}
-      {%- if s.size_products.count > 1 -%}
+      {%- liquid
+        assign in_sizes = false
+        for sp in s.size_products
+          if sp.id == product.id
+            assign in_sizes = true
+          endif
+        endfor
+      -%}
+      {%- if s.size_products.count > 1 and in_sizes -%}
         {%- assign notes = s.size_notes | newline_to_br | split: '<br />' -%}
+        {%- assign size_labels = s.size_labels | newline_to_br | split: '<br />' -%}
         <div class="vant-pdp__group">
           <p class="vant-pdp__label">{{ s.size_heading }}</p>
           <div class="vant-pdp__sizes">
             {%- for sp in s.size_products -%}
               {%- liquid
-                assign size_label = sp.title | split: ' - ' | last | downcase | split: 'x' | first | strip
+                assign size_label = sp.title | split: ' - ' | last | downcase | split: 'x' | first | strip | append: ' ' | append: s.size_suffix
+                assign custom_label = size_labels[forloop.index0] | strip
+                if custom_label != blank
+                  assign size_label = custom_label
+                endif
                 assign note = notes[forloop.index0] | strip
               -%}
               {%- liquid
@@ -287,7 +311,7 @@
                 data-vant-size-link
                 {% if sp.id == product.id %}aria-current="true"{% endif %}
               >
-                <span class="vant-pdp__size-name">{{ size_label }} {{ s.size_suffix }}</span>
+                <span class="vant-pdp__size-name">{{ size_label | strip }}</span>
                 {%- if note != blank -%}<span class="vant-pdp__size-note">{{ note }}</span>{%- endif -%}
               </a>
             {%- endfor -%}
@@ -298,8 +322,8 @@
       {%- comment -%} Fabric tabs {%- endcomment -%}
       {%- if fabrics.size > 1 -%}
         <div class="vant-pdp__group">
-          <p class="vant-pdp__label">Fabric</p>
-          <div class="vant-pdp__fabrics" role="group" aria-label="Fabric">
+          <p class="vant-pdp__label">{{ option1_label }}</p>
+          <div class="vant-pdp__fabrics" role="group" aria-label="{{ option1_label | escape }}">
             {%- for fv in fabrics -%}
               {%- capture fname -%}{% render 'vant-fabric-name', name: fv %}{%- endcapture -%}
               <button
@@ -318,8 +342,8 @@
       {%- comment -%} Colour circles, one per variant; JS shows the ones for the chosen fabric {%- endcomment -%}
       {%- if colour_index >= 0 -%}
         <div class="vant-pdp__group">
-          <p class="vant-pdp__label">Colour: <span data-vant-colour-label>{{ current.options[colour_index] }}</span></p>
-          <div class="vant-pdp__colours" role="group" aria-label="Colour">
+          <p class="vant-pdp__label">{{ option2_label }}: <span data-vant-colour-label>{{ current.options[colour_index] }}</span></p>
+          <div class="vant-pdp__colours" role="group" aria-label="{{ option2_label | escape }}">
             {%- for v in product.variants -%}
               {%- liquid
                 assign vf = v.options[fabric_index]
@@ -1265,6 +1289,7 @@
     { "type": "product_list", "id": "size_products", "label": "Size products", "limit": 4, "info": "Pick the 76cm and 91cm packs to show a size switch. Hidden with fewer than 2." },
     { "type": "text", "id": "size_heading", "label": "Size label", "default": "Panel size" },
     { "type": "text", "id": "size_suffix", "label": "After the size", "default": "wide" },
+    { "type": "textarea", "id": "size_labels", "label": "Size names (optional)", "info": "One line per product, e.g. Double, King, Super King. Leave empty to use the size from the product title." },
     { "type": "textarea", "id": "size_notes", "label": "Size notes", "default": "Popular for Double & King beds\nPopular for Single & Super King beds", "info": "One line per size product, in the same order." },
     { "type": "header", "content": "Buying" },
     { "type": "text", "id": "swatch_link_label", "label": "Swatch link", "default": "Not sure? Order a swatch" },

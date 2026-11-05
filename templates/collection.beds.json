@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "grid": {
+      "type": "vant-furniture-grid",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_label": "Beds & furniture",
+        "heading": "Beds & furniture",
+        "intro": "Furniture made to match your headboard wall, in the same fabrics.",
+        "all_label": "All",
+        "open_matching_tab": true,
+        "padding_top": 8,
+        "padding_bottom": 64
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-platform-bed-full-size",
+              "vant-platform-bed-king-size",
+              "vant-platform-bed-super-king-size"
+            ],
+            "title": "Vänt Platform Bed",
+            "note": "Double, King and Super King · 5 fabrics",
+            "group": "Beds",
+            "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
+            "image_fit": "cover"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-night-stand"
+            ],
+            "title": "Vänt Nightstand",
+            "note": "3 wood finishes · gold or chrome",
+            "group": "Bedside tables",
+            "collection": "table",
+            "image_fit": "contain"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-upholstered-bed-bench-burnished-brass",
+              "vant-upholstered-bed-bench"
+            ],
+            "title": "Vänt Upholstered Bed Bench",
+            "note": "Gold or chrome legs · 5 fabrics",
+            "group": "Bed benches",
+            "collection": "bench",
+            "image_fit": "contain"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "band": {
+      "type": "vant-cta-band",
+      "settings": {
+        "heading": "Match your <em>headboard wall</em>",
+        "text": "Our furniture comes in the same fabrics as our headboard walls.",
+        "button_label": "Ready-made layouts",
+        "button_link": "shopify://collections/pre-configured-layouts",
+        "button2_label": "Order swatches",
+        "button2_link": "shopify://collections/order-swatches",
+        "background_color": "#F5F3F1",
+        "text_color": "#2E2A2B",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "grid",
+    "band"
+  ]
+}

@@ -18,6 +18,7 @@
 {%- capture vant_fm_cards -%}
   {%- for block in section.blocks -%}
     {%- assign p = block.settings.product -%}
+    {%- if product and p.id == product.id -%}{%- continue -%}{%- endif -%}
     {%- if p != blank -%}
       <a class="vant-fm__card" href="{{ p.url }}" {{ block.shopify_attributes }}>
         <span class="vant-fm__thumb">

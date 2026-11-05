@@ -1,0 +1,174 @@
+{
+  "sections": {
+    "main": {
+      "type": "vant-product",
+      "settings": {
+        "mode": "pack",
+        "default_colour": "Velvet / Sand Storm",
+        "show_breadcrumb": true,
+        "crumb_1_label": "Beds & furniture",
+        "crumb_1_link": "shopify://collections/platform-beds",
+        "crumb_2_label": "",
+        "crumb_current": "Vänt Platform Bed",
+        "eyebrow": "",
+        "title": "Vänt Platform Bed",
+        "intro": "",
+        "size_products": [
+          "vant-platform-bed-full-size",
+          "vant-platform-bed-king-size",
+          "vant-platform-bed-super-king-size"
+        ],
+        "size_heading": "Size",
+        "size_suffix": "",
+        "size_notes": "",
+        "swatch_link_label": "Not sure? Order a swatch",
+        "show_quantity": false,
+        "unit_label": "box",
+        "add_label": "Add to basket",
+        "tick_1": "Free UK delivery · dispatched next working day, delivered in 3–5 working days",
+        "tick_2": "14-day returns · 1-year warranty",
+        "padding_top": 8,
+        "padding_bottom": 64,
+        "size_labels": "Double\nKing\nSuper King",
+        "help_link_label": ""
+      },
+      "blocks": {
+        "d1": {
+          "type": "detail",
+          "settings": {
+            "title": "Dimensions",
+            "text": "<p>[DIMENSIONS]</p>"
+          }
+        },
+        "d2": {
+          "type": "detail",
+          "settings": {
+            "title": "What’s included",
+            "text": "<p>[CONFIRM: mattress not included]</p>"
+          }
+        },
+        "d3": {
+          "type": "detail",
+          "settings": {
+            "title": "Assembly",
+            "text": "<p>[ASSEMBLY INFO]</p>"
+          }
+        },
+        "d4": {
+          "type": "detail",
+          "settings": {
+            "title": "Materials",
+            "text": "<p>[MATERIALS]</p>"
+          }
+        },
+        "d5": {
+          "type": "detail",
+          "settings": {
+            "title": "Care",
+            "text": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede and weave: vacuum with a soft brush and spot-clean gently.</p>"
+          }
+        },
+        "d6": {
+          "type": "detail",
+          "settings": {
+            "title": "Delivery",
+            "text": "<p>Free UK delivery. Dispatched the next working day and delivered in 3–5 working days.</p>"
+          }
+        },
+        "d7": {
+          "type": "detail",
+          "settings": {
+            "title": "Returns & warranty",
+            "text": "<p>14-day returns on unused items in their original packaging. 1-year warranty.</p>"
+          }
+        },
+        "d8": {
+          "type": "detail",
+          "settings": {
+            "title": "Colour accuracy",
+            "text": "<p>Colours can look slightly different on screen. A swatch shows the real shade.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "d7",
+        "d8"
+      ]
+    },
+    "furniture": {
+      "type": "vant-furniture-match",
+      "settings": {
+        "layout": "cards",
+        "heading": "Complete the look",
+        "default_colour": "Sand Storm",
+        "text": "",
+        "button_label": "",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "f1": {
+          "type": "product",
+          "settings": {
+            "product": "victoria-layout-60-x-46",
+            "title": "Headboard walls",
+            "note": "Ready-made layouts in the same fabrics"
+          }
+        },
+        "f2": {
+          "type": "product",
+          "settings": {
+            "product": "vant-platform-bed-full-size",
+            "title": "Vänt Platform Bed",
+            "note": "Double, King and Super King"
+          }
+        },
+        "f3": {
+          "type": "product",
+          "settings": {
+            "product": "vant-night-stand",
+            "title": "Vänt Nightstand",
+            "note": "Wood and metal finishes to coordinate"
+          }
+        },
+        "f4": {
+          "type": "product",
+          "settings": {
+            "product": "vant-upholstered-bed-bench-burnished-brass",
+            "title": "Vänt Upholstered Bed Bench",
+            "note": "Available in matching fabrics"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ]
+    },
+    "contact": {
+      "type": "vant-faq",
+      "settings": {
+        "heading": "",
+        "contact_text": "Still have a question? Our UK team is here to help.",
+        "phone": "020 3355 9166",
+        "email": "",
+        "hours": "",
+        "padding_top": 48,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "main",
+    "furniture",
+    "contact"
+  ]
+}

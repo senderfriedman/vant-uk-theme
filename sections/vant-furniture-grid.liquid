@@ -1,0 +1,256 @@
+{% render 'vant-base' %}
+{%- liquid
+  assign s = section.settings
+  assign groups = ''
+  assign default_key = 'all'
+  for block in section.blocks
+    assign g = block.settings.group | strip
+    if g != blank
+      assign gk = g | append: '§'
+      unless groups contains gk
+        assign groups = groups | append: gk
+      endunless
+      if collection and block.settings.collection != blank and block.settings.collection.id == collection.id and s.open_matching_tab
+        assign default_key = g | handleize
+      endif
+    endif
+  endfor
+  assign group_list = groups | split: '§'
+-%}
+<div
+  class="section section--page-width vant-section vant-fg"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+  data-vant-furniture-grid
+  data-default="{{ default_key }}"
+>
+  <div>
+    {%- if s.show_breadcrumb -%}
+      <nav class="vant-crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ routes.root_url }}">Home</a></li>
+          <li aria-current="page">{{ s.crumb_label | default: s.heading | strip_html }}</li>
+        </ol>
+      </nav>
+    {%- endif -%}
+    <header class="vant-lg__head">
+      <h1 class="vant-lg__title vant-hl">{{ s.heading }}</h1>
+      {%- if s.intro != blank -%}<p class="vant-lg__intro">{{ s.intro }}</p>{%- endif -%}
+    </header>
+
+    {%- if group_list.size > 1 -%}
+      <div class="vant-lg__tabs-wrap">
+        <div class="vant-lg__tabs" role="tablist" aria-label="Furniture type">
+          <button type="button" role="tab" class="vant-lg__tab" data-key="all" aria-selected="{% if default_key == 'all' %}true{% else %}false{% endif %}">{{ s.all_label }}</button>
+          {%- for g in group_list -%}
+            {%- assign key = g | handleize -%}
+            <button type="button" role="tab" class="vant-lg__tab" data-key="{{ key }}" aria-selected="{% if key == default_key %}true{% else %}false{% endif %}">{{ g }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="vant-fg__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign first = b.products.first
+          if first == blank
+            continue
+          endif
+          assign min_price = first.price_min
+          assign varies = first.price_varies
+          for p in b.products
+            if p.price_min < min_price
+              assign min_price = p.price_min
+            endif
+            if p.price_min != first.price_min or p.price_varies
+              assign varies = true
+            endif
+          endfor
+          assign key = b.group | handleize
+          assign img = b.image | default: first.featured_image
+          assign link = b.link | default: first.url
+        -%}
+        <div class="vant-fg__item" data-key="{{ key }}" {% unless default_key == 'all' or default_key == key %}hidden{% endunless %} {{ block.shopify_attributes }}>
+          <a class="vant-fg__card" href="{{ link }}">
+            <span class="vant-fg__img vant-fg__img--{{ b.image_fit }}">
+              {%- if img != blank -%}
+                {{ img | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 92vw', loading: 'lazy', alt: '' }}
+              {%- endif -%}
+            </span>
+            <span class="vant-fg__body">
+              <span class="vant-fg__title">{{ b.title | default: first.title }}</span>
+              <span class="vant-fg__price">{% if varies %}From {% endif %}{{ min_price | money_without_trailing_zeros }}</span>
+              {%- if b.note != blank -%}<span class="vant-fg__note">{{ b.note }}</span>{%- endif -%}
+              <span class="vant-fg__go">{% render 'vant-arrow' %}</span>
+            </span>
+          </a>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const init = (root) => {
+      if (!root || root.dataset.ready) return;
+      root.dataset.ready = '1';
+      const tabs = Array.from(root.querySelectorAll('.vant-lg__tab'));
+      const items = Array.from(root.querySelectorAll('.vant-fg__item'));
+      const select = (key, push) => {
+        const tab = tabs.find((t) => t.dataset.key === key) || tabs[0];
+        if (!tab) return;
+        key = tab.dataset.key;
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        items.forEach((i) => (i.hidden = !(key === 'all' || i.dataset.key === key)));
+        if (push) {
+          try {
+            const url = new URL(window.location.href);
+            url.searchParams.set('type', key);
+            history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+          } catch (e) {}
+        }
+      };
+      tabs.forEach((t) => t.addEventListener('click', () => select(t.dataset.key, true)));
+      const wanted = new URLSearchParams(window.location.search).get('type');
+      select(wanted || root.dataset.default, false);
+    };
+    document.querySelectorAll('[data-vant-furniture-grid]').forEach(init);
+    document.addEventListener('shopify:section:load', (e) => init(e.target.querySelector('[data-vant-furniture-grid]')));
+  })();
+</script>
+
+{% stylesheet %}
+  .vant-fg .vant-crumbs ol {
+    padding-top: 0;
+  }
+
+  .vant-fg__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .vant-fg__item[hidden] {
+    display: none;
+  }
+
+  .vant-fg__card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    border: 1px solid #dcd8d5;
+    background: #f5f3f1;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .vant-fg__card:hover {
+    border-color: #2e2a2b;
+  }
+
+  .vant-fg__img {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f5f3f1;
+  }
+
+  .vant-fg__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .vant-fg__img--contain img {
+    object-fit: contain;
+    padding: 6%;
+    mix-blend-mode: multiply;
+  }
+
+  .vant-fg__card:hover .vant-fg__img img {
+    transform: scale(1.03);
+  }
+
+  .vant-fg__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 44px 22px 20px;
+    background: #fff;
+  }
+
+  .vant-fg__title {
+    font-size: 21px;
+    color: #2e2a2b;
+  }
+
+  .vant-fg__price {
+    font-size: 16px;
+    color: #2e2a2b;
+  }
+
+  .vant-fg__note {
+    font-size: 13px;
+    color: #6b6466;
+  }
+
+  .vant-fg__go {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-fg__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-fg__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt furniture grid",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "crumb_label", "label": "Current page name", "default": "Beds & furniture" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Beds & furniture" },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "Furniture made to match your headboard wall, in the same fabrics." },
+    { "type": "text", "id": "all_label", "label": "'All' tab", "default": "All" },
+    { "type": "checkbox", "id": "open_matching_tab", "label": "Open the tab that matches the collection", "default": true, "info": "e.g. the Bed benches collection opens on Bed benches. The beds collection opens on All." },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Product card",
+      "settings": [
+        { "type": "product_list", "id": "products", "label": "Products", "limit": 4, "info": "Several products (e.g. bed sizes) share one card. The first one is linked and pictured." },
+        { "type": "text", "id": "title", "label": "Name", "info": "Uses the first product's title if empty." },
+        { "type": "text", "id": "note", "label": "Note", "default": "Double, King and Super King" },
+        { "type": "text", "id": "group", "label": "Tab", "default": "Beds", "info": "Cards with the same tab name are grouped." },
+        { "type": "collection", "id": "collection", "label": "Matching collection", "info": "Opens this tab when shown on that collection's page." },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "select", "id": "image_fit", "label": "Image fit", "options": [{ "value": "cover", "label": "Fill (room photos)" }, { "value": "contain", "label": "Whole product (cut-outs)" }], "default": "cover" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vänt furniture grid" }]
+}
+{% endschema %}
