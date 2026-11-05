@@ -16,7 +16,7 @@
         </ol>
       </nav>
     {%- endif -%}
-    <h1 class="vant-ph__title vant-hl">{{ s.heading | default: page.title }}</h1>
+    {%- unless s.hide_heading -%}<h1 class="vant-ph__title vant-hl">{{ s.heading | default: page.title }}</h1>{%- endunless -%}
     {%- if s.intro != blank -%}<p class="vant-ph__intro">{{ s.intro }}</p>{%- endif -%}
     {%- if s.show_contact -%}{% render 'vant-contact-line', class: 'vant-ph__contact' %}{%- endif -%}
   </div>
@@ -54,6 +54,7 @@
     { "type": "url", "id": "crumb_parent_link", "label": "Middle crumb link" },
     { "type": "text", "id": "crumb_label", "label": "Current page name", "info": "Uses the heading if empty." },
     { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Uses the page title if empty." },
+    { "type": "checkbox", "id": "hide_heading", "label": "Breadcrumb only (hide the heading)", "default": false, "info": "When the next section has the page title." },
     { "type": "text", "id": "intro", "label": "Intro" },
     { "type": "checkbox", "id": "show_contact", "label": "Show phone, email and hours", "default": false, "info": "From Theme settings > Vänt > Contact details." },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },

@@ -1,0 +1,161 @@
+{% render 'vant-base' %}
+{%- assign s = section.settings -%}
+<div
+  class="section section--page-width vant-section"
+  id="{{ s.anchor | default: 'apply' }}"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px; scroll-margin-top: calc(var(--header-height, 80px) + 16px);"
+>
+  <div class="vant-tf">
+    <div class="vant-tf__aside">
+      {%- if s.aside_heading != blank -%}<h2 class="vant-tf__title vant-hl">{{ s.aside_heading }}</h2>{%- endif -%}
+      {%- assign steps = s.steps | newline_to_br | split: '<br />' -%}
+      <ol class="vant-tf__steps">
+        {%- for st in steps -%}
+          {%- assign t = st | strip -%}
+          {%- if t != blank -%}<li><span>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{{ t }}</li>{%- endif -%}
+        {%- endfor -%}
+      </ol>
+      {%- if settings.vant_phone != blank and s.phone_text != blank -%}
+        <p class="vant-tf__phone">{{ s.phone_text }} <a href="tel:{{ settings.vant_phone | remove: ' ' }}">Call {{ settings.vant_phone }}</a></p>
+      {%- endif -%}
+    </div>
+
+    <div class="vant-ct__card vant-tf__card">
+      {%- if s.form_heading != blank -%}<h2 class="vant-tf__title vant-hl">{{ s.form_heading }}</h2>{%- endif -%}
+      {%- form 'contact', id: 'VantTradeForm', class: 'vant-ct__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="vant-ct__success" role="status">{{ s.success_message }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="vant-ct__error" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <input type="hidden" name="contact[Form]" value="Trade account application">
+        <div class="vant-ct__row">
+          <label class="vant-field"><span>Name</span><input type="text" name="contact[name]" autocomplete="name" required></label>
+          <label class="vant-field"><span>Company</span><input type="text" name="contact[Company]" autocomplete="organization" required></label>
+        </div>
+        <div class="vant-ct__row">
+          <label class="vant-field"><span>Work email</span><input type="email" name="contact[email]" autocomplete="email" required></label>
+          <label class="vant-field"><span>Website</span><input type="text" name="contact[Website]" autocomplete="url"></label>
+        </div>
+        <div class="vant-ct__row">
+          <label class="vant-field"><span>VAT number (optional)</span><input type="text" name="contact[VAT number]"></label>
+          <label class="vant-field">
+            <span>Type of business</span>
+            <select name="contact[Type of business]" required>
+              <option value="">Choose your business type</option>
+              {%- assign types = s.business_types | newline_to_br | split: '<br />' -%}
+              {%- for ty in types -%}
+                {%- assign t = ty | strip -%}
+                {%- if t != blank -%}<option>{{ t }}</option>{%- endif -%}
+              {%- endfor -%}
+            </select>
+          </label>
+        </div>
+        <div class="vant-ct__row">
+          <label class="vant-field"><span>Expected order size</span><input type="text" name="contact[Expected order size]"></label>
+        </div>
+        <label class="vant-field"><span>Message</span><textarea name="contact[body]" rows="5"></textarea></label>
+        <div class="vant-buttons">
+          <button type="submit" class="button">{{ s.button_label }} {% render 'vant-arrow' %}</button>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-tf {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .vant-tf__aside {
+    background: #f5f3f1;
+    border: 1px solid #dcd8d5;
+    padding: clamp(22px, 2.5vw, 32px);
+    position: sticky;
+    top: calc(var(--header-height, 80px) + 24px);
+  }
+
+  .vant-tf__title {
+    margin: 0 0 18px;
+    font-size: clamp(26px, 2.6vw, 36px);
+  }
+
+  .vant-tf__card .vant-tf__title {
+    margin: 0;
+  }
+
+  .vant-tf__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+
+  .vant-tf__steps li {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    font-size: 15px;
+  }
+
+  .vant-tf__steps span {
+    color: #ef2e32;
+  }
+
+  .vant-tf__phone {
+    margin: 22px 0 0;
+    font-size: 15px;
+  }
+
+  .vant-tf__phone a {
+    color: #2e2a2b;
+    text-underline-offset: 4px;
+  }
+
+  .vant-field select {
+    font: inherit;
+    font-size: 16px;
+    padding: 12px 14px;
+    border: 1px solid #9a9395;
+    border-radius: 0;
+    background: #fff;
+    color: #2e2a2b;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-tf {
+      grid-template-columns: 1fr;
+    }
+
+    .vant-tf__aside {
+      position: static;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt trade application",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Applications arrive by email, like the contact form. Later this can switch to Shopify's built-in trade accounts." },
+    { "type": "text", "id": "anchor", "label": "Link name", "default": "apply", "info": "Buttons can link to #apply to jump here." },
+    { "type": "inline_richtext", "id": "aside_heading", "label": "Side heading", "default": "What happens next" },
+    { "type": "textarea", "id": "steps", "label": "Steps", "default": "Send your application online.\nWe review it within [APPROVAL TIME] and set up your pricing.\nOrder online, with your named contact on hand.", "info": "One per line." },
+    { "type": "text", "id": "phone_text", "label": "Phone line", "default": "Questions?" },
+    { "type": "inline_richtext", "id": "form_heading", "label": "Form heading", "default": "Apply for a trade account" },
+    { "type": "textarea", "id": "business_types", "label": "Business types", "default": "Interior designer\nHotel or hospitality\nLandlord or developer\nContractor\nOther" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Submit application" },
+    { "type": "text", "id": "success_message", "label": "Thank-you message", "default": "Thanks for applying. We'll be in touch soon." },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "presets": [{ "name": "Vänt trade application" }]
+}
+{% endschema %}

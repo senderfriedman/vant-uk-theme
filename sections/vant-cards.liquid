@@ -14,6 +14,12 @@
         {%- else -%}
           <div class="vant-cards__card" {{ block.shopify_attributes }}>
         {%- endif -%}
+          {%- if b.image != blank -%}
+            <span class="vant-cards__img">
+              {{ b.image | image_url: width: 800 | image_tag: widths: '400, 600, 800', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 45vw, 92vw', loading: 'lazy', alt: '' }}
+              {%- if b.image_label != blank -%}<span class="vant-img-label">{{ b.image_label }}</span>{%- endif -%}
+            </span>
+          {%- endif -%}
           {%- if b.icon != 'none' -%}<span class="vant-cards__icon">{% render 'vant-icon', icon: b.icon %}</span>{%- endif -%}
           <span class="vant-cards__title">{{ b.title }}</span>
           {%- if b.text != blank -%}<span class="vant-cards__text">{{ b.text }}</span>{%- endif -%}
@@ -42,6 +48,36 @@
     color: inherit;
     text-decoration: none;
     transition: border-color 0.2s ease;
+  }
+
+  .vant-cards__card:has(.vant-cards__img) {
+    padding-top: 0;
+  }
+
+  .vant-cards__img {
+    position: relative;
+    display: block;
+    margin: 0 -48px 10px -24px;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .vant-cards__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .vant-cards__img .vant-img-label {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .vant-cards__card:has(.vant-cards__img) .vant-cards__go {
+    top: auto;
+    bottom: 24px;
   }
 
   .vant-cards__card--link:hover {
@@ -87,6 +123,10 @@
       padding: 18px 44px 20px 18px;
     }
 
+    .vant-cards__img {
+      margin: 0 -44px 8px -18px;
+    }
+
     .vant-cards__title {
       font-size: 20px;
     }
@@ -122,12 +162,17 @@
             { "value": "returns", "label": "Returns" },
             { "value": "warranty", "label": "Warranty" },
             { "value": "phone", "label": "Phone" },
+            { "value": "tag", "label": "Price tag" },
+            { "value": "person", "label": "Person" },
+            { "value": "box", "label": "Box" },
             { "value": "mail", "label": "Email" },
             { "value": "bracket", "label": "Bracket" },
             { "value": "layers", "label": "Layers" }
           ],
           "default": "none"
         },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "text", "id": "image_label", "label": "Image label", "info": "e.g. Styled room concept" },
         { "type": "text", "id": "title", "label": "Title", "default": "Card title" },
         { "type": "text", "id": "text", "label": "Text" },
         { "type": "url", "id": "link", "label": "Link", "info": "Leave empty for a card that isn't a link (no arrow)." }

@@ -71,7 +71,7 @@
         "button_label": "Call 020 3355 9166",
         "button_link": "tel:+442033559166",
         "button2_label": "Trade account",
-        "button2_link": "/pages/contact-us",
+        "button2_link": "/pages/trade-account",
         "background_color": "#2E2A2B",
         "text_color": "#FFFFFF",
         "padding_top": 56,
