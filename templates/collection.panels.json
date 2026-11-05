@@ -339,9 +339,9 @@
       "type": "vant-cta-band",
       "settings": {
         "heading": "Planning <em>a bigger wall?</em>",
-        "text": "Our free layout service will plan it for you. Working on a project? Talk to our trade team.",
-        "button_label": "Free layout help",
-        "button_link": "/pages/contact-us",
+        "text": "Call our team and we’ll help you plan your layout over the phone. Working on a project? Talk to our trade team.",
+        "button_label": "Call 020 3355 9166",
+        "button_link": "tel:+442033559166",
         "button2_label": "Trade account",
         "button2_link": "/pages/contact-us",
         "background_color": "#2E2A2B",

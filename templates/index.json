@@ -493,9 +493,9 @@
       "type": "vant-cta-band",
       "settings": {
         "heading": "Planning <em>a bigger wall?</em>",
-        "text": "Our free layout service helps you find the right arrangement for your space. Working on a project? Talk to our trade team.",
-        "button_label": "Free layout help",
-        "button_link": "/pages/contact-us",
+        "text": "Call our team and we’ll help you plan your layout over the phone. Working on a project? Talk to our trade team.",
+        "button_label": "Call 020 3355 9166",
+        "button_link": "tel:+442033559166",
         "button2_label": "Trade enquiries",
         "button2_link": "/pages/contact-us",
         "background_color": "#2E2A2B",
@@ -534,7 +534,7 @@
           "type": "question",
           "settings": {
             "question": "How do I choose the right size and colour?",
-            "answer": "<p>Measure your wall and bed frame, then order fabric swatches to see the colour in your own light. Choose as many colours as you like, for one flat £3.50 postage. Our free layout service can help you plan a whole wall.</p>"
+            "answer": "<p>Measure your wall and bed frame, then order fabric swatches to see the colour in your own light. Choose as many colours as you like, for one flat £3.50 postage. Planning a whole wall? Call our team and we’ll help you work out the layout.</p>"
           }
         },
         "q4": {
