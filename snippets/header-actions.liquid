@@ -174,6 +174,13 @@
 ></script>
 
 {% stylesheet %}
+  /* Vänt: make the sticky header stand out once the page has scrolled */
+  .header[data-sticky-state='active'] {
+    background-color: #fff;
+    box-shadow: 0 1px 0 #dcd8d5, 0 8px 24px rgb(46 42 43 / 0.08);
+    transition: box-shadow 0.25s ease;
+  }
+
   /* Vänt: "Order swatches" header button, desktop only */
   .vant-header-swatch {
     --button-padding-block: 10px;
