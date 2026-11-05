@@ -328,6 +328,42 @@
     width: 14px;
     height: 14px;
   }
+
+  /* Phone / email / hours line */
+  .vant-contact-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 26px;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .vant-contact-line a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2e2a2b;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  .vant-contact-line .vant-icon {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+
+  .vant-contact-line__hours {
+    color: #6b6466;
+  }
+
+  .vant-contact-line--stack {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 {% endstylesheet %}
 
 {% javascript %}

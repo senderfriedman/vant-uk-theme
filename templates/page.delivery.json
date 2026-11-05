@@ -1,0 +1,142 @@
+{
+  "sections": {
+    "header": {
+      "type": "vant-page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_parent_label": "Help & guides",
+        "crumb_parent_link": "/pages/support",
+        "crumb_label": "Delivery & returns",
+        "heading": "Delivery & returns",
+        "intro": "",
+        "show_contact": false,
+        "padding_top": 8,
+        "padding_bottom": 28
+      }
+    },
+    "tiles": {
+      "type": "vant-cards",
+      "settings": {
+        "heading": "",
+        "columns": 3,
+        "padding_top": 0,
+        "padding_bottom": 32
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "icon": "delivery",
+            "title": "Free UK delivery",
+            "text": "Dispatched next working day, 3–5 working days"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "icon": "returns",
+            "title": "14-day returns",
+            "text": "Unused items in their original packaging"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "icon": "warranty",
+            "title": "1-year warranty",
+            "text": "[WARRANTY SUMMARY]"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "details": {
+      "type": "vant-article",
+      "settings": {
+        "side": "none",
+        "side_title": "",
+        "side_button_label": "",
+        "padding_top": 8,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "b1": {
+          "type": "heading",
+          "settings": {
+            "text": "Delivery",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "delivery"
+          }
+        },
+        "b2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>UK delivery is free on panels and furniture. Orders are dispatched the next working day and delivered in 3–5 working days.</p><p>Fabric swatches have one flat £3.50 postage charge per order, however many colours you choose. Panels and swatches may arrive separately.</p><p>Areas and exceptions: [CONFIRM: Northern Ireland, Highlands and islands].</p>"
+          }
+        },
+        "b3": {
+          "type": "heading",
+          "settings": {
+            "text": "Returns",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "returns"
+          }
+        },
+        "b4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Return unused items in their original packaging within 14 days. Swatch postage isn’t refundable.</p><p>How to return: [RETURNS PROCESS].</p>"
+          }
+        },
+        "b5": {
+          "type": "heading",
+          "settings": {
+            "text": "Warranty",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "warranty"
+          }
+        },
+        "b6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>What it covers: [WARRANTY DETAILS].</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ]
+    },
+    "contact": {
+      "type": "vant-contact-strip",
+      "settings": {
+        "heading": "Contact our team",
+        "text": "",
+        "button_label": "Contact our team",
+        "button_link": "/pages/contact-us",
+        "mobile_only": false,
+        "background_color": "#F5F3F1",
+        "padding_top": 56,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "header",
+    "tiles",
+    "details",
+    "contact"
+  ]
+}

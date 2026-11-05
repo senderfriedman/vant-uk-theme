@@ -1,0 +1,18 @@
+{%- doc -%}
+  Phone (tap to call), email and opening hours from Theme settings > Vänt > Contact details. Empty ones are hidden.
+  @param {string} [class] - Extra class
+{%- enddoc -%}
+{%- liquid
+  assign phone = settings.vant_phone
+  assign email = settings.vant_email
+  assign hours = settings.vant_hours
+-%}
+<p class="vant-contact-line {{ class }}">
+  {%- if phone != blank -%}
+    <a href="tel:{{ phone | remove: ' ' }}">{% render 'vant-icon', icon: 'phone' %}<span>{{ phone }}</span></a>
+  {%- endif -%}
+  {%- if email != blank -%}
+    <a href="mailto:{{ email }}">{% render 'vant-icon', icon: 'mail' %}<span>{{ email }}</span></a>
+  {%- endif -%}
+  {%- if hours != blank -%}<span class="vant-contact-line__hours">{{ hours }}</span>{%- endif -%}
+</p>

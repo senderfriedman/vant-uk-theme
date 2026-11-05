@@ -1,0 +1,16 @@
+{%- doc -%}
+  Simple line drawings for fitting steps.
+  @param {string} art - plan | brackets | hook | trim
+{%- enddoc -%}
+<svg viewBox="0 0 120 88" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {%- case art -%}
+    {%- when 'plan' -%}
+      <path d="M12 74h96M12 68v12m96-12v12M19 47h82v20H19zM19 47V32h82v15M40 50v14m20-14v14m20-14v14"/>
+    {%- when 'brackets' -%}
+      <path d="M20 32h80v14H20zM47 35h26v8H47zM37 55v22m46-22v22M32 58h10m36 0h10"/>
+    {%- when 'hook' -%}
+      <path d="M21 51h78v20H21zM21 27h78v20H21zM60 10v12m-6-5 6 5 6-5"/>
+    {%- when 'trim' -%}
+      <path d="M20 65h80M26 60h68v10H26zM32 52l13-25h39l11 25M32 52h63M58 53v22"/>
+  {%- endcase -%}
+</svg>

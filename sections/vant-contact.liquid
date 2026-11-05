@@ -1,0 +1,168 @@
+{% render 'vant-base' %}
+{%- assign s = section.settings -%}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+>
+  <div class="vant-ct">
+    <div class="vant-ct__card">
+      {%- if s.form_heading != blank -%}<h2 class="vant-ct__title vant-hl">{{ s.form_heading }}</h2>{%- endif -%}
+      {%- form 'contact', id: 'VantContactForm', class: 'vant-ct__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="vant-ct__success" role="status">{{ s.success_message }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="vant-ct__error" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <div class="vant-ct__row">
+          <label class="vant-field">
+            <span>Name</span>
+            <input type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}" required>
+          </label>
+          <label class="vant-field">
+            <span>Email</span>
+            <input type="email" name="contact[email]" autocomplete="email" value="{{ form.email }}" required>
+          </label>
+        </div>
+        <div class="vant-ct__row">
+          <label class="vant-field">
+            <span>Phone (optional)</span>
+            <input type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}">
+          </label>
+        </div>
+        <label class="vant-field">
+          <span>Message</span>
+          <textarea name="contact[body]" rows="5" required>{{ form.body }}</textarea>
+        </label>
+        <div class="vant-buttons">
+          <button type="submit" class="button">{{ s.button_label }} {% render 'vant-arrow' %}</button>
+        </div>
+      {%- endform -%}
+    </div>
+
+    {%- if s.help_heading != blank or s.help_text != blank -%}
+      <div class="vant-ct__card vant-ct__card--help">
+        {%- if s.help_heading != blank -%}<h2 class="vant-ct__title vant-hl">{{ s.help_heading }}</h2>{%- endif -%}
+        {%- if s.help_text != blank -%}<div class="vant-rte">{{ s.help_text }}</div>{%- endif -%}
+        {%- if settings.vant_phone != blank and s.call_label != blank -%}
+          <div class="vant-buttons">
+            <a class="button button-secondary" href="tel:{{ settings.vant_phone | remove: ' ' }}">{{ s.call_label | replace: '[phone]', settings.vant_phone }} {% render 'vant-arrow' %}</a>
+          </div>
+        {%- endif -%}
+        {%- if s.link_label != blank -%}
+          <a class="vant-text-link" href="{{ s.link | default: '/collections/pre-configured-layouts' }}">{{ s.link_label }} {% render 'vant-arrow' %}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-ct {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .vant-ct__card {
+    border: 1px solid #dcd8d5;
+    padding: clamp(22px, 2.5vw, 32px);
+    display: grid;
+    gap: 18px;
+    justify-items: start;
+  }
+
+  .vant-ct__card--help {
+    background: #f5f3f1;
+  }
+
+  .vant-ct__title {
+    margin: 0;
+    font-size: clamp(28px, 2.8vw, 38px);
+  }
+
+  .vant-ct__form {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .vant-ct__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .vant-field {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    color: #2e2a2b;
+  }
+
+  .vant-field input,
+  .vant-field textarea {
+    font: inherit;
+    font-size: 16px;
+    padding: 12px 14px;
+    border: 1px solid #9a9395;
+    border-radius: 0;
+    background: #fff;
+    color: #2e2a2b;
+    width: 100%;
+  }
+
+  .vant-field input:focus,
+  .vant-field textarea:focus {
+    outline: 2px solid #ef2e32;
+    outline-offset: 1px;
+  }
+
+  .vant-ct__success {
+    margin: 0;
+    padding: 12px 14px;
+    background: #eef5ee;
+    border: 1px solid #b9d6b9;
+  }
+
+  .vant-ct__error {
+    padding: 12px 14px;
+    background: #fbeeee;
+    border: 1px solid #e8b9b9;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-ct {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-ct__row {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt contact form",
+  "tag": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "form_heading", "label": "Form heading", "default": "Send us a message" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Send message" },
+    { "type": "text", "id": "success_message", "label": "Thank-you message", "default": "Thanks for your message. We'll get back to you soon." },
+    { "type": "header", "content": "Help box" },
+    { "type": "inline_richtext", "id": "help_heading", "label": "Heading", "default": "Help planning your layout" },
+    { "type": "richtext", "id": "help_text", "label": "Text", "default": "<p>Not sure how many panels you need or how to arrange them? Call our team and we'll help you work out your layout over the phone.</p>" },
+    { "type": "text", "id": "call_label", "label": "Call button", "default": "Call [phone]", "info": "[phone] is the number from Theme settings > Vänt." },
+    { "type": "text", "id": "link_label", "label": "Link", "default": "See ready-made layouts" },
+    { "type": "url", "id": "link", "label": "Link address" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "Vänt contact form" }]
+}
+{% endschema %}

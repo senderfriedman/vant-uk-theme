@@ -1,0 +1,64 @@
+{% render 'vant-base' %}
+{%- assign s = section.settings -%}
+<div
+  class="section section--page-width vant-section vant-ph"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+>
+  <div>
+    {%- if s.show_breadcrumb -%}
+      <nav class="vant-crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ routes.root_url }}">Home</a></li>
+          {%- if s.crumb_parent_label != blank -%}
+            <li><a href="{{ s.crumb_parent_link | default: '#' }}">{{ s.crumb_parent_label }}</a></li>
+          {%- endif -%}
+          <li aria-current="page">{{ s.crumb_label | default: s.heading | strip_html | default: page.title }}</li>
+        </ol>
+      </nav>
+    {%- endif -%}
+    <h1 class="vant-ph__title vant-hl">{{ s.heading | default: page.title }}</h1>
+    {%- if s.intro != blank -%}<p class="vant-ph__intro">{{ s.intro }}</p>{%- endif -%}
+    {%- if s.show_contact -%}{% render 'vant-contact-line', class: 'vant-ph__contact' %}{%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-ph .vant-crumbs ol {
+    padding-top: 0;
+  }
+
+  .vant-ph__title {
+    margin: 10px 0 0;
+    font-size: clamp(36px, 4.6vw, 64px);
+    line-height: 1.05;
+  }
+
+  .vant-ph__intro {
+    margin: 18px 0 0;
+    font-size: 17px;
+    max-width: 640px;
+  }
+
+  .vant-ph__contact {
+    margin-top: 22px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt page heading",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "crumb_parent_label", "label": "Middle crumb" },
+    { "type": "url", "id": "crumb_parent_link", "label": "Middle crumb link" },
+    { "type": "text", "id": "crumb_label", "label": "Current page name", "info": "Uses the heading if empty." },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Uses the page title if empty." },
+    { "type": "text", "id": "intro", "label": "Intro" },
+    { "type": "checkbox", "id": "show_contact", "label": "Show phone, email and hours", "default": false, "info": "From Theme settings > Vänt > Contact details." },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "presets": [{ "name": "Vänt page heading" }]
+}
+{% endschema %}

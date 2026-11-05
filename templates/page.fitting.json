@@ -1,0 +1,164 @@
+{
+  "sections": {
+    "header": {
+      "type": "vant-page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_parent_label": "Help & guides",
+        "crumb_parent_link": "/pages/support",
+        "crumb_label": "How to fit your headboard wall",
+        "heading": "How to fit your headboard wall",
+        "intro": "",
+        "show_contact": false,
+        "padding_top": 8,
+        "padding_bottom": 28
+      }
+    },
+    "guide": {
+      "type": "vant-article",
+      "settings": {
+        "side": "contents",
+        "side_title": "On this page",
+        "side_button_label": "",
+        "padding_top": 0,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "b1": {
+          "type": "video",
+          "settings": {
+            "youtube_id": "g2ugde7Zth8",
+            "label": "Play fitting video"
+          }
+        },
+        "b2": {
+          "type": "heading",
+          "settings": {
+            "text": "What’s in the box",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "whats-in-the-box"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "title": "76cm box",
+            "text": "4 panels, 4 aluminium brackets, 8 screws."
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "title": "91cm box",
+            "text": "4 panels, 6 aluminium brackets, 12 screws."
+          }
+        },
+        "b5": {
+          "type": "heading",
+          "settings": {
+            "text": "What you’ll need",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "what-youll-need"
+          }
+        },
+        "b6": {
+          "type": "list",
+          "settings": {
+            "items": "Screwdriver or drill\nSpirit level\nTape measure\nPencil"
+          }
+        },
+        "b7": {
+          "type": "heading",
+          "settings": {
+            "text": "Fitting steps",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "fitting-steps"
+          }
+        },
+        "b8": {
+          "type": "step",
+          "settings": {
+            "illustration": "plan",
+            "title": "Plan your layout",
+            "text": "<p>Mark where the bottom row starts: usually just below the top of your mattress, or from the skirting board for a full wall.</p>"
+          }
+        },
+        "b9": {
+          "type": "step",
+          "settings": {
+            "illustration": "brackets",
+            "title": "Fix the brackets",
+            "text": "<p>Use a spirit level to fit the brackets. No wall plugs are needed on plasterboard. For brick, block or concrete, pre-drill 5mm holes first. Each screw holds up to 22kg.</p>"
+          }
+        },
+        "b10": {
+          "type": "step",
+          "settings": {
+            "illustration": "hook",
+            "title": "Hook on the panels",
+            "text": "<p>Hook the panels onto the brackets, starting with the bottom row.</p>"
+          }
+        },
+        "b11": {
+          "type": "step",
+          "settings": {
+            "illustration": "trim",
+            "title": "Trim brackets if needed",
+            "text": "<p>Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.</p>"
+          }
+        },
+        "b12": {
+          "type": "heading",
+          "settings": {
+            "text": "Plug sockets and light switches",
+            "size": "h2",
+            "in_contents": true,
+            "anchor": "plug-sockets"
+          }
+        },
+        "b13": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Mark the opening on the back of the panel. Cut through the wooden base with a jigsaw, then trim the foam and fabric neatly with a sharp craft knife. Keep sockets and switches accessible. If one needs moving, use a qualified electrician.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10",
+        "b11",
+        "b12",
+        "b13"
+      ]
+    },
+    "contact": {
+      "type": "vant-contact-strip",
+      "settings": {
+        "heading": "Still stuck?",
+        "text": "",
+        "button_label": "Contact our team",
+        "button_link": "/pages/contact-us",
+        "mobile_only": false,
+        "background_color": "#F5F3F1",
+        "padding_top": 56,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "header",
+    "guide",
+    "contact"
+  ]
+}

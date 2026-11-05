@@ -1,0 +1,57 @@
+{% render 'vant-base' %}
+{%- assign s = section.settings -%}
+<div
+  class="section section--page-width vant-section vant-cs{% if s.mobile_only %} vant-cs--mobile{% endif %}"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px; --vant-bg: {{ s.background_color }};"
+>
+  <div>
+    {%- if s.heading != blank -%}<h2 class="vant-cs__title vant-hl">{{ s.heading }}</h2>{%- endif -%}
+    {%- if s.text != blank -%}<p class="vant-cs__text">{{ s.text }}</p>{%- endif -%}
+    {% render 'vant-contact-line' %}
+    {%- if s.button_label != blank -%}
+      <div class="vant-buttons">
+        <a class="button button-secondary" href="{{ s.button_link | default: '/pages/contact-us' }}">{{ s.button_label }} {% render 'vant-arrow' %}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-cs__title {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 3vw, 40px);
+  }
+
+  .vant-cs__text {
+    margin: 0 0 14px;
+  }
+
+  .vant-cs .vant-buttons {
+    margin-top: 22px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .shopify-section:has(.vant-cs--mobile) {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt contact strip",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Phone, email and hours come from Theme settings > Vänt > Contact details." },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Contact our team" },
+    { "type": "text", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Contact our team" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "mobile_only", "label": "Mobile and tablet only", "default": false, "info": "Use when the page already has a contact box beside the text on desktop." },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F5F3F1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "presets": [{ "name": "Vänt contact strip" }]
+}
+{% endschema %}

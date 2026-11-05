@@ -2123,6 +2123,30 @@
     "settings": [
       {
         "type": "header",
+        "content": "Contact details"
+      },
+      {
+        "type": "paragraph",
+        "content": "Used on the contact page, help pages and contact strips. Empty lines are hidden."
+      },
+      {
+        "type": "text",
+        "id": "vant_phone",
+        "label": "Phone",
+        "default": "020 3355 9166"
+      },
+      {
+        "type": "text",
+        "id": "vant_email",
+        "label": "Email"
+      },
+      {
+        "type": "text",
+        "id": "vant_hours",
+        "label": "Opening hours"
+      },
+      {
+        "type": "header",
         "content": "Bed sizes for ready-made layouts"
       },
       {
@@ -2204,14 +2228,14 @@
         "id": "vant_preview_redirects",
         "label": "Send these links to the new template",
         "info": "One per line: path | new address",
-        "default": "/collections/pre-configured-layouts | /collections/pre-configured-layouts?view=layouts\n/collections/accent-wall | /collections/pre-configured-layouts?view=layouts&bed=feature-walls\n/collections/shop-by-box | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-30-x-46 | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-39-x-46 | /products/vant-panel-pack-of-4-panels-39-x-46?view=pack"
+        "default": "/collections/pre-configured-layouts | /collections/pre-configured-layouts?view=layouts\n/collections/accent-wall | /collections/pre-configured-layouts?view=layouts&bed=feature-walls\n/collections/shop-by-box | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-30-x-46 | /products/vant-panel-pack-of-4-panels-30-x-46?view=pack\n/products/vant-panel-pack-of-4-panels-39-x-46 | /products/vant-panel-pack-of-4-panels-39-x-46?view=pack\n/pages/fitting-guide | /pages/support?view=fitting\n/pages/order-information | /pages/order-information?view=delivery\n/pages/vant-return-center | /pages/order-information?view=delivery\n/pages/vant-limited-1-year-product-warranty | /pages/order-information?view=delivery#warranty\n/blogs/faq | /pages/support"
       },
       {
         "type": "textarea",
         "id": "vant_preview_designed",
         "label": "Pages already designed",
         "info": "One path per line; * matches anything. Links to any other page on the site show the 'not designed yet' message.",
-        "default": "/\n/collections/panels\n/collections/pre-configured-layouts\n/collections/order-swatches\n/products/vant-panel-pack-of-4-panels-*\n/products/*-layout-*\n/cart"
+        "default": "/\n/collections/panels\n/collections/pre-configured-layouts\n/collections/order-swatches\n/products/vant-panel-pack-of-4-panels-*\n/products/*-layout-*\n/cart\n/pages/support\n/pages/order-information\n/pages/contact-us"
       },
       {
         "type": "text",

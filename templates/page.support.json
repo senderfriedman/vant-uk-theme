@@ -1,0 +1,244 @@
+{
+  "sections": {
+    "header": {
+      "type": "vant-page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_parent_label": "",
+        "heading": "Help & guides",
+        "intro": "Find the right layout, fit your headboard wall and get help with your order.",
+        "show_contact": false,
+        "padding_top": 8,
+        "padding_bottom": 32
+      }
+    },
+    "cards": {
+      "type": "vant-cards",
+      "settings": {
+        "heading": "",
+        "columns": 3,
+        "padding_top": 0,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "icon": "tools",
+            "title": "Fitting guide",
+            "text": "Tools, brackets and step-by-step instructions.",
+            "link": "/pages/fitting-guide"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "icon": "grid",
+            "title": "Planning your wall",
+            "text": "Compare UK bed sizes and ready-made layouts.",
+            "link": "shopify://collections/pre-configured-layouts"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "icon": "book",
+            "title": "Fabrics & care",
+            "text": "Explore the fabrics and find cleaning instructions.",
+            "link": "shopify://collections/order-swatches"
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "icon": "delivery",
+            "title": "Delivery & returns",
+            "text": "Check delivery times and how to return an order.",
+            "link": "/pages/order-information"
+          }
+        },
+        "b5": {
+          "type": "card",
+          "settings": {
+            "icon": "warranty",
+            "title": "1-year warranty",
+            "text": "Find the warranty details.",
+            "link": "/pages/order-information#warranty"
+          }
+        },
+        "b6": {
+          "type": "card",
+          "settings": {
+            "icon": "phone",
+            "title": "Contact our team",
+            "text": "Get in touch or ask for help planning a layout.",
+            "link": "/pages/contact-us"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ]
+    },
+    "questions": {
+      "type": "vant-article",
+      "settings": {
+        "side": "contact",
+        "side_title": "Still need help?",
+        "side_button_label": "Contact our team",
+        "side_button_link": "/pages/contact-us",
+        "padding_top": 8,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "b1": {
+          "type": "heading",
+          "settings": {
+            "text": "Common questions",
+            "size": "h2",
+            "in_contents": false,
+            "anchor": ""
+          }
+        },
+        "b2": {
+          "type": "heading",
+          "settings": {
+            "text": "Before you buy",
+            "size": "h3",
+            "in_contents": false,
+            "anchor": ""
+          }
+        },
+        "b3": {
+          "type": "question",
+          "settings": {
+            "question": "Do the panels attach to my bed?",
+            "answer": "<p>No. They fix to the wall on aluminium brackets, so they work with any bed, including divans and bed frames.</p>"
+          }
+        },
+        "b4": {
+          "type": "question",
+          "settings": {
+            "question": "What’s in each box?",
+            "answer": "<p>4 panels, the aluminium mounting brackets and screws, plus step-by-step instructions.</p>"
+          }
+        },
+        "b5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I clean them?",
+            "answer": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
+          }
+        },
+        "b6": {
+          "type": "question",
+          "settings": {
+            "question": "Are the fabrics fire-tested?",
+            "answer": "<p>Fire safety information is available on request. Please contact our team.</p>"
+          }
+        },
+        "b7": {
+          "type": "button",
+          "settings": {
+            "label": "Browse fabrics and swatches",
+            "link": "shopify://collections/order-swatches",
+            "style": "link"
+          }
+        },
+        "b8": {
+          "type": "heading",
+          "settings": {
+            "text": "Fitting",
+            "size": "h3",
+            "in_contents": false,
+            "anchor": ""
+          }
+        },
+        "b9": {
+          "type": "question",
+          "settings": {
+            "question": "Will it work on my wall?",
+            "answer": "<p>Yes. Our patented screws grip plasterboard firmly, with no wall plugs needed. For brick, block or concrete walls, simply pre-drill 5mm holes first. Each screw holds up to 22kg.</p>"
+          }
+        },
+        "b10": {
+          "type": "question",
+          "settings": {
+            "question": "Where should the bottom row start?",
+            "answer": "<p>Usually just below the top of your mattress, or from the skirting board for a full feature wall.</p>"
+          }
+        },
+        "b11": {
+          "type": "question",
+          "settings": {
+            "question": "What about plug sockets and light switches?",
+            "answer": "<p>You can cut an opening in a panel so the socket or switch stays accessible. Mark the position on the back of the panel, cut through the wooden base with a jigsaw, then trim the foam and fabric neatly with a sharp craft knife. Or, if you’d rather not cut, use a flat plug extension lead to bring power to the side of your headboard. Never cover a socket or switch completely with a panel. If you’d like a socket moved, please use a qualified electrician.</p>"
+          }
+        },
+        "b12": {
+          "type": "heading",
+          "settings": {
+            "text": "Delivery & returns",
+            "size": "h3",
+            "in_contents": false,
+            "anchor": ""
+          }
+        },
+        "b13": {
+          "type": "question",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Orders are dispatched the next working day and delivered in 3–5 working days.</p>"
+          }
+        },
+        "b14": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return my order?",
+            "answer": "<p>You have 14 days to return unused items in their original packaging.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10",
+        "b11",
+        "b12",
+        "b13",
+        "b14"
+      ]
+    },
+    "contact": {
+      "type": "vant-contact-strip",
+      "settings": {
+        "heading": "Contact our team",
+        "text": "",
+        "button_label": "Contact our team",
+        "button_link": "/pages/contact-us",
+        "mobile_only": true,
+        "background_color": "#F5F3F1",
+        "padding_top": 56,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "header",
+    "cards",
+    "questions",
+    "contact"
+  ]
+}

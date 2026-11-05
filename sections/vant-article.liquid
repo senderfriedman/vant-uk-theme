@@ -1,0 +1,465 @@
+{% render 'vant-base' %}
+{% render 'vant-video-dialog' %}
+{%- liquid
+  assign s = section.settings
+  assign has_side = false
+  if s.side != 'none'
+    assign has_side = true
+  endif
+  assign step_no = 0
+  assign in_cards = false
+-%}
+<div
+  class="section section--page-width vant-section"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+>
+  <div class="vant-art{% if has_side %} vant-art--side{% endif %}">
+    <div class="vant-art__main">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if in_cards and block.type != 'card' -%}
+          </div>
+          {%- assign in_cards = false -%}
+        {%- endif -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            {%- assign anchor = b.anchor | default: b.text | handleize -%}
+            {%- if b.size == 'h3' -%}
+              <h3 class="vant-art__h3" id="{{ anchor }}" {{ block.shopify_attributes }}>{{ b.text }}</h3>
+            {%- else -%}
+              <h2 class="vant-art__h2 vant-hl" id="{{ anchor }}" {{ block.shopify_attributes }}>{{ b.text }}</h2>
+            {%- endif -%}
+          {%- when 'text' -%}
+            <div class="vant-art__text vant-rte" {{ block.shopify_attributes }}>{{ b.text }}</div>
+          {%- when 'video' -%}
+            <div class="vant-art__video" {{ block.shopify_attributes }}>
+              {%- if b.image != blank -%}
+                {{ b.image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 60vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
+              {%- elsif b.youtube_id != blank -%}
+                <img class="vant-img-cover" src="https://i.ytimg.com/vi/{{ b.youtube_id | escape }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+              {%- endif -%}
+              {%- if b.youtube_id != blank -%}
+                <button type="button" class="vant-art__play" data-vant-video="{{ b.youtube_id | escape }}" aria-label="Play: {{ b.label | default: 'video' | escape }}">
+                  <span class="vant-art__play-icon"><svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 3v10l8-5z"/></svg></span>
+                  {%- if b.label != blank -%}<span class="vant-art__play-label">{{ b.label }}</span>{%- endif -%}
+                </button>
+              {%- endif -%}
+            </div>
+          {%- when 'card' -%}
+            {%- unless in_cards -%}
+              <div class="vant-art__cards">
+              {%- assign in_cards = true -%}
+            {%- endunless -%}
+            <div class="vant-art__card" {{ block.shopify_attributes }}>
+              <p class="vant-art__card-title">{{ b.title }}</p>
+              {%- if b.text != blank -%}<p class="vant-art__card-text">{{ b.text }}</p>{%- endif -%}
+            </div>
+          {%- when 'list' -%}
+            {%- assign items = b.items | newline_to_br | split: '<br />' -%}
+            <ul class="vant-art__list" {{ block.shopify_attributes }}>
+              {%- for item in items -%}
+                {%- assign it = item | strip -%}
+                {%- if it != blank -%}<li>{{ it }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- when 'step' -%}
+            {%- assign step_no = step_no | plus: 1 -%}
+            <div class="vant-art__step" {{ block.shopify_attributes }}>
+              <div class="vant-art__step-art">
+                {%- if b.image != blank -%}
+                  {{ b.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: '' }}
+                {%- elsif b.illustration != 'none' -%}
+                  {% render 'vant-fitting-art', art: b.illustration %}
+                {%- endif -%}
+              </div>
+              <div>
+                <p class="vant-art__step-no">{% if step_no < 10 %}0{% endif %}{{ step_no }}</p>
+                <h3 class="vant-art__step-title">{{ b.title }}</h3>
+                <div class="vant-rte">{{ b.text }}</div>
+              </div>
+            </div>
+          {%- when 'question' -%}
+            <details class="vant-faq__item" {{ block.shopify_attributes }}>
+              <summary class="vant-faq__q">
+                <span>{{ b.question }}</span>
+                <span class="vant-faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="vant-faq__a vant-rte">{{ b.answer }}</div>
+            </details>
+          {%- when 'button' -%}
+            <div class="vant-art__button" {{ block.shopify_attributes }}>
+              {%- case b.style -%}
+                {%- when 'link' -%}
+                  <a class="vant-text-link" href="{{ b.link | default: '#' }}">{{ b.label }} {% render 'vant-arrow' %}</a>
+                {%- when 'red' -%}
+                  <a class="button" href="{{ b.link | default: '#' }}">{{ b.label }} {% render 'vant-arrow' %}</a>
+                {%- else -%}
+                  <a class="button button-secondary" href="{{ b.link | default: '#' }}">{{ b.label }} {% render 'vant-arrow' %}</a>
+              {%- endcase -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+      {%- if in_cards -%}</div>{%- endif -%}
+    </div>
+
+    {%- if has_side -%}
+      <aside class="vant-art__side">
+        <div class="vant-art__box">
+          {%- if s.side_title != blank -%}<p class="vant-art__box-title">{{ s.side_title }}</p>{%- endif -%}
+          {%- if s.side == 'contents' -%}
+            <ul class="vant-art__toc">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'heading' and block.settings.in_contents -%}
+                  {%- assign anchor = block.settings.anchor | default: block.settings.text | handleize -%}
+                  <li><a href="#{{ anchor }}">{{ block.settings.text | strip_html }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            {% render 'vant-contact-line', class: 'vant-contact-line--stack' %}
+          {%- endif -%}
+          {%- if s.side_button_label != blank -%}
+            <a class="button button-secondary" href="{{ s.side_button_link | default: '/pages/contact-us' }}">{{ s.side_button_label }} {% render 'vant-arrow' %}</a>
+          {%- endif -%}
+        </div>
+      </aside>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vant-art {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vant-art--side {
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+
+  .vant-art:not(.vant-art--side) .vant-art__main {
+    max-width: 900px;
+  }
+
+  .vant-art__main > * + * {
+    margin-top: 20px;
+  }
+
+  .vant-art__main > .vant-art__h2 {
+    margin: 52px 0 0;
+    font-size: clamp(28px, 3vw, 40px);
+    scroll-margin-top: calc(var(--header-height, 80px) + 24px);
+  }
+
+  .vant-art__main > .vant-art__h2:first-child {
+    margin-top: 0;
+  }
+
+  .vant-art__main > .vant-art__h3 {
+    margin: 36px 0 6px;
+    font-size: 22px;
+    font-weight: 400;
+    color: #2e2a2b;
+    scroll-margin-top: calc(var(--header-height, 80px) + 24px);
+  }
+
+  .vant-art__main > .vant-faq__item {
+    margin-top: 0;
+  }
+
+  .vant-art__text {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .vant-art__video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #2e2a2b;
+    overflow: hidden;
+  }
+
+  .vant-art__video > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+  }
+
+  .vant-art__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 14px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .vant-art__play-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+    background: rgb(46 42 43 / 0.55);
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease;
+  }
+
+  .vant-art__play:hover .vant-art__play-icon {
+    transform: scale(1.06);
+  }
+
+  .vant-art__play-label {
+    font-size: 14px;
+  }
+
+  .vant-art__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .vant-art__card {
+    background: #f5f3f1;
+    border: 1px solid #dcd8d5;
+    padding: 22px 24px;
+  }
+
+  .vant-art__card-title {
+    margin: 0 0 6px;
+    font-size: 20px;
+    color: #2e2a2b;
+  }
+
+  .vant-art__card-text {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .vant-art__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .vant-art__step {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 0 24px;
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-art__main > .vant-art__step {
+    margin-top: 0;
+  }
+
+  .vant-art__step-art {
+    background: #f5f3f1;
+    aspect-ratio: 240 / 176;
+    display: grid;
+    place-items: center;
+    color: #2e2a2b;
+  }
+
+  .vant-art__step-art svg {
+    width: 82%;
+    height: auto;
+  }
+
+  .vant-art__step-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vant-art__step-no {
+    margin: 4px 0 6px;
+    color: #ef2e32;
+    font-size: 14px;
+  }
+
+  .vant-art__step-title {
+    margin: 0 0 10px;
+    font-size: 22px;
+  }
+
+  .vant-art__side {
+    position: sticky;
+    top: calc(var(--header-height, 80px) + 24px);
+  }
+
+  .vant-art__box {
+    background: #f5f3f1;
+    border: 1px solid #dcd8d5;
+    padding: 24px;
+    display: grid;
+    gap: 16px;
+    justify-items: start;
+  }
+
+  .vant-art__box-title {
+    margin: 0;
+    font-size: 24px;
+    color: #2e2a2b;
+  }
+
+  .vant-art__toc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .vant-art__toc a {
+    color: #2e2a2b;
+    text-underline-offset: 4px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-art--side {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .vant-art__side {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-art__cards {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .vant-art__step {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .vant-art__step-title {
+      font-size: 19px;
+    }
+
+    .vant-art__list {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt article",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "A text page built from blocks: headings, text, video, cards, steps, questions and buttons." },
+    {
+      "type": "select",
+      "id": "side",
+      "label": "Box beside the text (desktop)",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "contact", "label": "Contact details" },
+        { "value": "contents", "label": "On this page (links to the headings)" }
+      ],
+      "default": "none"
+    },
+    { "type": "text", "id": "side_title", "label": "Box heading", "default": "Still need help?" },
+    { "type": "text", "id": "side_button_label", "label": "Box button" },
+    { "type": "url", "id": "side_button_link", "label": "Box button link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Heading" },
+        { "type": "select", "id": "size", "label": "Size", "options": [{ "value": "h2", "label": "Large" }, { "value": "h3", "label": "Small" }], "default": "h2" },
+        { "type": "checkbox", "id": "in_contents", "label": "Show in 'On this page'", "default": true },
+        { "type": "text", "id": "anchor", "label": "Link name (optional)", "info": "For links like #warranty. Uses the heading if empty." }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [{ "type": "richtext", "id": "text", "label": "Text", "default": "<p>Text</p>" }]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "text", "id": "youtube_id", "label": "YouTube video ID", "default": "g2ugde7Zth8" },
+        { "type": "image_picker", "id": "image", "label": "Cover image", "info": "Uses YouTube's still if empty." },
+        { "type": "text", "id": "label", "label": "Label", "default": "Play fitting video" }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Title" },
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "list",
+      "name": "List",
+      "settings": [{ "type": "textarea", "id": "items", "label": "Items", "info": "One per line." }]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "select",
+          "id": "illustration",
+          "label": "Drawing",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "plan", "label": "Plan the layout" },
+            { "value": "brackets", "label": "Fix the brackets" },
+            { "value": "hook", "label": "Hook on the panels" },
+            { "value": "trim", "label": "Trim a bracket" }
+          ],
+          "default": "none"
+        },
+        { "type": "image_picker", "id": "image", "label": "Photo (replaces the drawing)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Step" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button or link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Find out more" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "select", "id": "style", "label": "Style", "options": [{ "value": "outline", "label": "Outline button" }, { "value": "red", "label": "Red button" }, { "value": "link", "label": "Text link" }], "default": "outline" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vänt article" }]
+}
+{% endschema %}
