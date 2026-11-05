@@ -4,7 +4,7 @@
   class="section section--page-width vant-section"
   style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="vant-vf{% if section.settings.media_position == 'right' %} vant-vf--right{% endif %}" style="background: {{ section.settings.panel_color }};">
+  <div class="vant-vf{% if section.settings.media_position == 'right' %} vant-vf--right{% endif %}{% if section.settings.size == 'compact' %} vant-vf--compact{% endif %}" style="background: {{ section.settings.panel_color }};">
     <div class="vant-vf__media vant-vf__media--{{ section.settings.image_fit }}">
       {% render 'vant-pick-image', image: section.settings.image, product: section.settings.product, colour: section.settings.colour, widths: '600, 900, 1200, 1400', sizes: '(min-width: 750px) 50vw, 100vw', class: 'vant-img-cover' %}
       {%- if section.settings.youtube_id != blank -%}
@@ -15,6 +15,7 @@
       {%- endif -%}
     </div>
     <div class="vant-vf__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="vant-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.text != blank -%}<div class="vant-vf__text vant-rte">{{ section.settings.text }}</div>{%- endif -%}
       {%- if section.settings.button_label != blank -%}
@@ -103,7 +104,32 @@
     line-height: 1.7;
   }
 
+  .vant-vf--compact .vant-vf__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .vant-vf--compact .vant-vf__content {
+    padding: 40px 48px;
+  }
+
+  .vant-vf--compact .vant-vf__text {
+    margin-top: 12px;
+  }
+
+  .vant-vf--compact .vant-vf__text p + p {
+    font-size: 13px;
+    color: #6b6466;
+  }
+
+  .vant-vf .vant-eyebrow {
+    margin-bottom: 10px;
+  }
+
   @media screen and (max-width: 749px) {
+    .vant-vf--compact .vant-vf__content {
+      padding: 28px 24px 32px;
+    }
+
     .vant-vf {
       grid-template-columns: 1fr;
     }
@@ -188,6 +214,7 @@
       ],
       "default": "left"
     },
+    { "type": "text", "id": "eyebrow", "label": "Small label" },
     {
       "type": "inline_richtext",
       "id": "heading",
@@ -210,6 +237,16 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Size",
+      "options": [
+        { "value": "regular", "label": "Regular" },
+        { "value": "compact", "label": "Compact (shorter image)" }
+      ],
+      "default": "regular"
     },
     {
       "type": "color",

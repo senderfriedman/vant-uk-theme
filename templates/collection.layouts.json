@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "grid": {
+      "type": "vant-layout-grid",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_parent_label": "Headboard walls",
+        "crumb_parent_link": "shopify://collections/panels",
+        "crumb_label": "Ready-made layouts",
+        "heading": "Ready-made headboard walls",
+        "intro": "Pre-planned layouts for your bed or wall. Every layout comes in all 26 colours.",
+        "default_group": "Double & King",
+        "popular_products": [
+          "victoria-layout-60-x-46"
+        ],
+        "popular_label": "Most popular",
+        "wider_label": "Wider than bed",
+        "padding_top": 8,
+        "padding_bottom": 32
+      }
+    },
+    "build": {
+      "type": "vant-video-feature",
+      "settings": {
+        "product": "vant-panel-pack-of-4-panels-30-x-46",
+        "colour": "Ivory",
+        "image_fit": "contain",
+        "youtube_id": "",
+        "play_label": "",
+        "media_position": "left",
+        "size": "compact",
+        "eyebrow": "Build your own",
+        "heading": "Can’t find your size?",
+        "text": "<p>Build your own with 76cm or 91cm panels. From £160 a box.</p><p>Each box has 4 panels plus the brackets and all fixings. Arrange them your way.</p>",
+        "button_label": "Shop packs of 4",
+        "button_link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
+        "panel_color": "#F5F3F1",
+        "padding_top": 24,
+        "padding_bottom": 64
+      }
+    },
+    "swatches": {
+      "type": "vant-fabric-showcase",
+      "settings": {
+        "layout": "compact",
+        "heading": "Not sure which colour?",
+        "text": "7 fabrics, 26 colours. Choose as many colours as you like, for one flat £3.50 postage.",
+        "small_print": "",
+        "featured": [
+          "boucle-ivory",
+          "micro-suede-neutral-sand",
+          "velevt-sand-storm",
+          "velvet-ivory",
+          "vintage-leather-dusty-taupe"
+        ],
+        "exclude_fabrics": "Wood",
+        "button_label": "Order swatches",
+        "button_link": "/collections/order-swatches",
+        "background_color": "#F5F3F1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "band": {
+      "type": "vant-cta-band",
+      "settings": {
+        "heading": "Planning <em>a bigger wall?</em>",
+        "text": "Our free layout service will plan it for you. Working on a project? Talk to our trade team.",
+        "button_label": "Free layout help",
+        "button_link": "/pages/contact-us",
+        "button2_label": "Trade account",
+        "button2_link": "/pages/contact-us",
+        "background_color": "#2E2A2B",
+        "text_color": "#FFFFFF",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "contact": {
+      "type": "vant-faq",
+      "settings": {
+        "heading": "",
+        "contact_text": "Still have a question? Our UK team is here to help.",
+        "phone": "020 3355 9166",
+        "email": "",
+        "hours": "",
+        "padding_top": 48,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "grid",
+    "build",
+    "swatches",
+    "band",
+    "contact"
+  ]
+}

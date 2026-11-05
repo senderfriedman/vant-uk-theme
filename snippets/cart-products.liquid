@@ -404,6 +404,10 @@
                     assign price = item.final_line_price | money
                     assign unit_price = item.unit_price | money
                   endif
+                  # Vänt: free swatches read "Free" rather than £0.00
+                  if item.final_line_price == 0
+                    assign price = 'Free'
+                  endif
                 -%}
                 <td
                   class="cart-items__price cart-secondary-typography"

@@ -11,7 +11,7 @@
   "accessibility": {
     "account": "Account",
     "active_filters": "Active filters:",
-    "cart": "Cart",
+    "cart": "Basket",
     "cart_count": "Total items in cart",
     "close_dialog": "Close dialog",
     "country_region": "Country/Region",
@@ -70,7 +70,7 @@
   "actions": {
     // Quick add button on product cards, shortened version of add to cart
     "add": "Add",
-    "add_to_cart": "Add to cart",
+    "add_to_cart": "Add to basket",
     // Success message shown after adding item to cart
     "added": "Added",
     // Button to apply discount code to cart
@@ -171,11 +171,11 @@
     "account_orders": "Orders",
     "account_profile": "Profile",
     "blog_details_separator": "|",
-    "cart_estimated_total": "Estimated total",
-    "cart_title": "Cart",
+    "cart_estimated_total": "Total",
+    "cart_title": "Your basket",
     "cart_subtotal": "Subtotal",
     "cart_total": "Cart total",
-    "checkout": "Check out",
+    "checkout": "Checkout",
     "collection_placeholder": "Collection title",
     "discount_code": "Discount code",
     "shipping_discount_error": "Shipping discounts are shown at checkout after adding an address",
@@ -280,7 +280,7 @@
     "total_items": "Total items",
     "variant": "Variant",
     "variant_total": "Variant total",
-    "view_cart": "View cart",
+    "view_cart": "View basket",
     "your_cart": "Your cart",
     "items_added_to_cart": {
       "one": "1 item added to cart",
@@ -320,7 +320,7 @@
     "each_abbreviation": "ea",
     "price_at": "at",
     "price_range": "Price range",
-    "your_cart_is_empty": "Your cart is empty",
+    "your_cart_is_empty": "Your basket is empty",
     "product_count": "Product count",
     "errors": "Errors",
     "wrong_password": "Wrong password",
@@ -370,9 +370,9 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "Add to basket",
       "adding_to_cart": "Adding...",
-      "added_to_cart": "Added to cart",
+      "added_to_cart": "Added to basket",
       "add_to_cart_error": "Error adding to cart",
       "quantity_error_max": "This item has a maximum of {{ maximum }}",
       "sold_out": "Sold out",

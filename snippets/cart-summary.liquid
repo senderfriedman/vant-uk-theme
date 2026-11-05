@@ -215,12 +215,41 @@
   {% endif %}
 
   {%- liquid
+    # Vänt: subtotal, delivery and swatch postage lines; the total includes swatch postage.
+    assign vant_swatch_type = settings.vant_swatch_product_type | default: 'swatch' | downcase
+    assign vant_swatches = 0
+    assign vant_others = 0
+    for item in cart.items
+      assign pt = item.product.type | downcase
+      if pt == vant_swatch_type
+        assign vant_swatches = vant_swatches | plus: item.quantity
+      else
+        assign vant_others = vant_others | plus: item.quantity
+      endif
+    endfor
+    assign vant_postage = 0
+    if vant_swatches > 0
+      assign vant_postage = settings.vant_swatch_postage | default: 0
+    endif
+    assign vant_total = cart.total_price | plus: vant_postage
     if settings.currency_code_enabled_cart_total
-      assign total_price = cart.total_price | money_with_currency
+      assign total_price = vant_total | money_with_currency
     else
-      assign total_price = cart.total_price | money
+      assign total_price = vant_total | money
     endif
   -%}
+
+  {%- if cart.item_count > 0 -%}
+    <div class="vant-cart-lines cart-primary-typography">
+      <span class="vant-cart-lines__row"><span>{{ 'content.cart_subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></span>
+      {%- if vant_others > 0 and settings.vant_delivery_label != blank -%}
+        <span class="vant-cart-lines__row"><span>Delivery</span><span>{{ settings.vant_delivery_label }}</span></span>
+      {%- endif -%}
+      {%- if vant_postage > 0 -%}
+        <span class="vant-cart-lines__row"><span>Swatch postage</span><span>{{ vant_postage | money }}</span></span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 
   <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
     <span
@@ -247,8 +276,14 @@
       </span>
     {% endif %}
     <div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
-      {% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}
+      {%- if cart.taxes_included -%}<small>VAT included</small>{%- else -%}{% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}{%- endif -%}
     </div>
+    {%- if cart.item_count > 0 and settings.vant_cart_trust != blank -%}
+      <p class="vant-cart-trust">{{ settings.vant_cart_trust }}</p>
+    {%- endif -%}
+    {%- if vant_swatches > 0 and vant_others > 0 and settings.vant_cart_mixed_note != blank -%}
+      <p class="vant-cart-trust">{{ settings.vant_cart_mixed_note }}</p>
+    {%- endif -%}
   </div>
 </div>
 
@@ -281,6 +316,27 @@
 </div>
 
 {% stylesheet %}
+  .vant-cart-lines {
+    display: grid;
+    gap: 6px;
+    padding-block-end: 12px;
+    margin-block-end: 12px;
+    border-block-end: 1px solid #dcd8d5;
+    font-size: 14px;
+  }
+
+  .vant-cart-lines__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .vant-cart-trust {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #6b6466;
+  }
+
   .cart-actions {
     display: flex;
     flex-direction: column;

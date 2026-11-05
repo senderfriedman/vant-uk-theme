@@ -2117,5 +2117,74 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Vänt",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Bed sizes for ready-made layouts"
+      },
+      {
+        "type": "textarea",
+        "id": "vant_bed_groups",
+        "label": "Bed size groups",
+        "info": "One per line: product tag | name | short note. Used for the layout tabs, layout product pages and the 'More layouts' row.",
+        "default": "style_Twin | Single | Fits Single (90cm) beds.\nstyle_Double | Double & King | Fits Double (135cm) and King (150cm) beds.\nstyle_King | Super King | Fits Super King (180cm) beds.\nstyle_Accent Wall | Feature walls | Wider and taller walls, behind a bed or anywhere in the room."
+      },
+      {
+        "type": "header",
+        "content": "Fabric names"
+      },
+      {
+        "type": "textarea",
+        "id": "vant_fabric_names",
+        "label": "Fabric display names",
+        "info": "One per line: name in product data | name shown on the site. Lines listed here also set the fabric order.",
+        "default": "Boucle | Bouclé\nVelvet | Velvet\nMicro Suede | Micro Suede\nVintage Leather | Vintage Leather\nLeather | Vintage Leather\nWeave | Weave\nMetallic | Metallic\nZigrino | Zigrino"
+      },
+      {
+        "type": "text",
+        "id": "vant_swatch_collection_handle",
+        "label": "Swatch collection handle",
+        "default": "order-swatches"
+      },
+      {
+        "type": "header",
+        "content": "Basket"
+      },
+      {
+        "type": "text",
+        "id": "vant_swatch_product_type",
+        "label": "Swatch product type",
+        "default": "swatch",
+        "info": "Products of this type are listed as fabric swatches in the basket."
+      },
+      {
+        "type": "number",
+        "id": "vant_swatch_postage",
+        "label": "Swatch postage (pence)",
+        "default": 350,
+        "info": "Shown in the basket when it holds swatches. Must match the shipping rate set in Shopify."
+      },
+      {
+        "type": "text",
+        "id": "vant_delivery_label",
+        "label": "Delivery line",
+        "default": "Free"
+      },
+      {
+        "type": "text",
+        "id": "vant_cart_trust",
+        "label": "Line under the total",
+        "default": "14-day returns · 1-year warranty · Secure checkout"
+      },
+      {
+        "type": "text",
+        "id": "vant_cart_mixed_note",
+        "label": "Note when swatches and products are both in the basket",
+        "default": "Your swatches and panels may arrive separately."
+      }
+    ]
   }
 ]

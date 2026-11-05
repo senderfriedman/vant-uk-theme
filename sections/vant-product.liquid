@@ -1,0 +1,1115 @@
+{% render 'vant-base' %}
+{%- liquid
+  assign s = section.settings
+  assign is_layout = false
+  if s.mode == 'layout'
+    assign is_layout = true
+  endif
+
+  comment
+    Starting variant: ?variant= wins, then the "start on colour" setting, then the first in stock.
+  endcomment
+  assign current = product.selected_variant
+  if current == blank and s.default_colour != blank
+    assign wanted = s.default_colour | downcase
+    for v in product.variants
+      assign vt = v.title | downcase
+      if v.available and vt contains wanted
+        assign current = v
+        break
+      endif
+    endfor
+  endif
+  if current == blank
+    assign current = product.selected_or_first_available_variant
+  endif
+
+  comment
+
+    Fabric (option 1) and colour (option 2) positions
+
+  endcomment
+  assign fabric_index = 0
+  assign colour_index = 1
+  for o in product.options_with_values
+    assign on = o.name | downcase
+    if on == 'color' or on == 'colour'
+      assign colour_index = forloop.index0
+    elsif on == 'fabric' or on == 'material'
+      assign fabric_index = forloop.index0
+    endif
+  endfor
+  if product.options.size < 2
+    assign colour_index = -1
+  endif
+
+  comment
+
+    Fabric order follows Theme settings > Vänt > Fabric display names
+
+  endcomment
+  assign fabric_values = product.options_with_values[fabric_index].values
+  assign order_lines = settings.vant_fabric_names | newline_to_br | split: '<br />'
+  assign fabrics_sorted = ''
+  for line in order_lines
+    assign from = line | split: '|' | first | strip | downcase
+    for fv in fabric_values
+      assign fvd = fv | downcase
+      if fvd == from
+        assign fabrics_sorted = fabrics_sorted | append: fv | append: '§'
+      endif
+    endfor
+  endfor
+  for fv in fabric_values
+    assign key = fv | append: '§'
+    unless fabrics_sorted contains key
+      assign fabrics_sorted = fabrics_sorted | append: key
+    endunless
+  endfor
+  assign fabrics = fabrics_sorted | split: '§'
+
+  assign swatch_handle = settings.vant_swatch_collection_handle | default: 'order-swatches'
+  assign swatch_collection = collections[swatch_handle]
+
+  comment
+
+    Layout facts
+
+  endcomment
+  if is_layout
+    capture facts
+      render 'vant-layout-facts', product: product
+    endcapture
+    assign f = facts | split: '|'
+    capture group
+      render 'vant-bed-group', product: product
+    endcapture
+    assign g = group | split: '|'
+  endif
+
+  assign display_title = s.title | default: product.title
+  if is_layout and f[0] != blank
+    assign display_title = f[0] | append: ' × ' | append: f[1] | append: 'cm ' | append: s.layout_title_suffix | strip
+  endif
+
+  assign unit = ''
+  if s.show_quantity
+    assign unit = s.unit_label
+  endif
+-%}
+
+<div
+  class="section section--page-width vant-section vant-pdp"
+  style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+  data-vant-product
+  data-section-id="{{ section.id }}"
+>
+  {%- if s.show_breadcrumb -%}
+    <nav class="vant-crumbs vant-pdp__crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if s.crumb_1_label != blank -%}
+          <li><a href="{{ s.crumb_1_link | default: '#' }}">{{ s.crumb_1_label }}</a></li>
+        {%- endif -%}
+        {%- if s.crumb_2_label != blank -%}
+          <li><a href="{{ s.crumb_2_link | default: '#' }}">{{ s.crumb_2_label }}</a></li>
+        {%- endif -%}
+        {%- if is_layout and g[1] != blank -%}
+          <li aria-current="page">{{ g[1] }}</li>
+        {%- else -%}
+          <li aria-current="page">{{ s.crumb_current | default: display_title }}</li>
+        {%- endif -%}
+      </ol>
+    </nav>
+  {%- endif -%}
+
+  <div class="vant-pdp__grid">
+    {%- comment -------------------------------------------------- Gallery -------------------------------------------------- -%}
+    <div class="vant-pdp__gallery">
+      {%- assign main_img = current.featured_image | default: product.featured_image -%}
+      <figure class="vant-pdp__main">
+        <div class="vant-pdp__frame">
+          {%- if main_img != blank -%}
+            {{
+              main_img
+              | image_url: width: 1600
+              | image_tag:
+                widths: '600, 900, 1200, 1600',
+                sizes: '(min-width: 990px) 55vw, 100vw',
+                fetchpriority: 'high',
+                class: 'vant-pdp__main-img',
+                alt: product.title
+            }}
+          {%- else -%}
+            <div class="vant-placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
+          {%- endif -%}
+        </div>
+        <figcaption class="vant-pdp__caption" data-vant-caption></figcaption>
+      </figure>
+      <div class="vant-pdp__thumbs" role="list" data-vant-thumbs>
+        {%- comment -%} Thumb 1: the selected colour. Thumb 2: fabric close-up (from the swatch). Then fixed extra images. {%- endcomment -%}
+        <button type="button" class="vant-pdp__thumb is-active" data-vant-thumb="variant" aria-label="Show the selected colour">
+          {%- if main_img != blank -%}{{ main_img | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+        </button>
+        <button type="button" class="vant-pdp__thumb" data-vant-thumb="closeup" aria-label="Show a fabric close-up" hidden></button>
+        {%- for i in (1..4) -%}
+          {%- assign key = 'extra_image_' | append: i -%}
+          {%- assign cap_key = 'extra_caption_' | append: i -%}
+          {%- assign extra = s[key] -%}
+          {%- if extra != blank -%}
+            <button
+              type="button"
+              class="vant-pdp__thumb"
+              data-vant-thumb="extra"
+              data-src="{{ extra | image_url: width: 1600 }}"
+              data-srcset="{{ extra | image_url: width: 600 }} 600w, {{ extra | image_url: width: 900 }} 900w, {{ extra | image_url: width: 1200 }} 1200w, {{ extra | image_url: width: 1600 }} 1600w"
+              data-caption="{{ s[cap_key] | escape }}"
+              aria-label="{{ s[cap_key] | default: 'Show image' | escape }}"
+            >
+              {{ extra | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -------------------------------------------------- Buy box -------------------------------------------------- -%}
+    <div class="vant-pdp__info">
+      {%- if is_layout and g[1] != blank -%}
+        <a class="vant-pdp__back" href="{{ s.layouts_collection.url | default: '/collections/pre-configured-layouts' }}?bed={{ g[1] | handleize }}">
+          <span aria-hidden="true">←</span> All {{ g[1] }} layouts
+        </a>
+      {%- elsif s.eyebrow != blank -%}
+        <p class="vant-eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+
+      <h1 class="vant-pdp__title">{{ display_title }}</h1>
+
+      {%- if is_layout -%}
+        {%- if f[3] != blank or f[0] != blank -%}
+          <ul class="vant-chips">
+            {%- if f[3] != blank -%}<li>{{ f[3] }}</li>{%- endif -%}
+          </ul>
+        {%- endif -%}
+        <p class="vant-pdp__sub">
+          {{ f[2] }}
+          {%- if g[2] != blank -%}
+            {%- assign first_letter = g[2] | slice: 0 | downcase -%}
+            {%- assign rest_note = g[2] | slice: 1, 300 | remove_last: '.' %} · {{ first_letter }}{{ rest_note }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+
+      <p class="vant-pdp__price">
+        <span data-vant-price>{{ current.price | money_without_trailing_zeros }}</span>
+        {%- if unit != blank %} <span class="vant-pdp__unit">per {{ unit }}</span>{% endif -%}
+      </p>
+
+      {%- if s.intro != blank -%}<p class="vant-pdp__intro">{{ s.intro }}</p>{%- endif -%}
+
+      {%- comment -%} Size switcher: links to the sibling products (e.g. 76cm and 91cm packs) {%- endcomment -%}
+      {%- if s.size_products.count > 1 -%}
+        {%- assign notes = s.size_notes | newline_to_br | split: '<br />' -%}
+        <div class="vant-pdp__group">
+          <p class="vant-pdp__label">{{ s.size_heading }}</p>
+          <div class="vant-pdp__sizes">
+            {%- for sp in s.size_products -%}
+              {%- liquid
+                assign size_label = sp.title | split: ' - ' | last | downcase | split: 'x' | first | strip
+                assign note = notes[forloop.index0] | strip
+              -%}
+              <a
+                class="vant-pdp__size{% if sp.id == product.id %} is-active{% endif %}"
+                href="{{ sp.url }}"
+                data-vant-size-link
+                {% if sp.id == product.id %}aria-current="true"{% endif %}
+              >
+                <span class="vant-pdp__size-name">{{ size_label }} {{ s.size_suffix }}</span>
+                {%- if note != blank -%}<span class="vant-pdp__size-note">{{ note }}</span>{%- endif -%}
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Fabric tabs {%- endcomment -%}
+      {%- if fabrics.size > 1 -%}
+        <div class="vant-pdp__group">
+          <p class="vant-pdp__label">Fabric</p>
+          <div class="vant-pdp__fabrics" role="group" aria-label="Fabric">
+            {%- for fv in fabrics -%}
+              {%- capture fname -%}{% render 'vant-fabric-name', name: fv %}{%- endcapture -%}
+              <button
+                type="button"
+                class="vant-pdp__fabric"
+                data-vant-fabric="{{ fv | escape }}"
+                aria-pressed="{% if current.options[fabric_index] == fv %}true{% else %}false{% endif %}"
+              >
+                {{ fname }}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Colour circles, one per variant; JS shows the ones for the chosen fabric {%- endcomment -%}
+      {%- if colour_index >= 0 -%}
+        <div class="vant-pdp__group">
+          <p class="vant-pdp__label">Colour: <span data-vant-colour-label>{{ current.options[colour_index] }}</span></p>
+          <div class="vant-pdp__colours" role="group" aria-label="Colour">
+            {%- for v in product.variants -%}
+              {%- liquid
+                assign vf = v.options[fabric_index]
+                assign vc = v.options[colour_index]
+                capture vfd
+                  render 'vant-fabric-name', name: vf
+                endcapture
+                assign want_a = vf | append: ' ' | append: vc | handleize
+                assign want_b = vfd | append: ' ' | append: vc | handleize
+                assign want_c = vc | handleize
+                assign sw = nil
+                for sp in swatch_collection.products
+                  assign th = sp.title | handleize
+                  if th == want_a or th == want_b
+                    assign sw = sp
+                    break
+                  endif
+                endfor
+                if sw == nil
+                  for sp in swatch_collection.products
+                    assign th = sp.title | handleize
+                    assign tail = '-' | append: want_c
+                    if th contains tail
+                      assign sw = sp
+                      break
+                    endif
+                  endfor
+                endif
+                assign sw_img = sw.featured_image
+                if sw_img == blank
+                  assign sw_img = v.featured_image
+                endif
+              -%}
+              <button
+                type="button"
+                class="vant-pdp__colour{% unless v.available %} is-out{% endunless %}"
+                data-vant-colour="{{ vc | escape }}"
+                data-fabric="{{ vf | escape }}"
+                aria-pressed="{% if v.id == current.id %}true{% else %}false{% endif %}"
+                aria-label="{{ vc | escape }}{% unless v.available %} (sold out){% endunless %}"
+                title="{{ vc | escape }}"
+                {% if vf != current.options[fabric_index] %}hidden{% endif %}
+              >
+                {%- if sw_img != blank -%}
+                  <span class="vant-pdp__dot" style="background-image: url('{{ sw_img | image_url: width: 160, height: 160, crop: 'center' }}');"></span>
+                {%- else -%}
+                  <span class="vant-pdp__dot"></span>
+                {%- endif -%}
+              </button>
+            {%- endfor -%}
+          </div>
+          {%- if s.swatch_link_label != blank -%}
+            <a class="vant-text-link vant-pdp__swatch-link" href="{{ swatch_collection.url | default: '/collections/order-swatches' }}" data-vant-swatch-link>{{ s.swatch_link_label }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if is_layout and f[4] != blank and s.includes_text != blank -%}
+        {%- liquid
+          assign b76 = f[5] | times: 1
+          assign b91 = f[6] | times: 1
+          assign box_text = ''
+          if b76 > 0
+            assign box_text = b76 | append: ' box'
+            if b76 > 1
+              assign box_text = box_text | append: 'es'
+            endif
+            assign box_text = box_text | append: ' of 76cm'
+          endif
+          if b91 > 0
+            if box_text != ''
+              assign box_text = box_text | append: ' and '
+            endif
+            assign box_text = box_text | append: b91 | append: ' box'
+            if b91 > 1
+              assign box_text = box_text | append: 'es'
+            endif
+            assign box_text = box_text | append: ' of 91cm'
+          endif
+          assign inc = s.includes_text | replace: '[boxes]', box_text | replace: '[panels]', f[4]
+        -%}
+        <p class="vant-pdp__includes">{% render 'vant-icon', icon: 'layers' %}<span>{{ inc }}</span></p>
+      {%- endif -%}
+
+      <form method="post" action="{{ routes.cart_add_url }}" class="vant-pdp__form" data-vant-form>
+        <input type="hidden" name="id" value="{{ current.id }}" data-vant-id>
+        {%- if s.show_quantity -%}
+          <div class="vant-pdp__qty-row">
+            <div class="vant-qty">
+              <button type="button" data-vant-qty="-1" aria-label="One less">−</button>
+              <input type="number" name="quantity" value="1" min="1" max="50" inputmode="numeric" aria-label="Quantity" data-vant-qty-input>
+              <button type="button" data-vant-qty="1" aria-label="One more">+</button>
+            </div>
+            <span class="vant-pdp__unit">{{ unit }}</span>
+            {%- if s.help_link_label != blank -%}
+              <button type="button" class="vant-text-link vant-pdp__help" data-vant-help-open>{{ s.help_link_label }}</button>
+            {%- endif -%}
+          </div>
+          <p class="vant-pdp__total">Total: <span data-vant-total>{{ current.price | money_without_trailing_zeros }} for 1 {{ unit }}</span></p>
+        {%- else -%}
+          <input type="hidden" name="quantity" value="1" data-vant-qty-input>
+        {%- endif -%}
+
+        <button type="submit" class="button vant-pdp__add" data-vant-add {% unless current.available %}disabled{% endunless %}>
+          <span data-vant-add-label>{% if current.available %}{{ s.add_label }}{% else %}Sold out{% endif %}</span>
+        </button>
+        <p class="vant-pdp__error" role="alert" data-vant-error hidden></p>
+      </form>
+
+      {%- if s.tick_1 != blank or s.tick_2 != blank -%}
+        <ul class="vant-ticks">
+          {%- if s.tick_1 != blank -%}<li>{{ s.tick_1 }}</li>{%- endif -%}
+          {%- if s.tick_2 != blank -%}<li>{{ s.tick_2 }}</li>{%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="vant-pdp__details">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign body = block.settings.text
+              if is_layout
+                assign width_val = f[0]
+              else
+                assign width_val = product.title | split: ' - ' | last | downcase | split: 'x' | first | remove: 'cm' | strip
+              endif
+              assign body = body | replace: '[width]', width_val
+              if is_layout and f[0] != blank
+                assign size_txt = f[0] | append: ' × ' | append: f[1] | append: 'cm'
+                assign body = body | replace: '[size]', size_txt | replace: '[panels]', f[4]
+              endif
+            -%}
+            <details class="vant-pdp__detail" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.title }}</summary>
+              <div class="vant-rte">{{ body }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Mobile sticky bar: shows once the main button scrolls out of view {%- endcomment -%}
+  <div class="vant-pdp__bar" data-vant-bar aria-hidden="true">
+    <div class="vant-pdp__bar-text">
+      <span data-vant-bar-name></span>
+      <span class="vant-pdp__bar-price" data-vant-bar-price></span>
+    </div>
+    <button type="button" class="button" data-vant-bar-add tabindex="-1">{{ s.add_label }}</button>
+  </div>
+
+  {%- if s.show_quantity and s.help_link_label != blank -%}
+    <dialog class="vant-dialog" data-vant-help>
+      <div class="vant-dialog__inner">
+        <button type="button" class="vant-dialog__close" data-vant-help-close aria-label="Close">×</button>
+        <h2 class="vant-dialog__title">{{ s.help_heading }}</h2>
+        <div class="vant-rte">{{ s.help_text }}</div>
+        {%- if s.help_button_label != blank -%}
+          <a class="button button-secondary" href="{{ s.help_button_link | default: '#' }}">{{ s.help_button_label }} {% render 'vant-arrow' %}</a>
+        {%- endif -%}
+      </div>
+    </dialog>
+  {%- endif -%}
+
+  <script type="application/json" data-vant-product-json>
+    {
+      "fabricIndex": {{ fabric_index }},
+      "colourIndex": {{ colour_index }},
+      "unit": {{ unit | json }},
+      "currency": {{ cart.currency.iso_code | json }},
+      "addLabel": {{ s.add_label | json }},
+      "swatchUrl": {{ swatch_collection.url | default: '/collections/order-swatches' | json }},
+      "fabricNames": {
+        {%- for fv in fabrics -%}
+          {%- capture fname -%}{% render 'vant-fabric-name', name: fv %}{%- endcapture -%}
+          {{ fv | json }}: {{ fname | strip | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      },
+      "variants": [
+        {%- for v in product.variants -%}
+          {%- liquid
+            assign vf = v.options[fabric_index]
+            assign vc = v.options[colour_index]
+            capture vfd
+              render 'vant-fabric-name', name: vf
+            endcapture
+            assign want_a = vf | append: ' ' | append: vc | handleize
+            assign want_b = vfd | append: ' ' | append: vc | handleize
+            assign want_c = vc | handleize
+            assign sw = nil
+            for sp in swatch_collection.products
+              assign th = sp.title | handleize
+              if th == want_a or th == want_b
+                assign sw = sp
+                break
+              endif
+            endfor
+            if sw == nil
+              for sp in swatch_collection.products
+                assign th = sp.title | handleize
+                assign tail = '-' | append: want_c
+                if th contains tail
+                  assign sw = sp
+                  break
+                endif
+              endfor
+            endif
+            assign vi = v.featured_image | default: product.featured_image
+          -%}
+          {
+            "id": {{ v.id }},
+            "available": {{ v.available | json }},
+            "price": {{ v.price }},
+            "fabric": {{ vf | json }},
+            "colour": {{ vc | json }},
+            "key": {{ want_b | json }},
+            {%- if vi != blank -%}
+              "img": {{ vi | image_url: width: 1600 | json }},
+              {%- liquid
+                assign u6 = vi | image_url: width: 600
+                assign u9 = vi | image_url: width: 900
+                assign u12 = vi | image_url: width: 1200
+                assign u16 = vi | image_url: width: 1600
+                assign srcset = u6 | append: ' 600w, ' | append: u9 | append: ' 900w, ' | append: u12 | append: ' 1200w, ' | append: u16 | append: ' 1600w'
+              -%}
+              "srcset": {{ srcset | json }},
+              "thumb": {{ vi | image_url: width: 200 | json }},
+            {%- endif -%}
+            {%- if sw != nil and sw.featured_image != blank -%}
+              "swatchHandle": {{ sw.handle | json }},
+              "closeup": {{ sw.featured_image | image_url: width: 1600, height: 1200, crop: 'center' | json }},
+              "closeupThumb": {{ sw.featured_image | image_url: width: 200, height: 200, crop: 'center' | json }},
+            {%- endif -%}
+            "title": {{ v.title | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</div>
+
+<script type="module" src="{{ 'vant-cart.js' | asset_url }}"></script>
+<script type="module" src="{{ 'vant-product.js' | asset_url }}"></script>
+
+{% stylesheet %}
+  .vant-pdp__crumbs ol {
+    padding-top: 0;
+  }
+
+  .vant-pdp__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+
+  .vant-pdp__gallery {
+    position: sticky;
+    top: calc(var(--header-height, 80px) + 24px);
+  }
+
+  .vant-pdp__main {
+    margin: 0;
+  }
+
+  .vant-pdp__frame {
+    aspect-ratio: 4 / 3;
+    background: #f5f3f1;
+    overflow: hidden;
+  }
+
+  .vant-pdp__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.25s ease;
+  }
+
+  .vant-pdp__frame img.is-cover {
+    object-fit: cover;
+  }
+
+  .vant-pdp__frame img.is-loading {
+    opacity: 0.4;
+  }
+
+  .vant-pdp__caption {
+    font-size: 12px;
+    color: #6b6466;
+    text-align: center;
+    padding-top: 10px;
+    min-height: 1.6em;
+  }
+
+  .vant-pdp__thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .vant-pdp__thumb {
+    width: 72px;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 1px solid #dcd8d5;
+    background: #f5f3f1 center / cover no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .vant-pdp__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .vant-pdp__thumb.is-active {
+    border: 2px solid #2e2a2b;
+  }
+
+  .vant-pdp__back {
+    display: inline-flex;
+    gap: 8px;
+    font-size: 14px;
+    color: inherit;
+    text-underline-offset: 3px;
+    margin-bottom: 14px;
+  }
+
+  .vant-pdp__title {
+    margin: 6px 0 12px;
+    font-size: clamp(30px, 3.2vw, 40px);
+    line-height: 1.1;
+  }
+
+  .vant-pdp__sub {
+    font-size: 14px;
+    color: #6b6466;
+    margin: 0 0 18px;
+  }
+
+  .vant-pdp__price {
+    font-size: 28px;
+    color: #2e2a2b;
+    margin: 0 0 10px;
+  }
+
+  .vant-pdp__unit {
+    font-size: 15px;
+    color: #6b6466;
+  }
+
+  .vant-pdp__intro {
+    font-size: 15px;
+    margin: 0 0 8px;
+  }
+
+  .vant-pdp__group {
+    margin-top: 22px;
+  }
+
+  .vant-pdp__label {
+    font-size: 14px;
+    color: #2e2a2b;
+    margin: 0 0 10px;
+  }
+
+  .vant-pdp__sizes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .vant-pdp__size {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid #dcd8d5;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .vant-pdp__size:hover {
+    border-color: #2e2a2b;
+  }
+
+  .vant-pdp__size.is-active {
+    border: 2px solid #2e2a2b;
+    padding: 13px 15px;
+  }
+
+  .vant-pdp__size-name {
+    font-size: 16px;
+    color: #2e2a2b;
+  }
+
+  .vant-pdp__size-note {
+    font-size: 12px;
+    color: #6b6466;
+  }
+
+  .vant-pdp__fabrics {
+    display: flex;
+    gap: 2px 18px;
+    border-bottom: 1px solid #dcd8d5;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .vant-pdp__fabrics::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vant-pdp__fabric {
+    flex: none;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 10px 0 12px;
+    margin-bottom: -1px;
+    font: inherit;
+    font-size: 14px;
+    color: #6b6466;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .vant-pdp__fabric:hover {
+    color: #2e2a2b;
+  }
+
+  .vant-pdp__fabric[aria-pressed='true'] {
+    color: #2e2a2b;
+    border-bottom-color: #ef2e32;
+  }
+
+  .vant-pdp__colours {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .vant-pdp__colour {
+    width: 44px;
+    height: 44px;
+    padding: 3px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: none;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .vant-pdp__colour[hidden] {
+    display: none;
+  }
+
+  .vant-pdp__colour[aria-pressed='true'] {
+    border: 2px solid #2e2a2b;
+    padding: 2px;
+  }
+
+  .vant-pdp__colour:hover .vant-pdp__dot {
+    transform: scale(1.06);
+  }
+
+  .vant-pdp__dot {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #dcd8d5 center / cover no-repeat;
+    box-shadow: inset 0 0 0 1px rgb(46 42 43 / 0.12);
+    transition: transform 0.2s ease;
+  }
+
+  .vant-pdp__colour.is-out .vant-pdp__dot {
+    opacity: 0.45;
+  }
+
+  .vant-pdp__colour.is-out::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 50%;
+    border-top: 1px solid #2e2a2b;
+    transform: rotate(-45deg);
+  }
+
+  .vant-pdp__swatch-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+
+  .vant-pdp__includes {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin: 24px 0 0;
+    padding: 14px 16px;
+    background: #f5f3f1;
+    border: 1px solid #dcd8d5;
+    font-size: 14px;
+  }
+
+  .vant-pdp__includes svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+
+  .vant-pdp__form {
+    margin-top: 22px;
+  }
+
+  .vant-pdp__qty-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .vant-qty {
+    display: inline-grid;
+    grid-template-columns: 44px 48px 44px;
+    border: 1px solid #dcd8d5;
+    height: 46px;
+  }
+
+  .vant-qty button {
+    background: none;
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+    color: #2e2a2b;
+  }
+
+  .vant-qty input {
+    border: 0;
+    text-align: center;
+    font: inherit;
+    font-size: 15px;
+    width: 100%;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    background: none;
+  }
+
+  .vant-qty input::-webkit-outer-spin-button,
+  .vant-qty input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .vant-pdp__help {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .vant-pdp__total {
+    font-size: 20px;
+    color: #2e2a2b;
+    margin: 22px 0 14px;
+  }
+
+  .vant-pdp__add {
+    width: 100%;
+    justify-content: center;
+    min-height: 54px;
+    font-size: 16px;
+    margin-top: 6px;
+  }
+
+  .vant-pdp__add[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .vant-pdp__add.is-busy {
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  .vant-pdp__error {
+    color: #c81e23;
+    font-size: 14px;
+    margin: 10px 0 0;
+  }
+
+  .vant-ticks {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid #dcd8d5;
+    display: grid;
+    gap: 8px;
+  }
+
+  .vant-ticks li {
+    font-size: 13px;
+    padding-left: 26px;
+    position: relative;
+  }
+
+  .vant-ticks li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    width: 12px;
+    height: 7px;
+    border-left: 1.5px solid #2e2a2b;
+    border-bottom: 1.5px solid #2e2a2b;
+    transform: rotate(-45deg);
+  }
+
+  .vant-pdp__details {
+    margin-top: 22px;
+    border-top: 1px solid #dcd8d5;
+  }
+
+  .vant-pdp__detail {
+    border-bottom: 1px solid #dcd8d5;
+  }
+
+  .vant-pdp__detail summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 28px 16px 0;
+    font-size: 15px;
+    color: #2e2a2b;
+    position: relative;
+  }
+
+  .vant-pdp__detail summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .vant-pdp__detail summary::after {
+    content: '+';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  .vant-pdp__detail[open] summary::after {
+    content: '−';
+  }
+
+  .vant-pdp__detail .vant-rte {
+    padding: 0 0 18px;
+    font-size: 14px;
+  }
+
+  .vant-pdp__bar {
+    display: none;
+  }
+
+  .vant-dialog {
+    border: 0;
+    padding: 0;
+    max-width: min(520px, calc(100vw - 32px));
+    width: 100%;
+  }
+
+  .vant-dialog::backdrop {
+    background: rgb(46 42 43 / 0.55);
+  }
+
+  .vant-dialog__inner {
+    padding: 36px 32px 32px;
+    position: relative;
+  }
+
+  .vant-dialog__title {
+    font-size: 26px;
+    margin: 0 0 14px;
+  }
+
+  .vant-dialog__inner .button {
+    margin-top: 18px;
+  }
+
+  .vant-dialog__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: none;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    color: #2e2a2b;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vant-pdp__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .vant-pdp__gallery {
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-pdp__thumbs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .vant-pdp__thumb {
+      flex: none;
+      width: 60px;
+    }
+
+    .vant-pdp__bar {
+      display: flex;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: #fff;
+      box-shadow: 0 -1px 0 #dcd8d5, 0 -8px 24px rgb(46 42 43 / 0.08);
+      transform: translateY(110%);
+      transition: transform 0.25s ease;
+    }
+
+    .vant-pdp__bar.is-visible {
+      transform: none;
+    }
+
+    .vant-pdp__bar-text {
+      display: grid;
+      font-size: 13px;
+      line-height: 1.35;
+      min-width: 0;
+    }
+
+    .vant-pdp__bar-text span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .vant-pdp__bar-price {
+      color: #2e2a2b;
+      font-size: 15px;
+    }
+
+    .vant-pdp__bar .button {
+      flex: none;
+      --button-padding-block: 12px;
+      --button-padding-inline: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt product",
+  "tag": "section",
+  "class": "vant-product-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Page type",
+      "options": [
+        { "value": "pack", "label": "Pack of panels" },
+        { "value": "layout", "label": "Ready-made layout" }
+      ],
+      "default": "pack",
+      "info": "Ready-made layout: the title, height tag, bed size and box count come from the product's title, handle and tags."
+    },
+    { "type": "text", "id": "default_colour", "label": "Start on this colour", "default": "Velvet / Sand Storm", "info": "Used when the link doesn't pick a colour. Matches the variant name." },
+    { "type": "header", "content": "Breadcrumb" },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "crumb_1_label", "label": "Crumb 1", "default": "Headboard walls" },
+    { "type": "url", "id": "crumb_1_link", "label": "Crumb 1 link" },
+    { "type": "text", "id": "crumb_2_label", "label": "Crumb 2 (optional)" },
+    { "type": "url", "id": "crumb_2_link", "label": "Crumb 2 link" },
+    { "type": "text", "id": "crumb_current", "label": "Current page name", "info": "Pack pages only. Layout pages show the bed size." },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Upholstered wall panels" },
+    { "type": "text", "id": "title", "label": "Title", "info": "Pack pages: overrides the product title. Layout pages build the title from the size." },
+    { "type": "text", "id": "layout_title_suffix", "label": "Layout title ending", "default": "headboard wall", "info": "Layout pages: '152 × 120cm' + this." },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "4 panels plus the brackets and all fixings. Arrange them your way." },
+    { "type": "header", "content": "Panel size" },
+    { "type": "product_list", "id": "size_products", "label": "Size products", "limit": 4, "info": "Pick the 76cm and 91cm packs to show a size switch. Hidden with fewer than 2." },
+    { "type": "text", "id": "size_heading", "label": "Size label", "default": "Panel size" },
+    { "type": "text", "id": "size_suffix", "label": "After the size", "default": "wide" },
+    { "type": "textarea", "id": "size_notes", "label": "Size notes", "default": "Popular for Double & King beds\nPopular for Single & Super King beds", "info": "One line per size product, in the same order." },
+    { "type": "header", "content": "Buying" },
+    { "type": "text", "id": "swatch_link_label", "label": "Swatch link", "default": "Not sure? Order a swatch" },
+    { "type": "text", "id": "includes_text", "label": "Layout: what's included", "default": "Includes [boxes] panels · [panels] panels · brackets and all fixings", "info": "[boxes] and [panels] are filled in from the layout size." },
+    { "type": "checkbox", "id": "show_quantity", "label": "Show quantity and total", "default": true },
+    { "type": "text", "id": "unit_label", "label": "Unit", "default": "box" },
+    { "type": "text", "id": "add_label", "label": "Button", "default": "Add to basket" },
+    { "type": "text", "id": "tick_1", "label": "Tick 1", "default": "Free UK delivery · dispatched next working day, delivered in 3–5 working days" },
+    { "type": "text", "id": "tick_2", "label": "Tick 2", "default": "14-day returns · 1-year warranty" },
+    { "type": "header", "content": "\"How many do I need?\" pop-up" },
+    { "type": "text", "id": "help_link_label", "label": "Link", "default": "How many do I need?" },
+    { "type": "text", "id": "help_heading", "label": "Heading", "default": "How many boxes do I need?" },
+    { "type": "richtext", "id": "help_text", "label": "Text", "default": "<p>Each box has 4 panels, and you can arrange them any way you like. As a guide, many customers use 2 boxes for a Double or King headboard, and 3–4 boxes for a taller or wider wall.</p><p>Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.</p>" },
+    { "type": "text", "id": "help_button_label", "label": "Button", "default": "Get free layout help" },
+    { "type": "url", "id": "help_button_link", "label": "Button link" },
+    { "type": "header", "content": "Extra gallery images" },
+    { "type": "paragraph", "content": "Shown after the colour photo and fabric close-up, for every colour." },
+    { "type": "image_picker", "id": "extra_image_1", "label": "Image 1" },
+    { "type": "text", "id": "extra_caption_1", "label": "Caption 1" },
+    { "type": "image_picker", "id": "extra_image_2", "label": "Image 2" },
+    { "type": "text", "id": "extra_caption_2", "label": "Caption 2" },
+    { "type": "image_picker", "id": "extra_image_3", "label": "Image 3" },
+    { "type": "text", "id": "extra_caption_3", "label": "Caption 3" },
+    { "type": "image_picker", "id": "extra_image_4", "label": "Image 4" },
+    { "type": "text", "id": "extra_caption_4", "label": "Caption 4" },
+    { "type": "header", "content": "Other" },
+    { "type": "collection", "id": "layouts_collection", "label": "Layouts collection", "info": "Layout pages: for the 'All … layouts' link." },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Detail (drop-down)",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Dimensions" },
+        { "type": "richtext", "id": "text", "label": "Text", "info": "[width] is the panel or wall width in cm. Layout pages also fill in [size] and [panels]." }
+      ]
+    }
+  ]
+}
+{% endschema %}

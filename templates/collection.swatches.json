@@ -1,0 +1,180 @@
+{
+  "sections": {
+    "picker": {
+      "type": "vant-swatch-picker",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_label": "Fabrics & swatches",
+        "heading": "Order fabric swatches",
+        "intro": "Feel the real fabric at home. Choose as many colours as you like, for one flat £3.50 postage. Delivered in 3–5 working days. Tap a colour to add it.",
+        "step_1": "Pick your colours",
+        "step_2": "We post them to you",
+        "step_3": "Choose your favourite and order your headboard wall",
+        "popular_label": "Most popular",
+        "tray_note": "Free swatches · one flat £3.50 postage",
+        "tray_button": "Add to basket",
+        "after_heading": "When your swatches arrive",
+        "after_1": "<p>Compare them in your room, in daylight and lamplight, next to your bedding and wall colour.</p>",
+        "after_2": "<p>Found your colour? Shop your headboard wall.</p>",
+        "after_button_1": "Shop layouts",
+        "after_link_1": "shopify://collections/pre-configured-layouts",
+        "after_button_2": "Shop packs of 4",
+        "after_link_2": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
+        "padding_top": 8,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "f1": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Boucle",
+            "heading": "",
+            "nav_label": "",
+            "text": "Soft, textured, on-trend.",
+            "tags": "Textured, Soft-touch",
+            "popular": "Ivory"
+          }
+        },
+        "f2": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Velvet",
+            "heading": "",
+            "nav_label": "",
+            "text": "Rich and hotel-like.",
+            "tags": "Soft-touch, Rich colour",
+            "popular": "Sand Storm, Ivory"
+          }
+        },
+        "f3": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Micro Suede",
+            "heading": "",
+            "nav_label": "",
+            "text": "Soft and easy to live with.",
+            "tags": "Hard-wearing, Easy care",
+            "popular": "Neutral Sand"
+          }
+        },
+        "f4": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Vintage Leather",
+            "heading": "",
+            "nav_label": "",
+            "text": "Wipe-clean and classic.",
+            "tags": "Wipe-clean, Easy care",
+            "popular": "Dusty Taupe"
+          }
+        },
+        "f5": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Weave",
+            "heading": "",
+            "nav_label": "",
+            "text": "A natural, linen-like texture.",
+            "tags": "Natural texture, Hard-wearing",
+            "popular": ""
+          }
+        },
+        "f6": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Metallic",
+            "heading": "",
+            "nav_label": "",
+            "text": "A subtle shimmer.",
+            "tags": "Subtle shimmer, Wipe-clean",
+            "popular": ""
+          }
+        },
+        "f7": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Zigrino",
+            "heading": "",
+            "nav_label": "",
+            "text": "Textured and modern.",
+            "tags": "Textured, Modern",
+            "popular": ""
+          }
+        },
+        "f8": {
+          "type": "fabric",
+          "settings": {
+            "fabric": "Wood",
+            "heading": "Wood finishes for our furniture",
+            "nav_label": "Wood",
+            "text": "Matching our Vänt Nightstand.",
+            "tags": "",
+            "popular": ""
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8"
+      ]
+    },
+    "faq": {
+      "type": "vant-faq",
+      "settings": {
+        "heading": "Common questions",
+        "contact_text": "Still have a question? Our UK team is here to help.",
+        "phone": "020 3355 9166",
+        "email": "",
+        "hours": "",
+        "padding_top": 72,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How much do swatches cost?",
+            "answer": "<p>The swatches are free. You pay one flat £3.50 postage per order, however many colours you choose.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How long do they take?",
+            "answer": "<p>We post them the next working day, and they usually arrive in 3–5 working days.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Are they the same fabric as the panels?",
+            "answer": "<p>Yes. Each swatch is the same fabric we use on our panels and furniture, so you see the real colour and texture.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Can trade customers order more?",
+            "answer": "<p>Yes. Get in touch with our trade team and we’ll help with samples for your project.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ]
+    }
+  },
+  "order": [
+    "picker",
+    "faq"
+  ]
+}

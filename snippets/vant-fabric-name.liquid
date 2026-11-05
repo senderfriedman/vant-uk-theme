@@ -1,0 +1,18 @@
+{%- doc -%}
+  Prints the display name for a fabric from Theme settings > Vänt > Fabric display names (e.g. Boucle -> Bouclé).
+  @param {string} name - Fabric name as stored in product data
+{%- enddoc -%}
+{%- liquid
+  assign out = name
+  assign wanted = name | strip | downcase
+  assign lines = settings.vant_fabric_names | newline_to_br | split: '<br />'
+  for line in lines
+    assign parts = line | split: '|'
+    assign from = parts[0] | strip | downcase
+    if from == wanted and parts[1] != blank
+      assign out = parts[1] | strip
+      break
+    endif
+  endfor
+  echo out
+-%}

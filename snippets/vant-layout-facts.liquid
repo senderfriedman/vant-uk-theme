@@ -1,0 +1,67 @@
+{%- doc -%}
+  Works out a layout's size and panel make-up from the product title ("Victoria Layout - 152cm X 117cm") and handle ("victoria-layout-60-x-46", inches).
+  Prints: width_cm|height_cm|layout_name|height_label|panels|boxes_76|boxes_91|rows
+  Any part it can't work out is left empty.
+  @param {object} product - Layout product
+{%- enddoc -%}
+{%- liquid
+  assign t = product.title
+  assign name = t | split: ' - ' | first | strip | replace: ' Layout', ' layout'
+  assign dims = t | split: ' - ' | last | downcase | replace: 'cm', '' | split: 'x'
+  assign w_cm = dims[0] | strip
+  assign h_cm = dims[1] | strip
+  if dims.size < 2
+    assign w_cm = ''
+    assign h_cm = ''
+  endif
+
+  assign h_label = ''
+  if h_cm != ''
+    assign h_num = h_cm | times: 1
+    if h_num < 90
+      assign h_label = 'Low'
+    elsif h_num < 150
+      assign h_label = 'Standard height'
+    elsif h_num < 205
+      assign h_label = 'Tall'
+    else
+      assign h_label = 'Full height'
+    endif
+  endif
+
+  comment
+    Handle ends "-<width inches>-x-<height inches>". Panels are 30in (76cm) or 39in (91cm) wide and 11.5in high.
+  endcomment
+  assign hp = product.handle | split: '-'
+  assign n = hp.size
+  assign i_x = n | minus: 2
+  assign i_w = n | minus: 3
+  assign i_h = n | minus: 1
+  assign panels = ''
+  assign b76 = ''
+  assign b91 = ''
+  assign rows = ''
+  if n > 3 and hp[i_x] == 'x'
+    assign w_in = hp[i_w] | times: 1
+    assign h_in = hp[i_h] | times: 1
+    assign rows_n = h_in | times: 2 | divided_by: 23
+    for b in (0..6)
+      assign rest = b | times: 39
+      assign rest = w_in | minus: rest
+      if rest >= 0
+        assign m = rest | modulo: 30
+        if m == 0
+          assign a = rest | divided_by: 30
+          assign p76 = a | times: rows_n
+          assign p91 = b | times: rows_n
+          assign b76 = p76 | divided_by: 4
+          assign b91 = p91 | divided_by: 4
+          assign panels = p76 | plus: p91
+          assign rows = rows_n
+          break
+        endif
+      endif
+    endfor
+  endif
+  echo w_cm | append: '|' | append: h_cm | append: '|' | append: name | append: '|' | append: h_label | append: '|' | append: panels | append: '|' | append: b76 | append: '|' | append: b91 | append: '|' | append: rows
+-%}

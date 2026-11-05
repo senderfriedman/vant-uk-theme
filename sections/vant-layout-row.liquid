@@ -1,0 +1,102 @@
+{% render 'vant-base' %}
+{%- liquid
+  assign s = section.settings
+  assign source = s.collection
+  if source == blank
+    assign source = collections['pre-configured-layouts']
+  endif
+
+  capture group
+    if product
+      render 'vant-bed-group', product: product
+    endif
+  endcapture
+  assign g = group | split: '|'
+  assign tag = g[0]
+  assign group_name = g[1] | default: s.fallback_name
+
+  assign heading = s.heading | replace: '[group]', group_name
+  assign link_label = s.link_label | replace: '[group]', group_name
+  assign shown = 0
+  assign sorted = source.products | sort: 'price'
+-%}
+{%- if source != blank -%}
+  <div
+    class="section section--page-width vant-section"
+    style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
+  >
+    <div>
+      {%- if heading != blank -%}
+        <div class="vant-section-head"><h2 class="vant-hl">{{ heading }}</h2></div>
+      {%- endif -%}
+      <div class="vant-lr vant-scroll-row">
+        {%- for p in sorted -%}
+          {%- if product and p.id == product.id -%}{%- continue -%}{%- endif -%}
+          {%- if tag != blank -%}
+            {%- unless p.tags contains tag -%}{%- continue -%}{%- endunless -%}
+          {%- endif -%}
+          {%- if shown >= s.limit -%}{%- break -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          {% render 'vant-layout-card',
+            product: p,
+            wider_label: s.wider_label,
+            sizes: '(min-width: 1200px) 260px, (min-width: 750px) 30vw, 70vw'
+          %}
+        {%- endfor -%}
+      </div>
+      {%- if link_label != blank -%}
+        <p class="vant-lr__all">
+          <a class="vant-text-link" href="{{ source.url }}{% if g[1] != blank %}?bed={{ g[1] | handleize }}{% endif %}">{{ link_label }}</a>
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-lr {
+    grid-auto-columns: calc((100% - 64px) / 5);
+    gap: 16px;
+  }
+
+  .vant-lr .vant-lc__title {
+    font-size: 17px;
+  }
+
+  .vant-lr__all {
+    margin: 28px 0 0;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .vant-lr {
+      grid-auto-columns: calc((100% - 32px) / 3);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-lr {
+      grid-auto-columns: 68%;
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt more layouts",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "On a layout page, shows other layouts for the same bed size (from the product's tag)." },
+    { "type": "collection", "id": "collection", "label": "Layouts collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More [group] layouts", "info": "[group] becomes the bed size, e.g. Double & King." },
+    { "type": "text", "id": "link_label", "label": "Link", "default": "See all [group] layouts" },
+    { "type": "text", "id": "fallback_name", "label": "Name when the bed size isn't known", "default": "ready-made" },
+    { "type": "text", "id": "wider_label", "label": "Wider-than-bed tag", "default": "Wider than bed" },
+    { "type": "range", "id": "limit", "label": "Most layouts shown", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "Vänt more layouts" }]
+}
+{% endschema %}

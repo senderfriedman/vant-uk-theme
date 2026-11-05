@@ -1,0 +1,56 @@
+{%- doc -%}
+  Ready-made layout card: photo with a width line, size title, height and width tags, layout name and price.
+  @param {object} product - Layout product
+  @param {boolean} [popular] - Show the "Most popular" badge
+  @param {string} [badge] - Badge text
+  @param {string} [wider_label] - Tag for layouts wider than the bed (empty hides it)
+  @param {string} [sizes] - sizes attribute for the image
+{%- enddoc -%}
+{%- liquid
+  capture facts
+    render 'vant-layout-facts', product: product
+  endcapture
+  assign f = facts | split: '|'
+  capture group
+    render 'vant-bed-group', product: product
+  endcapture
+  assign g = group | split: '|'
+  assign wider = false
+  if wider_label != blank and f[0] != blank and g[0] != blank
+    assign gt = g[0] | downcase
+    unless gt contains 'accent'
+      assign w_num = f[0] | times: 1
+      if w_num > 200
+        assign wider = true
+      endif
+    endunless
+  endif
+  assign img = product.featured_image
+-%}
+<a class="vant-lc" href="{{ product.url }}">
+  <span class="vant-lc__media">
+    {%- if f[0] != blank -%}
+      <span class="vant-lc__line" aria-hidden="true"><span>{{ f[0] }}cm</span></span>
+    {%- endif -%}
+    {%- if popular -%}<span class="vant-badge">{{ badge | default: 'Most popular' }}</span>{%- endif -%}
+    {%- if img != blank -%}
+      {{ img | image_url: width: 900 | image_tag: widths: '400, 600, 900', sizes: sizes, loading: 'lazy', alt: product.title }}
+    {%- endif -%}
+  </span>
+  <span class="vant-lc__body">
+    <span class="vant-lc__title">
+      {%- if f[0] != blank -%}{{ f[0] }} × {{ f[1] }}cm{%- else -%}{{ product.title }}{%- endif -%}
+    </span>
+    {%- if f[3] != blank or wider -%}
+      <span class="vant-chips vant-lc__chips">
+        {%- if f[3] != blank -%}<span>{{ f[3] }}</span>{%- endif -%}
+        {%- if wider -%}<span>{{ wider_label }}</span>{%- endif -%}
+      </span>
+    {%- endif -%}
+    {%- if f[2] != blank -%}<span class="vant-lc__name">{{ f[2] }}</span>{%- endif -%}
+    <span class="vant-lc__foot">
+      <span class="vant-lc__price">{% if product.price_varies %}from {% endif %}{{ product.price_min | money_without_trailing_zeros }}</span>
+      <span class="vant-lc__go">{% render 'vant-arrow' %}</span>
+    </span>
+  </span>
+</a>

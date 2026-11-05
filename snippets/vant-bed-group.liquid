@@ -1,0 +1,17 @@
+{%- doc -%}
+  Prints "tag|name|note" for the first bed-size group (Theme settings > Vänt) whose tag the product has. Prints nothing if none match.
+  @param {object} product - Product
+{%- enddoc -%}
+{%- liquid
+  assign lines = settings.vant_bed_groups | newline_to_br | split: '<br />'
+  for line in lines
+    assign parts = line | split: '|'
+    assign tag = parts[0] | strip
+    if tag != blank and product.tags contains tag
+      assign label = parts[1] | strip
+      assign note = parts[2] | strip
+      echo tag | append: '|' | append: label | append: '|' | append: note
+      break
+    endif
+  endfor
+-%}

@@ -1,0 +1,245 @@
+{
+  "sections": {
+    "main": {
+      "type": "vant-product",
+      "settings": {
+        "mode": "layout",
+        "default_colour": "Velvet / Sand Storm",
+        "show_breadcrumb": true,
+        "crumb_1_label": "Headboard walls",
+        "crumb_1_link": "shopify://collections/panels",
+        "crumb_2_label": "Ready-made layouts",
+        "crumb_current": "",
+        "eyebrow": "",
+        "title": "",
+        "intro": "",
+        "size_products": [],
+        "size_heading": "Panel size",
+        "size_suffix": "wide",
+        "size_notes": "Popular for Double & King beds\nPopular for Single & Super King beds",
+        "swatch_link_label": "Not sure? Order a swatch",
+        "show_quantity": false,
+        "unit_label": "box",
+        "add_label": "Add to basket",
+        "tick_1": "Free UK delivery · dispatched next working day, delivered in 3–5 working days",
+        "tick_2": "14-day returns · 1-year warranty",
+        "help_link_label": "",
+        "help_heading": "How many boxes do I need?",
+        "help_text": "<p>Each box has 4 panels, and you can arrange them any way you like. As a guide, many customers use 2 boxes for a Double or King headboard, and 3–4 boxes for a taller or wider wall.</p><p>Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.</p>",
+        "help_button_label": "Get free layout help",
+        "help_button_link": "/pages/contact-us",
+        "padding_top": 8,
+        "padding_bottom": 64,
+        "crumb_2_link": "shopify://collections/pre-configured-layouts",
+        "includes_text": "Includes [boxes] panels · [panels] panels · brackets and all fixings",
+        "layouts_collection": "pre-configured-layouts"
+      },
+      "blocks": {
+        "d1": {
+          "type": "detail",
+          "settings": {
+            "title": "Dimensions",
+            "text": "<p>Covers [size] (wide × high), made of [panels] panels. Each panel is 30cm high × 4cm deep (6.35cm once mounted).</p>"
+          }
+        },
+        "d2": {
+          "type": "detail",
+          "settings": {
+            "title": "In the box",
+            "text": "<p>76cm box: 4 panels, 4 aluminium brackets, 8 screws. 91cm box: 4 panels, 6 aluminium brackets, 12 screws.</p><p>You’ll need a screwdriver or drill, a spirit level and a tape measure. No wall plugs needed on plasterboard.</p><p>Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.</p>"
+          }
+        },
+        "d3": {
+          "type": "detail",
+          "settings": {
+            "title": "Materials",
+            "text": "<p>Plywood base, foam padding, a soft batting layer and your choice of fabric: Velvet (100% microfibre) · Micro Suede (100% microfibre) · Weave (poly-cotton) · Vintage Leather (100% vinyl) · Metallic (100% polyurethane) · Bouclé · Zigrino.</p>"
+          }
+        },
+        "d4": {
+          "type": "detail",
+          "settings": {
+            "title": "Fire safety",
+            "text": "<p>Fire safety information available on request.</p>"
+          }
+        },
+        "d5": {
+          "type": "detail",
+          "settings": {
+            "title": "Care",
+            "text": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
+          }
+        },
+        "d6": {
+          "type": "detail",
+          "settings": {
+            "title": "Delivery",
+            "text": "<p>Free UK delivery. Dispatched the next working day and delivered in 3–5 working days.</p>"
+          }
+        },
+        "d7": {
+          "type": "detail",
+          "settings": {
+            "title": "Returns & warranty",
+            "text": "<p>14-day returns on unused items in their original packaging. 1-year warranty.</p>"
+          }
+        },
+        "d8": {
+          "type": "detail",
+          "settings": {
+            "title": "Colour accuracy",
+            "text": "<p>Colours can look slightly different on screen. A swatch shows the real shade.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "d7",
+        "d8"
+      ]
+    },
+    "more": {
+      "type": "vant-layout-row",
+      "settings": {
+        "collection": "pre-configured-layouts",
+        "heading": "More [group] layouts",
+        "link_label": "See all [group] layouts",
+        "fallback_name": "ready-made",
+        "wider_label": "Wider than bed",
+        "limit": 8,
+        "padding_top": 24,
+        "padding_bottom": 32
+      }
+    },
+    "fitting": {
+      "type": "vant-steps-media",
+      "settings": {
+        "layout": "stacked",
+        "image": "shopify://shop_images/vant-home-hero-boucle-ivory.webp",
+        "eyebrow": "",
+        "heading": "How it goes up",
+        "youtube_id": "g2ugde7Zth8",
+        "film_label": "",
+        "play_label": "Watch the video",
+        "link_label": "See fitting instructions",
+        "link": "/blogs/faq",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "p1": {
+          "type": "step",
+          "settings": {
+            "title": "Fix the brackets",
+            "text": "<p>Screw the aluminium brackets to your wall. No wall plugs needed on plasterboard; pre-drill 5mm holes on brick or concrete.</p>"
+          }
+        },
+        "p2": {
+          "type": "step",
+          "settings": {
+            "title": "Click the panels on",
+            "text": "<p>Each panel hooks onto the brackets. A box of four goes up in about five minutes.</p>"
+          }
+        },
+        "p3": {
+          "type": "step",
+          "settings": {
+            "title": "Change it whenever",
+            "text": "<p>Lift panels off to clean, rearrange, or take them with you when you move.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    },
+    "furniture": {
+      "type": "vant-furniture-match",
+      "settings": {
+        "layout": "cards",
+        "heading": "Match your <em>[colour]</em> panels.",
+        "default_colour": "Sand Storm",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "f1": {
+          "type": "product",
+          "settings": {
+            "product": "vant-upholstered-bed-bench-burnished-brass",
+            "note": "Available in matching fabrics"
+          }
+        },
+        "f2": {
+          "type": "product",
+          "settings": {
+            "product": "vant-night-stand",
+            "note": "Wood and metal finishes to coordinate"
+          }
+        },
+        "f3": {
+          "type": "product",
+          "settings": {
+            "product": "vant-platform-bed-full-size",
+            "note": "Available in matching fabrics"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ]
+    },
+    "build": {
+      "type": "vant-video-feature",
+      "settings": {
+        "product": "vant-panel-pack-of-4-panels-30-x-46",
+        "colour": "Ivory",
+        "image_fit": "contain",
+        "youtube_id": "",
+        "play_label": "",
+        "media_position": "left",
+        "size": "compact",
+        "eyebrow": "Build your own",
+        "heading": "Can’t find your size?",
+        "text": "<p>Build your own with 76cm or 91cm panels. From £160 a box.</p><p>Each box has 4 panels plus the brackets and all fixings. Arrange them your way.</p>",
+        "button_label": "Shop packs of 4",
+        "button_link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
+        "panel_color": "#F5F3F1",
+        "padding_top": 56,
+        "padding_bottom": 24
+      }
+    },
+    "contact": {
+      "type": "vant-faq",
+      "settings": {
+        "heading": "",
+        "contact_text": "Still have a question? Our UK team is here to help.",
+        "phone": "020 3355 9166",
+        "email": "",
+        "hours": "",
+        "padding_top": 48,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "main",
+    "more",
+    "fitting",
+    "furniture",
+    "build",
+    "contact"
+  ]
+}
