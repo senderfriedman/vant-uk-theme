@@ -192,6 +192,17 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+  /* Vänt: start the homepage at the top on refresh (Chrome otherwise restores a mid-page position,
+     which lands in the wrong place on a long, image-heavy page). Links with #anchors still work. */
+  (() => {
+    if (!('scrollRestoration' in history)) return;
+    if (window.location.hash) return;
+    history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  })();
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Vänt hero",
