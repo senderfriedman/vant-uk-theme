@@ -53,8 +53,11 @@
       {%- for block in section.blocks -%}
         {%- liquid
           assign b = block.settings
-          assign first = b.products.first
-          if first == blank
+          assign first = nil
+          for p in b.products limit: 1
+            assign first = p
+          endfor
+          if first == nil
             continue
           endif
           assign min_price = first.price_min
