@@ -138,6 +138,7 @@
     "variant_swatch_border_width": 1,
     "variant_swatch_border_opacity": 20,
     "empty_cart_button_link": "/collections/panels",
+    "vant_fabric_names": "Boucle | Bouclé\nVelvet | Velvet\nMicro Suede | Micro Suede\nVintage Leather | Vintage Faux Leather\nLeather | Vintage Faux Leather\nWeave | Weave\nMetallic | Metallic\nZigrino | Zigrino",
     "vant_email": "info@vantpanels.co.uk",
     "vant_hours": "Mon–Thu 9am–5pm · Fri 9am–2pm"
   },
