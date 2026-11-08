@@ -1,222 +1,130 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
-    "section": {
-      "type": "section",
+    "grid": {
+      "type": "vant-furniture-grid",
+      "settings": {
+        "show_breadcrumb": true,
+        "crumb_label": "Shop all",
+        "heading": "Shop all",
+        "intro": "Everything we sell in the UK: headboard walls, beds and furniture, all in matching fabrics.",
+        "all_label": "All",
+        "open_matching_tab": false,
+        "padding_top": 8,
+        "padding_bottom": 64
+      },
       "blocks": {
-        "text_tqQTNE": {
-          "type": "text",
-          "name": "t:names.title",
+        "c1": {
+          "type": "card",
           "settings": {
-            "text": "<h1>{{ closest.collection.title }}</h1>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "products": [
+              "isabelle-layout-60-x-23",
+              "victoria-layout-60-x-46",
+              "the-charleston-layout-78-x-46",
+              "augustus-layout-138-x-69"
+            ],
+            "title": "Ready-made headboard walls",
+            "note": "Sized for Single, Double, King and Super King beds",
+            "group": "Headboard walls",
+            "link": "shopify://collections/pre-configured-layouts",
+            "image_fit": "contain"
+          }
         },
-        "text_twGGkJ": {
-          "type": "text",
-          "name": "t:names.description",
+        "c2": {
+          "type": "card",
           "settings": {
-            "text": "{{ closest.collection.description }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "products": [
+              "vant-panel-pack-of-4-panels-30-x-46",
+              "vant-panel-pack-of-4-panels-39-x-46"
+            ],
+            "title": "Packs of 4 panels",
+            "note": "76cm or 91cm wide panels · plan your own wall",
+            "group": "Headboard walls",
+            "link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
+            "image_fit": "contain"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "the-miami-layout-78-x-69",
+              "the-austin-layout-117-x-92"
+            ],
+            "title": "Feature walls",
+            "note": "Bigger walls, up to 234cm high",
+            "group": "Headboard walls",
+            "link": "shopify://collections/accent-wall",
+            "image_fit": "contain"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-platform-bed-full-size",
+              "vant-platform-bed-king-size",
+              "vant-platform-bed-super-king-size"
+            ],
+            "title": "Vänt Platform Bed",
+            "note": "Double, King and Super King · 5 fabrics",
+            "group": "Beds & furniture",
+            "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
+            "image_fit": "cover",
+            "link": "shopify://collections/platform-beds"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-night-stand"
+            ],
+            "title": "Vänt Nightstand",
+            "note": "3 wood finishes · gold or chrome",
+            "group": "Beds & furniture",
+            "image_fit": "contain"
+          }
+        },
+        "c6": {
+          "type": "card",
+          "settings": {
+            "products": [
+              "vant-upholstered-bed-bench-burnished-brass",
+              "vant-upholstered-bed-bench"
+            ],
+            "title": "Vänt Upholstered Bed Bench",
+            "note": "Gold or chrome legs · 5 fabrics",
+            "group": "Beds & furniture",
+            "image_fit": "contain"
+          }
         }
       },
       "block_order": [
-        "text_tqQTNE",
-        "text_twGGkJ"
-      ],
-      "name": "t:names.heading",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ]
     },
-    "main": {
-      "type": "main-collection",
-      "blocks": {
-        "filters": {
-          "type": "filters",
-          "static": true,
-          "settings": {
-            "enable_filtering": true,
-            "filter_style": "horizontal",
-            "filter_width": "centered",
-            "text_label_case": "default",
-            "show_swatch_label": false,
-            "show_filter_label": false,
-            "enable_sorting": true,
-            "enable_grid_density": true,
-            "padding-block-start": 8,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "facets_margin_bottom": 8,
-            "facets_margin_right": 20
-          },
-          "blocks": {}
-        },
-        "product-card": {
-          "type": "_product-card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "card-gallery": {
-              "type": "_product-card-gallery",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_4nY4eT": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_EzJzMm": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "card-gallery",
-            "product_title_4nY4eT",
-            "price_EzJzMm"
-          ]
-        }
-      },
+    "band": {
+      "type": "vant-cta-band",
       "settings": {
-        "layout_type": "grid",
-        "product_card_size": "medium",
-        "mobile_product_card_size": "small",
-        "product_grid_width": "centered",
-        "full_width_on_mobile": true,
-        "columns_gap_horizontal": 16,
-        "columns_gap_vertical": 24,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 32
+        "heading": "Not sure which colour?",
+        "text": "Order free fabric swatches and see the real colour and texture at home. One flat £3.50 postage.",
+        "button_label": "Order free swatches",
+        "button_link": "shopify://collections/order-swatches",
+        "button2_label": "",
+        "background_color": "#F5F3F1",
+        "text_color": "#2E2A2B",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     }
   },
   "order": [
-    "section",
-    "main"
+    "grid",
+    "band"
   ]
 }

@@ -1,0 +1,14 @@
+{%- doc -%}
+  Tells search engines not to list Shopify's automatic list pages (all products, vendors, types)
+  and internal collections. Rendered in layout/theme.liquid inside <head>.
+{%- enddoc -%}
+{%- liquid
+  assign hide = false
+  if template.name == 'collection'
+    assign hidden_handles = 'all,vendors,types,for-shopify-performance-tracking,digital-goods-vat-tax,get-inspired' | split: ','
+    if hidden_handles contains collection.handle
+      assign hide = true
+    endif
+  endif
+-%}
+{%- if hide -%}<meta name="robots" content="noindex">{%- endif -%}

@@ -2241,7 +2241,7 @@
         "id": "vant_preview_designed",
         "label": "Pages already designed",
         "info": "One path per line; * matches anything. Links to any other page on the site show the 'not designed yet' message.",
-        "default": "/\n/collections/panels\n/collections/pre-configured-layouts\n/collections/order-swatches\n/products/vant-panel-pack-of-4-panels-*\n/products/*-layout-*\n/cart\n/pages/support\n/pages/order-information\n/pages/contact-us\n/collections/platform-beds\n/products/vant-platform-bed-full-size\n/products/vant-platform-bed-king-size\n/products/vant-platform-bed-super-king-size\n/products/vant-night-stand\n/products/vant-upholstered-bed-bench*\n/pages/terms-conditions\n/pages/policy\n/search*"
+        "default": "/\n/collections/all\n/collections/panels\n/collections/pre-configured-layouts\n/collections/order-swatches\n/products/vant-panel-pack-of-4-panels-*\n/products/*-layout-*\n/cart\n/pages/support\n/pages/order-information\n/pages/contact-us\n/collections/platform-beds\n/products/vant-platform-bed-full-size\n/products/vant-platform-bed-king-size\n/products/vant-platform-bed-super-king-size\n/products/vant-night-stand\n/products/vant-upholstered-bed-bench*\n/pages/terms-conditions\n/pages/policy\n/search*"
       },
       {
         "type": "text",
