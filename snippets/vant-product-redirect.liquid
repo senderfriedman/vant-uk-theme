@@ -1,0 +1,25 @@
+{%- doc -%}
+  Sends shoppers who land on a swatch or old inspiration product page (e.g. from search)
+  to the page where those items make sense: swatches go to the swatch page with that colour picked,
+  inspiration placeholders go to the headboard walls page. Also tells search engines not to list them.
+  Rendered in layout/theme.liquid inside <head>.
+{%- enddoc -%}
+{%- liquid
+  assign target = ''
+  assign ptype = ''
+  if template.name == 'product' and request.design_mode == false
+    assign ptype = product.type | downcase | strip
+    assign swatch_type = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip
+  endif
+  if ptype != blank and ptype == swatch_type
+    assign handle = settings.vant_swatch_collection_handle | default: 'order-swatches'
+    assign target = '/collections/' | append: handle | append: '?colour=' | append: product.handle
+  elsif ptype == 'inspiration'
+    assign target = '/collections/panels'
+  endif
+-%}
+{%- if target != blank -%}
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0;url={{ target }}">
+  <script>window.location.replace({{ target | json }});</script>
+{%- endif -%}

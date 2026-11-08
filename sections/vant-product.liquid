@@ -424,6 +424,14 @@
               {%- render 'vant-arrow' -%}
             </a>
           {%- endif -%}
+          {%- if s.swatch_add_label != blank -%}
+            <p class="vant-pdp__swatch-add-row">
+              <button type="button" class="vant-pdp__swatch-add" data-vant-swatch-add hidden>
+                {{ s.swatch_add_label }}
+              </button>
+              <span class="vant-pdp__swatch-added" data-vant-swatch-added role="status" hidden>{{ s.swatch_added_text }}</span>
+            </p>
+          {%- endif -%}
         </div>
       {%- endif -%}
 
@@ -630,6 +638,7 @@
             {%- endif -%}
             {%- if sw != nil and sw.featured_image != blank -%}
               "swatchHandle": {{ sw.handle | json }},
+              {%- if sw.variants.first.available -%}"swatchVariant": {{ sw.variants.first.id | json }},{%- endif -%}
               "closeup": {{ sw.featured_image | image_url: width: 1600, height: 1200, crop: 'center' | json }},
               "closeupThumb": {{ sw.featured_image | image_url: width: 200, height: 200, crop: 'center' | json }},
             {%- endif -%}
@@ -907,6 +916,42 @@
     top: 50%;
     border-top: 1px solid #2e2a2b;
     transform: rotate(-45deg);
+  }
+
+  .vant-pdp__swatch-add-row {
+    margin: 8px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+  }
+
+  .vant-pdp__swatch-add {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    color: #2e2a2b;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  .vant-pdp__swatch-add[hidden],
+  .vant-pdp__swatch-added[hidden] {
+    display: none;
+  }
+
+  .vant-pdp__swatch-add.is-busy {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .vant-pdp__swatch-added {
+    font-size: 14px;
+    color: #2e7d4f;
   }
 
   .vant-pdp__swatch-link {
@@ -1325,6 +1370,8 @@
     { "type": "textarea", "id": "size_notes", "label": "Size notes", "default": "Popular for Double & King beds\nPopular for Single & Super King beds", "info": "One line per size product, in the same order." },
     { "type": "header", "content": "Buying" },
     { "type": "text", "id": "swatch_link_label", "label": "Swatch link", "default": "Not sure? Order a swatch" },
+    { "type": "text", "id": "swatch_add_label", "label": "Add swatch button", "default": "+ Add a free swatch of this colour", "info": "Adds the matching swatch to the basket without leaving the page. Leave blank to hide." },
+    { "type": "text", "id": "swatch_added_text", "label": "Swatch added message", "default": "Swatch added to your basket" },
     { "type": "text", "id": "includes_text", "label": "Layout: what's included", "default": "Includes [boxes] panels · [panels] panels · brackets and all fixings", "info": "[boxes] and [panels] are filled in from the layout size." },
     { "type": "checkbox", "id": "show_quantity", "label": "Show quantity and total", "default": true },
     { "type": "text", "id": "unit_label", "label": "Unit", "default": "box" },

@@ -53,6 +53,8 @@
       form: $('[data-vant-form]'),
       colourLabel: $('[data-vant-colour-label]'),
       swatchLink: $('[data-vant-swatch-link]'),
+      swatchAdd: $('[data-vant-swatch-add]'),
+      swatchAdded: $('[data-vant-swatch-added]'),
       mainImg: $('.vant-pdp__main-img'),
       caption: $('[data-vant-caption]'),
       thumbVariant: $('[data-vant-thumb="variant"]'),
@@ -170,6 +172,10 @@
       if (els.barAdd) els.barAdd.disabled = !variant.available;
       if (els.error) els.error.hidden = true;
 
+      if (els.swatchAdd) {
+        els.swatchAdd.hidden = !variant.swatchVariant;
+        if (els.swatchAdded) els.swatchAdded.hidden = true;
+      }
       if (els.swatchLink) {
         const key = variant.swatchHandle || variant.key;
         els.swatchLink.href = `${data.swatchUrl}?colour=${encodeURIComponent(key)}`;
@@ -302,6 +308,29 @@
       els.qty.addEventListener('change', () => {
         els.qty.value = quantity();
         updateTotals();
+      });
+    }
+
+    // Add the matching free swatch to the basket without leaving the page
+    if (els.swatchAdd) {
+      els.swatchAdd.addEventListener('click', async () => {
+        if (!variant.swatchVariant) return;
+        if (!window.VantCart) {
+          window.location.href = `/cart/add?id=${variant.swatchVariant}&quantity=1`;
+          return;
+        }
+        els.swatchAdd.classList.add('is-busy');
+        try {
+          await window.VantCart.add([{ id: variant.swatchVariant, quantity: 1 }], els.swatchAdd);
+          if (els.swatchAdded) els.swatchAdded.hidden = false;
+        } catch (error) {
+          if (els.error) {
+            els.error.textContent = error && error.message ? error.message : 'Sorry, that swatch could not be added. Please try again.';
+            els.error.hidden = false;
+          }
+        } finally {
+          els.swatchAdd.classList.remove('is-busy');
+        }
       });
     }
 
