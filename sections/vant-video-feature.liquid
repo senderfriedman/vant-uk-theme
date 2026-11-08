@@ -38,7 +38,7 @@
 {% stylesheet %}
   .vant-vf {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     background: #f5f3f1;
   }
 
@@ -161,7 +161,7 @@
     }
 
     .vant-vf {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .vant-vf--right .vant-vf__media {

@@ -695,6 +695,10 @@
     padding-top: 0;
   }
 
+  .vant-pdp__grid > * {
+    min-width: 0;
+  }
+
   .vant-pdp__grid {
     display: grid;
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
@@ -818,7 +822,7 @@
 
   .vant-pdp__sizes {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 8px;
   }
 
@@ -1220,7 +1224,7 @@
 
   .vant-pdp__fact {
     display: grid;
-    grid-template-columns: 96px 1fr;
+    grid-template-columns: 96px minmax(0, 1fr);
     gap: 12px;
   }
 
@@ -1320,7 +1324,7 @@
 
   @media screen and (max-width: 989px) {
     .vant-pdp__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 28px;
     }
 

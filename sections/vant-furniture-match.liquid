@@ -88,7 +88,7 @@
   }
 
   .vant-fm-cards .vant-fm__card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     gap: 14px;
     padding: 12px 12px 18px;
@@ -132,7 +132,7 @@
 
   .vant-fm {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     background: #f1ece8;
   }
 
@@ -157,7 +157,7 @@
 
   .vant-fm__card {
     display: grid;
-    grid-template-columns: 96px 1fr 20px;
+    grid-template-columns: 96px minmax(0, 1fr) 20px;
     gap: 16px;
     align-items: center;
     background: #fff;
@@ -206,7 +206,7 @@
 
   @media screen and (max-width: 989px) {
     .vant-fm {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .vant-fm__media {
@@ -221,7 +221,7 @@
 
   @media screen and (max-width: 749px) {
     .vant-fm__card {
-      grid-template-columns: 84px 1fr 16px;
+      grid-template-columns: 84px minmax(0, 1fr) 16px;
     }
 
     .vant-fm .vant-buttons .button {

@@ -87,7 +87,7 @@
 
   .vant-footer__news {
     display: grid;
-    grid-template-columns: 1fr minmax(280px, 460px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 460px);
     gap: 40px;
     align-items: start;
     padding-bottom: 56px;
@@ -162,7 +162,7 @@
 
   .vant-footer__main {
     display: grid;
-    grid-template-columns: 1.3fr repeat(3, 1fr);
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
     gap: 32px;
     padding-block: 48px;
   }
@@ -236,7 +236,7 @@
 
   @media screen and (max-width: 989px) {
     .vant-footer__main {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
 
     .vant-footer__brand {
@@ -246,7 +246,7 @@
 
   @media screen and (max-width: 749px) {
     .vant-footer__news {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 24px;
       padding-bottom: 40px;
     }

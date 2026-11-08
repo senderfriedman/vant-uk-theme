@@ -60,7 +60,7 @@
 {% stylesheet %}
   .vant-ct {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 24px;
     align-items: start;
   }
@@ -90,7 +90,7 @@
 
   .vant-ct__row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 14px;
   }
 
@@ -135,13 +135,13 @@
 
   @media screen and (max-width: 989px) {
     .vant-ct {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
   @media screen and (max-width: 749px) {
     .vant-ct__row {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 {% endstylesheet %}

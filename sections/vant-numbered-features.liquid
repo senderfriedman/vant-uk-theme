@@ -25,7 +25,7 @@
 {% stylesheet %}
   .vant-nf {
     display: grid;
-    grid-template-columns: repeat(var(--vant-nf-cols, 4), 1fr);
+    grid-template-columns: repeat(var(--vant-nf-cols, 4), minmax(0, 1fr));
     gap: 22px;
   }
 
@@ -62,7 +62,7 @@
 
   @media screen and (max-width: 989px) {
     .vant-nf {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       row-gap: 32px;
     }
   }

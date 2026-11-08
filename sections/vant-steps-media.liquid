@@ -52,7 +52,7 @@
 {% stylesheet %}
   .vant-steps {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 70px;
     align-items: center;
   }
@@ -95,7 +95,7 @@
 
   .vant-steps__step {
     display: grid;
-    grid-template-columns: 46px 1fr;
+    grid-template-columns: 46px minmax(0, 1fr);
     padding: 20px 0;
     border-bottom: 1px solid #dcd8d5;
   }
@@ -124,7 +124,7 @@
 
   /* Stacked: heading, wide picture with play button, steps in a row */
   .vant-steps--stacked {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
     max-width: 1040px;
     margin-inline: auto;
@@ -149,7 +149,7 @@
 
   .vant-steps--stacked .vant-steps__list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
     margin: 0;
   }
@@ -158,7 +158,7 @@
     border-bottom: 0;
     border-top: 1px solid #dcd8d5;
     padding-top: 18px;
-    grid-template-columns: 36px 1fr;
+    grid-template-columns: 36px minmax(0, 1fr);
   }
 
   .vant-steps--stacked .vant-buttons {
@@ -168,7 +168,7 @@
 
   @media screen and (max-width: 749px) {
     .vant-steps--stacked .vant-steps__list {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 0;
     }
 
@@ -179,7 +179,7 @@
 
   @media screen and (max-width: 749px) {
     .vant-steps {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 32px;
     }
 

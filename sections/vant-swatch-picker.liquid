@@ -403,7 +403,7 @@
     padding: 18px 0;
     border-top: 1px solid #dcd8d5;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
   }
 
@@ -601,13 +601,13 @@
     padding: 0;
     margin: 24px 0 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 32px;
   }
 
   .vant-sp__after-steps li {
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px minmax(0, 1fr);
     gap: 8px;
     border-bottom: 1px solid #dcd8d5;
     padding-bottom: 24px;
@@ -739,7 +739,7 @@
 
   @media screen and (max-width: 749px) {
     .vant-sp__steps {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 10px;
     }
 
@@ -760,7 +760,7 @@
     }
 
     .vant-sp__after-steps {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 20px;
     }
 

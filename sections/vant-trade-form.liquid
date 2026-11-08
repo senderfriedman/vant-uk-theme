@@ -99,7 +99,7 @@
 
   .vant-tf__steps li {
     display: grid;
-    grid-template-columns: 34px 1fr;
+    grid-template-columns: 34px minmax(0, 1fr);
     font-size: 15px;
   }
 
@@ -130,7 +130,7 @@
 
   @media screen and (max-width: 989px) {
     .vant-tf {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .vant-tf__aside {
