@@ -40,6 +40,10 @@
           {%- assign d = line | strip -%}
           {%- if d != blank -%}{{ d | json }},{%- endif -%}
         {%- endfor -%}
+        {%- comment -%} Swatch and old inspiration product pages redirect to the right page, so let them through {%- endcomment -%}
+        {%- assign swatch_handle = settings.vant_swatch_collection_handle | default: 'order-swatches' -%}
+        {%- for p in collections[swatch_handle].products -%}{{ p.url | json }},{%- endfor -%}
+        {%- for p in collections['get-inspired'].products -%}{{ p.url | json }},{%- endfor -%}
       ];
 
       const toRegex = (pattern) =>

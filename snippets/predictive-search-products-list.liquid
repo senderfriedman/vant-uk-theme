@@ -65,6 +65,7 @@
           {% endfor %}
         {% else %}
           {% for product in products limit: limit %}
+            {%- if product.type == 'inspiration' -%}{%- continue -%}{%- endif -%}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -93,6 +94,7 @@
         assign limit = limit | default: 8
       %}
       {% for product in products limit: limit %}
+        {%- if product.type == 'inspiration' -%}{%- continue -%}{%- endif -%}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"
           ref="resultsItems[]"

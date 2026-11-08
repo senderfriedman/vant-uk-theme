@@ -435,11 +435,15 @@
         </div>
       {%- endif -%}
 
-      {%- if is_layout and f[4] != blank and s.includes_text != blank -%}
-        {%- liquid
+      {%- liquid
+        assign facts_have_boxes = false
+        if s.facts contains '[boxes]'
+          assign facts_have_boxes = true
+        endif
+        assign box_text = ''
+        if is_layout and f[4] != blank
           assign b76 = f[5] | times: 1
           assign b91 = f[6] | times: 1
-          assign box_text = ''
           if b76 > 0
             assign box_text = b76 | append: ' box'
             if b76 > 1
@@ -457,6 +461,10 @@
             endif
             assign box_text = box_text | append: ' of 91cm'
           endif
+        endif
+      -%}
+      {%- if is_layout and f[4] != blank and s.includes_text != blank and facts_have_boxes == false -%}
+        {%- liquid
           assign inc = s.includes_text | replace: '[boxes]', box_text | replace: '[panels]', f[4]
         -%}
         <p class="vant-pdp__includes">{% render 'vant-icon', icon: 'layers' %}<span>{{ inc }}</span></p>
@@ -487,7 +495,31 @@
         <p class="vant-pdp__error" role="alert" data-vant-error hidden></p>
       </form>
 
-      {%- if s.tick_1 != blank or s.tick_2 != blank -%}
+      {%- if s.facts != blank -%}
+        {%- liquid
+          if is_layout
+            assign fact_width = f[0]
+            assign fact_size = f[0] | append: ' × ' | append: f[1] | append: 'cm'
+          else
+            assign fact_width = product.title | split: ' - ' | last | downcase | split: 'x' | first | remove: 'cm' | strip
+            assign fact_size = ''
+          endif
+          assign fact_lines = s.facts | newline_to_br | split: '<br />'
+        -%}
+        <dl class="vant-pdp__facts">
+          {%- for line in fact_lines -%}
+            {%- liquid
+              assign parts = line | split: '|'
+              assign flabel = parts[0] | strip
+              assign fvalue = parts[1] | strip
+              assign fvalue = fvalue | replace: '[size]', fact_size | replace: '[width]', fact_width | replace: '[panels]', f[4] | replace: '[boxes]', box_text
+            -%}
+            {%- if flabel != blank and fvalue != blank -%}
+              <div class="vant-pdp__fact"><dt>{{ flabel }}</dt><dd>{{ fvalue }}</dd></div>
+            {%- endif -%}
+          {%- endfor -%}
+        </dl>
+      {%- elsif s.tick_1 != blank or s.tick_2 != blank -%}
         <ul class="vant-ticks">
           {%- if s.tick_1 != blank -%}<li>{{ s.tick_1 }}</li>{%- endif -%}
           {%- if s.tick_2 != blank -%}<li>{{ s.tick_2 }}</li>{%- endif -%}
@@ -1178,6 +1210,30 @@
     transform: rotate(-45deg);
   }
 
+  .vant-pdp__facts {
+    margin: 18px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .vant-pdp__fact {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+  }
+
+  .vant-pdp__fact dt {
+    font-weight: 500;
+    color: #2e2a2b;
+  }
+
+  .vant-pdp__fact dd {
+    margin: 0;
+    color: #5c5657;
+  }
+
   .vant-pdp__details {
     margin-top: 22px;
     border-top: 1px solid #dcd8d5;
@@ -1376,6 +1432,7 @@
     { "type": "checkbox", "id": "show_quantity", "label": "Show quantity and total", "default": true },
     { "type": "text", "id": "unit_label", "label": "Unit", "default": "box" },
     { "type": "text", "id": "add_label", "label": "Button", "default": "Add to basket" },
+    { "type": "textarea", "id": "facts", "label": "Key facts under Add to basket", "info": "One per line: Label | text. Tokens: [size], [width], [panels], [boxes]. When filled in, this replaces the ticks below." },
     { "type": "text", "id": "tick_1", "label": "Tick 1", "default": "Free UK delivery · dispatched next working day, delivered in 3–5 working days" },
     { "type": "text", "id": "tick_2", "label": "Tick 2", "default": "14-day returns · 1-year warranty" },
     { "type": "header", "content": "\"How many do I need?\" pop-up" },
