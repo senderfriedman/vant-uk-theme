@@ -2168,6 +2168,12 @@
         "default": "Boucle | Bouclé\nVelvet | Velvet\nMicro Suede | Micro Suede\nVintage Leather | Vintage Leather\nLeather | Vintage Leather\nWeave | Weave\nMetallic | Metallic\nZigrino | Zigrino"
       },
       {
+        "type": "textarea",
+        "id": "vant_fabric_notes",
+        "label": "Fabric material notes",
+        "info": "Shown under the fabric choice on product pages. One per line: fabric name as shown on the site | note. Leave a fabric out to show nothing."
+      },
+      {
         "type": "text",
         "id": "vant_swatch_collection_handle",
         "label": "Swatch collection handle",

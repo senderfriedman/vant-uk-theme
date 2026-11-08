@@ -150,6 +150,7 @@
     const render = ({ pushUrl = true } = {}) => {
       // Fabric tabs
       $$('[data-vant-fabric]').forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.vantFabric === fabric)));
+      $$('[data-vant-fabric-note]').forEach((n) => { n.hidden = n.dataset.vantFabricNote !== fabric; });
 
       // Colour circles for this fabric
       $$('[data-vant-colour]').forEach((btn) => {

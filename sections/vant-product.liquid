@@ -339,6 +339,25 @@
               </button>
             {%- endfor -%}
           </div>
+          {%- assign note_lines = settings.vant_fabric_notes | newline_to_br | split: '<br />' -%}
+          {%- for fv in fabrics -%}
+            {%- capture fname -%}{% render 'vant-fabric-name', name: fv %}{%- endcapture -%}
+            {%- liquid
+              assign fkey = fname | strip | downcase
+              assign fnote = ''
+              for line in note_lines
+                assign parts = line | split: '|'
+                assign k = parts[0] | strip | downcase
+                if k == fkey and parts[1] != blank
+                  assign fnote = parts[1] | strip
+                  break
+                endif
+              endfor
+            -%}
+            {%- if fnote != blank -%}
+              <p class="vant-pdp__fabric-note" data-vant-fabric-note="{{ fv | escape }}"{% unless current.options[fabric_index] == fv %} hidden{% endunless %}>{{ fnote }}</p>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
       {%- endif -%}
 
@@ -789,6 +808,16 @@
   .vant-pdp__size-note {
     font-size: 12px;
     color: #6b6466;
+  }
+
+  .vant-pdp__fabric-note {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #5c5657;
+  }
+
+  .vant-pdp__fabric-note[hidden] {
+    display: none;
   }
 
   .vant-pdp__fabrics {
