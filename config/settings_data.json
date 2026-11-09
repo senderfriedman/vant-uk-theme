@@ -141,7 +141,37 @@
     "vant_fabric_names": "Boucle | Bouclé\nVelvet | Velvet\nMicro Suede | Micro Suede\nVintage Leather | Vintage Faux Leather\nLeather | Vintage Faux Leather\nWeave | Weave\nMetallic | Metallic\nZigrino | Zigrino",
     "vant_fabric_notes": "Velvet | Material: 100% microfibre velvet\nMicro Suede | Material: 100% microfibre\nVintage Faux Leather | Material: 100% vinyl (faux leather, not real leather)\nWeave | Material: poly-cotton weave\nMetallic | Material: 100% polyurethane",
     "vant_email": "info@vantpanels.co.uk",
-    "vant_hours": "Mon–Thu 9am–5pm · Fri 9am–2pm"
+    "vant_hours": "Mon–Thu 9am–5pm · Fri 9am–2pm",
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "15683396631634586217": {
+        "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
+        "disabled": false,
+        "settings": {
+          "greeting_message": "",
+          "show_featured_products": false,
+          "featured_products": [
+            "augustus-layout-138-x-69",
+            "fredrick-layout-117-x-46",
+            "midas-layout-78-x-46"
+          ],
+          "background_color": "#FFFFFF",
+          "font_color": "#4a4446",
+          "button_color": "#2E2A2B",
+          "button_icon": "hand_wave",
+          "button_text": "chat_with_us",
+          "button_horizontal_position": "bottom_right",
+          "button_vertical_position": "lowest",
+          "agent_inherit_fonts": true,
+          "agent_font": "system_ui_n4",
+          "agent_border_radius": 24
+        }
+      }
+    }
   },
   "presets": {
     "Horizon": {
