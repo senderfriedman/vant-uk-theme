@@ -65,7 +65,7 @@
           {% endfor %}
         {% else %}
           {% for product in products limit: limit %}
-            {%- if product.type == 'inspiration' -%}{%- continue -%}{%- endif -%}
+            {%- assign vant_pt = product.type | downcase | strip -%}{%- assign vant_sw = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip -%}{%- if vant_pt == 'inspiration' or vant_pt == vant_sw -%}{%- continue -%}{%- endif -%}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -94,7 +94,7 @@
         assign limit = limit | default: 8
       %}
       {% for product in products limit: limit %}
-        {%- if product.type == 'inspiration' -%}{%- continue -%}{%- endif -%}
+        {%- assign vant_pt = product.type | downcase | strip -%}{%- assign vant_sw = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip -%}{%- if vant_pt == 'inspiration' or vant_pt == vant_sw -%}{%- continue -%}{%- endif -%}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"
           ref="resultsItems[]"

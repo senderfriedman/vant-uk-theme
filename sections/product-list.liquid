@@ -33,6 +33,7 @@
     {% if section.settings.collection != blank and shop.products_count != 0 %}
       {% paginate section.settings.collection.products by max_items %}
         {% for product in section.settings.collection.products limit: max_items %}
+          {%- assign vant_pt = product.type | downcase | strip -%}{%- if vant_pt == 'inspiration' -%}{%- continue -%}{%- endif -%}
         <div
           class="resource-list__item"
         >

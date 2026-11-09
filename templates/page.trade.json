@@ -99,7 +99,7 @@
           "settings": {
             "icon": "tag",
             "title": "Trade pricing",
-            "text": "[TRADE DISCOUNT]"
+            "text": "Trade prices on every order, confirmed when we approve your account."
           }
         },
         "b2": {
@@ -123,7 +123,7 @@
           "settings": {
             "icon": "box",
             "title": "Larger orders",
-            "text": "[CONFIRM: sample packs / lead times]"
+            "text": "Ordering for several rooms or sites? We’ll plan it with you."
           }
         }
       },
@@ -157,7 +157,7 @@
           "settings": {
             "icon": "none",
             "title": "We set up your account",
-            "text": "<p>We review your application within [APPROVAL TIME] and set up your trade pricing.</p>"
+            "text": "<p>We review your application, then get in touch to set up your trade pricing.</p>"
           }
         },
         "b3": {
@@ -180,7 +180,7 @@
       "settings": {
         "anchor": "apply",
         "aside_heading": "What happens next",
-        "steps": "Send your application online.\nWe review it within [APPROVAL TIME] and set up your pricing.\nOrder online, with your named contact on hand.",
+        "steps": "Send your application online.\nWe review it and set up your pricing.\nOrder online, with your named contact on hand.",
         "phone_text": "Questions?",
         "form_heading": "Apply for a trade account",
         "business_types": "Interior designer\nHotel or hospitality\nLandlord or developer\nContractor\nOther",
@@ -204,21 +204,21 @@
           "type": "question",
           "settings": {
             "question": "How long does approval take?",
-            "answer": "<p>[APPROVAL TIME]</p>"
+            "answer": "<p>We’ll be in touch once we’ve reviewed your application. If you need an answer sooner, call us on <a href=\"tel:+442033559166\">020 3355 9166</a>.</p>"
           }
         },
         "b2": {
           "type": "question",
           "settings": {
             "question": "Is there a minimum order?",
-            "answer": "<p>[MINIMUM ORDER]</p>"
+            "answer": "<p>Talk to our team about your project and we’ll explain how ordering works. Email <a href=\"mailto:info@vantpanels.co.uk\">info@vantpanels.co.uk</a> or call <a href=\"tel:+442033559166\">020 3355 9166</a>.</p>"
           }
         },
         "b3": {
           "type": "question",
           "settings": {
             "question": "What are the payment terms?",
-            "answer": "<p>[PAYMENT TERMS]</p>"
+            "answer": "<p>We agree payment terms with you when we set up your trade account.</p>"
           }
         }
       },

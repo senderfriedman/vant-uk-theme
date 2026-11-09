@@ -48,7 +48,7 @@
 
       {% capture children %}
         {% for product in products %}
-          {%- if product.type == 'inspiration' -%}{%- continue -%}{%- endif -%}
+          {%- assign vant_pt = product.type | downcase | strip -%}{%- assign vant_sw = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip -%}{%- if vant_pt == 'inspiration' or vant_pt == vant_sw -%}{%- continue -%}{%- endif -%}
           <li
             id="{{ section.id }}-{{ product.id }}"
             class="product-grid__item product-grid__item--{{ forloop.index0 }}"
