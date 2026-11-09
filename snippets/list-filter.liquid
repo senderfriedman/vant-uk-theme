@@ -48,7 +48,7 @@
     {% endif %}
   >
     <summary class="facets__summary">
-      <span class="facets__label">{{ filter.label }}</span>
+      <span class="facets__label">{{ filter.label | replace: 'Color', 'Colour' }}</span>
 
       <div class="facets__status-wrapper">
         {% if is_swatch %}
