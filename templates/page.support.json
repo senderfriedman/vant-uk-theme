@@ -54,7 +54,7 @@
             "icon": "delivery",
             "title": "Delivery & returns",
             "text": "Check delivery times and how to return an order.",
-            "link": "/pages/order-information"
+            "link": "/pages/delivery-returns"
           }
         },
         "b5": {
@@ -63,7 +63,7 @@
             "icon": "warranty",
             "title": "1-year warranty",
             "text": "Find the warranty details.",
-            "link": "/pages/order-information#warranty"
+            "link": "/pages/delivery-returns#warranty"
           }
         },
         "b6": {
@@ -200,7 +200,7 @@
           "type": "question",
           "settings": {
             "question": "Can I return my order?",
-            "answer": "<p>You have 14 days from delivery to change your mind. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
+            "answer": "<p>You have 14 days from delivery to change your mind. See <a href=\"/pages/delivery-returns#returns\">Delivery & returns</a> for how.</p>"
           }
         }
       },

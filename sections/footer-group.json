@@ -19,7 +19,7 @@
         "news_label": "Email address",
         "news_placeholder": "Your email address",
         "news_button": "Sign up",
-        "news_small": "Unsubscribe whenever you like. <a href=\"/pages/policy\">Privacy policy</a>",
+        "news_small": "Unsubscribe whenever you like. <a href=\"/pages/privacy-policy\">Privacy policy</a>",
         "news_success": "Thanks, you're signed up. Look out for our next email.",
         "tagline": "<p>Your UK bedroom specialist.<br>Exclusive UK & European distributor.</p>",
         "menu_1": "vant-footer-collection",
