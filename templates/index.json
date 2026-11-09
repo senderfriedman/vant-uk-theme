@@ -548,7 +548,7 @@
           "type": "question",
           "settings": {
             "question": "When will my order arrive?",
-            "answer": "<p>Delivery is free to England, Scotland and Wales. Northern Ireland delivery is charged at checkout. Orders are dispatched the next working day and arrive in 3–5 working days.</p>"
+            "answer": "<p>Delivery is free to England, Scotland and Wales. We don’t currently deliver to Northern Ireland. Orders are dispatched the next working day and arrive in 3–5 working days.</p>"
           }
         },
         "q6": {
