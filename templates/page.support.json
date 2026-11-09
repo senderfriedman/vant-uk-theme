@@ -200,7 +200,7 @@
           "type": "question",
           "settings": {
             "question": "Can I return my order?",
-            "answer": "<p>You have 14 days to return unused items in their original packaging.</p>"
+            "answer": "<p>You have 14 days from delivery to change your mind. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
           }
         }
       },

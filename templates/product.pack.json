@@ -24,7 +24,7 @@
         "show_quantity": true,
         "unit_label": "box",
         "add_label": "Add to basket",
-        "tick_1": "Free UK delivery · dispatched next working day, delivered in 3–5 working days",
+        "tick_1": "Free GB delivery · dispatched next working day, delivered in 3–5 working days",
         "tick_2": "14-day returns · 1-year warranty",
         "help_link_label": "How many do I need?",
         "help_heading": "How many boxes do I need?",
@@ -39,7 +39,7 @@
         "diagram_note": "Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.",
         "gallery_video": "shopify://files/videos/vant-simplemount-animation.mp4",
         "gallery_video_caption": "Secure aluminium wall brackets · SimpleMount",
-        "facts": "Size | 4 panels, each [width] × 30cm · one box covers about [width] × 120cm\nIn the box | 4 panels, aluminium brackets and screws\nDelivery | Free UK delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
+        "facts": "Size | 4 panels, each [width] × 30cm · one box covers about [width] × 120cm\nIn the box | 4 panels, aluminium brackets and screws\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
       },
       "blocks": {
         "d1": {
@@ -81,14 +81,14 @@
           "type": "detail",
           "settings": {
             "title": "Delivery",
-            "text": "<p>Free UK delivery. Dispatched the next working day and delivered in 3–5 working days.</p>"
+            "text": "<p>Free delivery to England, Scotland and Wales. Northern Ireland is £5 per box, shown at checkout. Dispatched the next working day and delivered in 3–5 working days.</p>"
           }
         },
         "d7": {
           "type": "detail",
           "settings": {
             "title": "Returns & warranty",
-            "text": "<p>14-day returns on unused items in their original packaging. 1-year warranty.</p>"
+            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
           }
         },
         "d8": {

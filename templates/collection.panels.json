@@ -9,7 +9,7 @@
         "breadcrumb_label": "Headboard walls",
         "eyebrow": "Upholstered wall panels",
         "heading": "Your headboard wall, your way.",
-        "text": "<p>Padded panels on secure wall brackets. Choose your own boxes, or pick a ready-made layout.</p><p>From £160 a box · Free UK delivery</p>",
+        "text": "<p>Padded panels on secure wall brackets. Choose your own boxes, or pick a ready-made layout.</p><p>From £160 a box · Free GB delivery</p>",
         "button_label": "",
         "button2_label": "",
         "caption": ""
@@ -47,7 +47,7 @@
           "type": "item",
           "settings": {
             "icon": "delivery",
-            "text": "Free UK delivery"
+            "text": "Free GB delivery"
           }
         },
         "t2": {

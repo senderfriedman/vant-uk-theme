@@ -36,7 +36,7 @@
           "settings": {
             "icon": "returns",
             "title": "14-day returns",
-            "text": "Unused items in their original packaging"
+            "text": "Change your mind within 14 days of delivery"
           }
         },
         "b3": {
@@ -76,7 +76,7 @@
         "b2": {
           "type": "text",
           "settings": {
-            "text": "<p>Delivery is free to England, Scotland and Wales on panels and furniture. Orders are dispatched the next working day and usually arrive in 3–5 working days.</p><p>Northern Ireland: a delivery charge applies and is shown at checkout.</p><p>Fabric swatches have one flat £3.50 postage charge per order, however many colours you choose.</p><p>Larger orders may arrive in more than one parcel, and panels and swatches can arrive separately. Each delivery note lists what’s inside. If something seems to be missing, email us your order number and we’ll sort it out.</p><p>We can’t change an order once it’s placed, but we can cancel it before it’s dispatched so you can order again.</p>"
+            "text": "<p>Delivery is free to England, Scotland and Wales on panels and furniture. Orders are dispatched the next working day and usually arrive in 3–5 working days.</p><p>Northern Ireland: £5 per box, shown at checkout before you pay.</p><p>Fabric swatches have one flat £3.50 postage charge per order, however many colours you choose.</p><p>Larger orders may arrive in more than one parcel, and panels and swatches can arrive separately. Each delivery note lists what’s inside. If something seems to be missing, email us your order number and we’ll sort it out.</p><p>We can’t change an order once it’s placed, but we can cancel it before it’s dispatched so you can order again.</p>"
           }
         },
         "b3": {
@@ -91,7 +91,7 @@
         "b4": {
           "type": "text",
           "settings": {
-            "text": "<p>You can return items within 14 days of receiving your order. They need to be unused and in their original condition and packaging, including the cardboard boxes and the protective wrapping around each panel or piece of furniture. We can’t accept panels once they’ve been mounted on the wall.</p><p><strong>How to return:</strong> email info@vantpanels.co.uk or call 020 3355 9166 and our team will arrange it with you. Return postage is deducted from your refund. Items returned without their original packaging may have a restocking fee of up to 20%.</p><p>Once your return reaches our warehouse, refunds can take up to two weeks to process and go back to your original payment method. To exchange an item, return it and place a new order. Please don’t refuse a delivery, as a large restocking fee may apply.</p><p>Swatch postage isn’t refundable.</p><p>Returns address: Vänt Panels, Unit 1 Avon Mill Industrial Estate, Mill Road, Linlithgow Bridge, EH49 7QY.</p>"
+            "text": "<p>You can cancel any order within 14 days of the day after it arrives, for any reason. Tell us by email at info@vantpanels.co.uk or call 020 3355 9166, then send the items back within 14 days.</p><p><strong>Return postage:</strong> you pay to send items back. Panels and furniture need a courier: use any tracked courier, or we can book FedEx for you and tell you the cost first. As a guide, one box of panels costs up to £20.</p><p><strong>Your refund:</strong> we refund the price and any delivery charge you paid within 14 days of receiving your return (or your proof of sending it), to your original payment method. Please return items in their original packaging if you still have it. If panels have been fitted to a wall or damaged, we may reduce your refund to reflect the loss in value, and we’ll show you why.</p><p><strong>Faulty or damaged items:</strong> contact us first and we’ll arrange the return at our cost. You’re entitled to a full refund within 30 days of delivery, or a repair or replacement after that.</p><p>To exchange an item, return it and place a new order. If you refuse a delivery, we refund you less the cost of bringing it back to us.</p><p>Swatch postage isn’t refundable once swatches are sent.</p><p>Returns address: Vänt Panels, Unit 1 Avon Mill Industrial Estate, Mill Road, Linlithgow Bridge, EH49 7QY.</p><p>Full details are in our <a href=\"/policies/terms-of-service\">Terms &amp; Conditions</a>.</p>"
           }
         },
         "b5": {

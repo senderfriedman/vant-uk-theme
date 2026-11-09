@@ -21,14 +21,14 @@
         "show_quantity": false,
         "unit_label": "box",
         "add_label": "Add to basket",
-        "tick_1": "Free UK delivery · dispatched next working day, delivered in 3–5 working days",
+        "tick_1": "Free GB delivery · dispatched next working day, delivered in 3–5 working days",
         "tick_2": "14-day returns · 1-year warranty",
         "padding_top": 8,
         "padding_bottom": 64,
         "size_labels": "",
         "help_link_label": "",
         "crumb_2_link": "shopify://collections/table",
-        "facts": "Size | 62cm wide × 46cm deep × 56cm high · 25kg\nAssembly | Arrives fully assembled\nDelivery | Free UK delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
+        "facts": "Size | 62cm wide × 46cm deep × 56cm high · 25kg\nAssembly | Arrives fully assembled\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
       },
       "blocks": {
         "d1": {
@@ -70,14 +70,14 @@
           "type": "detail",
           "settings": {
             "title": "Delivery",
-            "text": "<p>Free UK delivery. Dispatched the next working day and delivered in 3–5 working days.</p>"
+            "text": "<p>Free delivery to England, Scotland and Wales. Northern Ireland is £5 per box, shown at checkout. Dispatched the next working day and delivered in 3–5 working days.</p>"
           }
         },
         "d7": {
           "type": "detail",
           "settings": {
             "title": "Returns & warranty",
-            "text": "<p>14-day returns on unused items in their original packaging. 1-year warranty.</p>"
+            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
           }
         },
         "d8": {
