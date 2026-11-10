@@ -256,6 +256,16 @@
 
       <h1 class="vant-pdp__title">{{ display_title }}</h1>
 
+      {%- assign vant_rc = product.metafields.reviews.rating_count.value | default: 0 | plus: 0 -%}
+      {%- if vant_rc > 0 -%}
+        {%- assign vant_rating = product.metafields.reviews.rating.value.rating | default: 0 -%}
+        {%- assign vant_rating_pct = vant_rating | times: 20.0 | round -%}
+        <a class="vant-pdp__rating" href="#judgeme_product_reviews" aria-label="Rated {{ vant_rating | round: 1 }} out of 5, {{ vant_rc }} {% if vant_rc == 1 %}review{% else %}reviews{% endif %}. Read the reviews">
+          <span class="vant-pdp__stars" aria-hidden="true">★★★★★<span class="vant-pdp__stars-fill" style="width: {{ vant_rating_pct }}%">★★★★★</span></span>
+          <span class="vant-pdp__rating-text">{{ vant_rating | round: 1 }} · {{ vant_rc }} {% if vant_rc == 1 %}review{% else %}reviews{% endif %}</span>
+        </a>
+      {%- endif -%}
+
       {%- if is_layout -%}
         {%- if f[3] != blank or f[0] != blank -%}
           <ul class="vant-chips">
@@ -780,6 +790,35 @@
     color: inherit;
     text-underline-offset: 3px;
     margin-bottom: 14px;
+  }
+
+  .vant-pdp__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 10px;
+    color: #2E2A2B;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .vant-pdp__rating:hover .vant-pdp__rating-text {
+    text-decoration: underline;
+  }
+  .vant-pdp__stars {
+    position: relative;
+    display: inline-block;
+    color: #DCD8D5;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .vant-pdp__stars-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    overflow: hidden;
+    color: #2E2A2B;
   }
 
   .vant-pdp__title {
