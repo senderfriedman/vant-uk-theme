@@ -229,9 +229,9 @@
   },
   "order": [
     "main",
-    "reviews",
     "fitting",
     "furniture",
+    "reviews",
     "contact"
   ]
 }

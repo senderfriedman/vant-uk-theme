@@ -171,8 +171,8 @@
   },
   "order": [
     "main",
-    "reviews",
     "furniture",
+    "reviews",
     "contact"
   ]
 }

@@ -792,6 +792,14 @@
     margin-bottom: 14px;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(.vant-pdp__rating) {
+      scroll-behavior: smooth;
+    }
+  }
+  #judgeme_product_reviews {
+    scroll-margin-top: 110px;
+  }
   .vant-pdp__rating {
     display: inline-flex;
     align-items: center;

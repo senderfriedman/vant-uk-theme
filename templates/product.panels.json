@@ -263,11 +263,11 @@
   },
   "order": [
     "main",
-    "reviews",
     "more",
     "fitting",
     "furniture",
     "build",
+    "reviews",
     "contact"
   ]
 }
