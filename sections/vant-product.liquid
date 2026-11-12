@@ -945,6 +945,7 @@
     gap: 2px 18px;
     border-bottom: 1px solid #dcd8d5;
     overflow-x: auto;
+    overflow-y: hidden; /* sideways only: stops the row being dragged up and down */
     scrollbar-width: none;
   }
 
@@ -1412,6 +1413,7 @@
     .vant-pdp__thumbs {
       flex-wrap: nowrap;
       overflow-x: auto;
+      overflow-y: hidden; /* sideways only: stops the row being dragged up and down */
       scrollbar-width: none;
     }
 
