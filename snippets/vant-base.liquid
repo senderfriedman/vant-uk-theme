@@ -26,10 +26,28 @@
     background-color: var(--vant-bg, transparent);
   }
 
+  /* Phones: tighter sections, so each one takes up less of the screen */
   @media screen and (max-width: 749px) {
     .vant-section {
-      padding-block-start: calc(var(--vant-pt, 72px) * 0.66);
-      padding-block-end: calc(var(--vant-pb, 72px) * 0.66);
+      padding-block-start: calc(var(--vant-pt, 72px) * 0.5);
+      padding-block-end: calc(var(--vant-pb, 72px) * 0.5);
+    }
+
+    .vant-section h2 {
+      font-size: 26px;
+      line-height: 1.2;
+    }
+
+    .vant-section .vant-section-head {
+      margin-bottom: 22px;
+    }
+
+    .vant-section .vant-section-head p {
+      margin-top: 10px;
+    }
+
+    .vant-section .vant-buttons {
+      margin-top: 20px;
     }
   }
 
