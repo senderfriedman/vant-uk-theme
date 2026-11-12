@@ -188,6 +188,7 @@
             <div class="vant-placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
           {%- endif -%}
           <div class="vant-pdp__alt" data-vant-alt hidden></div>
+          <span class="vant-pdp__count" data-vant-gallery-count aria-hidden="true" hidden></span>
         </div>
         <figcaption class="vant-pdp__caption" data-vant-caption></figcaption>
         <p class="vant-pdp__note" data-vant-gallery-note hidden></p>
@@ -737,6 +738,33 @@
     object-fit: contain;
     display: block;
     transition: opacity 0.25s ease;
+  }
+
+  .vant-pdp__frame {
+    position: relative;
+    /* Up and down still scrolls the page; left and right changes the photo */
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .vant-pdp__count {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgb(46 42 43 / 0.72);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .vant-pdp__count:not([hidden]) {
+      display: block;
+    }
   }
 
   .vant-pdp__frame img.is-cover {

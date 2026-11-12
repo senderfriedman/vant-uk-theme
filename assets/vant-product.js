@@ -56,6 +56,8 @@
       swatchAdd: $('[data-vant-swatch-add]'),
       swatchAdded: $('[data-vant-swatch-added]'),
       mainImg: $('.vant-pdp__main-img'),
+      frame: $('.vant-pdp__frame'),
+      count: $('[data-vant-gallery-count]'),
       caption: $('[data-vant-caption]'),
       thumbVariant: $('[data-vant-thumb="variant"]'),
       thumbCloseup: $('[data-vant-thumb="closeup"]'),
@@ -130,8 +132,20 @@
       els.mainImg.classList.toggle('is-cover', Boolean(cover));
     };
 
+    const visibleThumbs = () => $$('[data-vant-thumb]').filter((t) => !t.hidden);
+
+    // "2 / 5" on the photo, so phone shoppers can see there is more to swipe to
+    const updateCount = () => {
+      if (!els.count) return;
+      const thumbs = visibleThumbs();
+      const index = thumbs.findIndex((t) => t.classList.contains('is-active'));
+      els.count.hidden = thumbs.length < 2;
+      els.count.textContent = `${index < 0 ? 1 : index + 1} / ${thumbs.length}`;
+    };
+
     const setActiveThumb = (thumb) => {
       $$('[data-vant-thumb]').forEach((t) => t.classList.toggle('is-active', t === thumb));
+      updateCount();
     };
 
     const label = () => `${fabricName(variant.fabric)} · ${variant.colour}`;
@@ -235,6 +249,7 @@
 
       if (els.barName) els.barName.textContent = label();
       updateTotals();
+      updateCount();
 
       if (pushUrl) {
         try {
@@ -294,6 +309,44 @@
         render({ pushUrl: false });
       });
     });
+
+    // Swipe the main photo left or right to move through the same pictures as the thumbnails
+    if (els.frame) {
+      let startX = 0;
+      let startY = 0;
+      let tracking = false;
+      els.frame.addEventListener(
+        'touchstart',
+        (event) => {
+          tracking = event.touches.length === 1;
+          if (!tracking) return;
+          startX = event.touches[0].clientX;
+          startY = event.touches[0].clientY;
+        },
+        { passive: true }
+      );
+      els.frame.addEventListener(
+        'touchend',
+        (event) => {
+          if (!tracking) return;
+          tracking = false;
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+          const thumbs = visibleThumbs();
+          if (thumbs.length < 2) return;
+          const index = Math.max(0, thumbs.findIndex((t) => t.classList.contains('is-active')));
+          const next = thumbs[(index + (dx < 0 ? 1 : -1) + thumbs.length) % thumbs.length];
+          next.click();
+          if (typeof next.scrollIntoView === 'function') {
+            next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          }
+        },
+        { passive: true }
+      );
+      els.frame.addEventListener('touchcancel', () => (tracking = false), { passive: true });
+    }
 
     // Quantity
     $$('[data-vant-qty]').forEach((btn) => {

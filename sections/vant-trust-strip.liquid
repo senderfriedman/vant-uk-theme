@@ -22,6 +22,8 @@
       </div>
     {%- endif -%}
 
+    {%- assign items = section.blocks | where: 'type', 'item' -%}
+    {%- if items.size > 0 -%}<div class="vant-trust__items">{%- endif -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'item' -%}
         {%- if block.settings.link != blank -%}
@@ -34,6 +36,7 @@
         {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- if items.size > 0 -%}</div>{%- endif -%}
   </div>
 </div>
 
@@ -47,6 +50,11 @@
     align-items: center;
     gap: 40px;
     justify-content: space-between;
+  }
+
+  /* Desktop and tablet: the benefits sit in the same row as the logos */
+  .vant-trust__items {
+    display: contents;
   }
 
   .vant-trust__logos {
@@ -105,18 +113,52 @@
     }
   }
 
+  /* Phones: "As seen on" stays put on its own line, and the benefits are a separate bar below it.
+     Nothing scrolls sideways, so every point is visible without swiping. */
   @media screen and (max-width: 749px) {
-    .vant-trust {
-      gap: 28px;
-      padding-right: 40px;
+    .vant-trust.vant-scroll-row {
+      display: block;
+      overflow: visible;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .vant-trust__logos {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+    }
+
+    .vant-trust__label {
+      flex-basis: 100%;
+      text-align: center;
+    }
+
+    .vant-trust__items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid #dcd8d5;
     }
 
     .vant-trust__item {
       flex-direction: row;
+      align-items: flex-start;
       text-align: left;
       max-width: none;
-      white-space: nowrap;
       font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .vant-trust__item svg {
+      flex: none;
+    }
+
+    /* An odd one out at the end takes the full width */
+    .vant-trust__item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
   }
 {% endstylesheet %}

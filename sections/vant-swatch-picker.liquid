@@ -319,9 +319,15 @@
           tiles.find((t) => key.endsWith(norm(t.dataset.name.split(' ').slice(-2).join(' '))));
         if (tile) {
           toggle(tile, true);
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => tile.scrollIntoView({ block: 'center', behavior: 'smooth' }))
-          );
+          // Jump straight to the colour (no slow scroll), and again once the pictures above
+          // it have loaded, because they push it down the page. Ring it for a few seconds.
+          const arrive = () => tile.scrollIntoView({ block: 'center', behavior: 'instant' });
+          tile.classList.add('is-arrived');
+          requestAnimationFrame(() => requestAnimationFrame(arrive));
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', () => requestAnimationFrame(arrive), { once: true });
+          }
+          setTimeout(() => tile.classList.remove('is-arrived'), 4000);
         }
       }
 
@@ -551,6 +557,17 @@
 
   .vant-sp__tile.is-selected .vant-sp__img {
     outline-color: #2e2a2b;
+  }
+
+  /* The colour someone tapped on another page: ringed for a few seconds when they land here */
+  .vant-sp__tile.is-arrived .vant-sp__img {
+    box-shadow: 0 0 0 6px rgb(46 42 43 / 0.18);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .vant-sp__img {
+      transition: box-shadow 0.6s ease;
+    }
   }
 
   .vant-sp__tile.is-selected .vant-sp__check {

@@ -22,20 +22,32 @@ async function add(items, source = document.body) {
     new CartLinesUpdateEvent({ action: 'add', context: 'product', lines, promise: deferred.promise })
   );
 
+  // Ask Shopify for the refreshed basket HTML in the same request, so the drawer
+  // shows the new contents straight away instead of the old ones while it refetches.
+  const sectionIds = Array.from(document.querySelectorAll('cart-items-component'))
+    .map((el) => el.dataset.sectionId)
+    .filter((id, index, all) => id && all.indexOf(id) === index);
+
   try {
+    const body = { items: items.map((i) => ({ id: Number(i.id), quantity: Number(i.quantity) || 1 })) };
+    if (sectionIds.length) {
+      body.sections = sectionIds.join(',');
+      body.sections_url = window.location.pathname;
+    }
     const response = await fetch(routes().cart_add_url || '/cart/add.js', {
       method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ items: items.map((i) => ({ id: Number(i.id), quantity: Number(i.quantity) || 1 })) }),
+      body: JSON.stringify(body),
     });
     const result = await response.json();
     const cart = await getCart();
     const failed = Boolean(result && result.status);
+    const sections = !failed && result && result.sections ? result.sections : undefined;
 
     deferred.resolve({
       cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cart),
-      detail: { items: cart.items, source: 'vant', itemCount, didError: failed },
+      detail: { items: cart.items, source: 'vant', itemCount, didError: failed, sections },
     });
 
     if (failed) {

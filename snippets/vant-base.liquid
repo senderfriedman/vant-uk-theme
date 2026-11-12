@@ -130,6 +130,14 @@
     }
   }
 
+  /* Phones: nothing may push the page wider than the screen (stops the whole site sliding sideways) */
+  @media screen and (max-width: 749px) {
+    html,
+    body {
+      overflow-x: clip;
+    }
+  }
+
   .vant-scroll-row::-webkit-scrollbar {
     display: none;
   }
