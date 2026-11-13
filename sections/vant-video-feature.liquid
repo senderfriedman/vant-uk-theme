@@ -31,6 +31,25 @@
         </div>
       {%- endif -%}
       {%- if section.settings.note != blank -%}<div class="vant-vf__note vant-rte">{{ section.settings.note }}</div>{%- endif -%}
+      {%- if section.blocks.size > 0 or section.settings.points_note != blank -%}
+        <div class="vant-vf__points vant-vf__points--{{ section.settings.points_show }}">
+          {%- if section.blocks.size > 0 -%}
+            <ul class="vant-vf__points-list">
+              {%- for block in section.blocks -%}
+                <li {{ block.shopify_attributes }}>
+                  {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+                  {% render 'vant-icon', icon: block.settings.icon %}
+                  <span>{{ block.settings.text | escape }}</span>
+                  {%- if block.settings.link != blank -%}</a>{%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.points_note != blank -%}
+            <p class="vant-vf__points-note">{{ section.settings.points_note | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -186,6 +205,71 @@
       height: 60px;
     }
   }
+
+  /* Short points under the text (delivery, returns, warranty…) */
+  .vant-vf__points {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #dcd8d5;
+  }
+
+  .vant-vf__points--phones {
+    display: none;
+  }
+
+  .vant-vf__points-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #4a4446;
+  }
+
+  .vant-vf__points-list li,
+  .vant-vf__points-list a {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: inherit;
+  }
+
+  .vant-vf__points-list a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .vant-vf__points-list svg {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+
+  .vant-vf__points-list li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .vant-vf__points-note {
+    margin: 12px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #6b6466;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-vf__points {
+      margin-top: 18px;
+      padding-top: 14px;
+    }
+
+    .vant-vf__points--phones {
+      display: block;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -307,6 +391,10 @@
       "label": "Panel background",
       "default": "#F5F3F1"
     },
+    { "type": "header", "content": "Points under the text" },
+    { "type": "paragraph", "content": "Add Point blocks for short facts such as delivery, returns and warranty." },
+    { "type": "select", "id": "points_show", "label": "Show the points", "options": [{ "value": "phones", "label": "On phones only" }, { "value": "always", "label": "On every screen" }], "default": "phones" },
+    { "type": "text", "id": "points_note", "label": "Line under the points", "info": "e.g. As seen on…" },
     {
       "type": "range",
       "id": "padding_top",
@@ -326,6 +414,18 @@
       "step": 4,
       "unit": "px",
       "default": 40
+    }
+  ],
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [{ "value": "delivery", "label": "Delivery van" }, { "value": "swatch", "label": "Swatches" }, { "value": "bracket", "label": "Bracket" }, { "value": "returns", "label": "Returns" }, { "value": "warranty", "label": "Warranty" }, { "value": "phone", "label": "Phone" }], "default": "delivery" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free GB delivery" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
     }
   ],
   "presets": [

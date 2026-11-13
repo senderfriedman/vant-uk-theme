@@ -33,7 +33,8 @@
       "settings": {
         "logos_label": "As seen on",
         "padding_top": 28,
-        "padding_bottom": 28
+        "padding_bottom": 28,
+        "hide_on_phones": true
       },
       "blocks": {
         "l1": {
@@ -174,8 +175,55 @@
         "button_label": "Shop headboard walls",
         "button_link": "/collections/panels",
         "padding_top": 40,
-        "padding_bottom": 40
-      }
+        "padding_bottom": 40,
+        "points_show": "phones",
+        "points_note": "As seen on HGTV · Netflix’s Queer Eye · DIY Network"
+      },
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "delivery",
+            "text": "Free GB delivery"
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "swatch",
+            "text": "Fabric swatches",
+            "link": "/collections/order-swatches"
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "bracket",
+            "text": "Secure brackets, won’t sag or slide"
+          }
+        },
+        "p4": {
+          "type": "point",
+          "settings": {
+            "icon": "returns",
+            "text": "14-day returns"
+          }
+        },
+        "p5": {
+          "type": "point",
+          "settings": {
+            "icon": "warranty",
+            "text": "1-year warranty"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ]
     },
     "sizes": {
       "type": "vant-size-cards",

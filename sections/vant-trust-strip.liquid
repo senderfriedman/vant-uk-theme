@@ -1,6 +1,6 @@
 {% render 'vant-base' %}
 <div
-  class="section section--page-width vant-section"
+  class="section section--page-width vant-section{% if section.settings.hide_on_phones %} vant-trust-hide-phone{% endif %}"
   style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px;"
 >
   <div class="vant-trust vant-scroll-row">
@@ -160,6 +160,15 @@
     .vant-trust__item:last-child:nth-child(odd) {
       grid-column: 1 / -1;
     }
+
+    /* "Hide on phones": used where the same points are shown inside another section */
+    .vant-section.vant-trust-hide-phone {
+      display: none;
+    }
+
+    .vant-trust-section:has(.vant-trust-hide-phone) {
+      border-bottom: 0;
+    }
   }
 {% endstylesheet %}
 
@@ -170,6 +179,7 @@
   "class": "vant-trust-section",
   "settings": [
     { "type": "text", "id": "logos_label", "label": "Logos label", "default": "As seen on" },
+    { "type": "checkbox", "id": "hide_on_phones", "label": "Hide on phones", "info": "Use when the same points are shown inside another section on phones.", "default": false },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 }
   ],
