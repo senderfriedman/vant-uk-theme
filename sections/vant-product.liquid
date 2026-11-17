@@ -188,6 +188,7 @@
             <div class="vant-placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
           {%- endif -%}
           <div class="vant-pdp__alt" data-vant-alt hidden></div>
+          <span class="vant-pdp__count" data-vant-gallery-count aria-hidden="true" hidden></span>
         </div>
         <figcaption class="vant-pdp__caption" data-vant-caption></figcaption>
         <p class="vant-pdp__note" data-vant-gallery-note hidden></p>
@@ -255,6 +256,16 @@
       {%- endif -%}
 
       <h1 class="vant-pdp__title">{{ display_title }}</h1>
+
+      {%- assign vant_rc = product.metafields.reviews.rating_count.value | default: 0 | plus: 0 -%}
+      {%- if vant_rc > 0 -%}
+        {%- assign vant_rating = product.metafields.reviews.rating.value.rating | default: 0 -%}
+        {%- assign vant_rating_pct = vant_rating | times: 20.0 | round -%}
+        <a class="vant-pdp__rating" href="#judgeme_product_reviews" aria-label="Rated {{ vant_rating | round: 1 }} out of 5, {{ vant_rc }} {% if vant_rc == 1 %}review{% else %}reviews{% endif %}. Read the reviews">
+          <span class="vant-pdp__stars" aria-hidden="true">★★★★★<span class="vant-pdp__stars-fill" style="width: {{ vant_rating_pct }}%">★★★★★</span></span>
+          <span class="vant-pdp__rating-text">{{ vant_rating | round: 1 }} · {{ vant_rc }} {% if vant_rc == 1 %}review{% else %}reviews{% endif %}</span>
+        </a>
+      {%- endif -%}
 
       {%- if is_layout -%}
         {%- if f[3] != blank or f[0] != blank -%}
@@ -729,6 +740,33 @@
     transition: opacity 0.25s ease;
   }
 
+  .vant-pdp__frame {
+    position: relative;
+    /* Up and down still scrolls the page; left and right changes the photo */
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .vant-pdp__count {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgb(46 42 43 / 0.72);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .vant-pdp__count:not([hidden]) {
+      display: block;
+    }
+  }
+
   .vant-pdp__frame img.is-cover {
     object-fit: cover;
   }
@@ -780,6 +818,43 @@
     color: inherit;
     text-underline-offset: 3px;
     margin-bottom: 14px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(.vant-pdp__rating) {
+      scroll-behavior: smooth;
+    }
+  }
+  #judgeme_product_reviews {
+    scroll-margin-top: 110px;
+  }
+  .vant-pdp__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 10px;
+    color: #2E2A2B;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .vant-pdp__rating:hover .vant-pdp__rating-text {
+    text-decoration: underline;
+  }
+  .vant-pdp__stars {
+    position: relative;
+    display: inline-block;
+    color: #DCD8D5;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .vant-pdp__stars-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    overflow: hidden;
+    color: #2E2A2B;
   }
 
   .vant-pdp__title {
@@ -870,6 +945,7 @@
     gap: 2px 18px;
     border-bottom: 1px solid #dcd8d5;
     overflow-x: auto;
+    overflow-y: hidden; /* sideways only: stops the row being dragged up and down */
     scrollbar-width: none;
   }
 
@@ -1337,6 +1413,7 @@
     .vant-pdp__thumbs {
       flex-wrap: nowrap;
       overflow-x: auto;
+      overflow-y: hidden; /* sideways only: stops the row being dragged up and down */
       scrollbar-width: none;
     }
 

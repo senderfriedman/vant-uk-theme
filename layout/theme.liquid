@@ -161,6 +161,8 @@
       {% render 'quick-add-modal' %}
     {% endif %}
     {% render 'vant-preview-links' %}
+    {%- comment -%} Vänt: the Back button closes pop-ups and drawers instead of leaving the page {%- endcomment -%}
+    <script src="{{ 'vant-back-close.js' | asset_url }}" defer></script>
   </body>
 </html>
 

@@ -67,9 +67,33 @@
     }
   }
 
-  @media screen and (max-width: 420px) {
+  /* Phones: a compact two-by-two list */
+  @media screen and (max-width: 749px) {
+    .vant-nf {
+      gap: 18px 16px;
+    }
+
+    .vant-nf__item {
+      padding-top: 14px;
+    }
+
+    .vant-nf__num {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .vant-nf__item .vant-icon {
+      margin-bottom: 8px;
+    }
+
     .vant-nf__title {
-      font-size: 17px;
+      font-size: 16px;
+    }
+
+    .vant-nf__text {
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.5;
     }
   }
 {% endstylesheet %}

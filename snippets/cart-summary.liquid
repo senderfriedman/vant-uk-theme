@@ -251,7 +251,7 @@
     </div>
   {%- endif -%}
 
-  <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
+  <div class="cart-totals__container{% if settings.show_installments and vant_others > 0 %} cart-totals__container--has-installments{% endif %}">
     <span
       class="cart-totals__item cart-totals__total"
       role="status"
@@ -268,7 +268,8 @@
         <bdi>{{ total_price }}</bdi>
       </text-component>
     </span>
-    {% if settings.show_installments %}
+    {% comment %} Vänt: no instalments line when the basket only holds swatches {% endcomment %}
+    {% if settings.show_installments and vant_others > 0 %}
       <span class="cart-totals__item cart-totals__installments">
         {% form 'cart', cart %}
           {{ form | payment_terms }}

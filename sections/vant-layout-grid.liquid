@@ -204,6 +204,7 @@
     display: flex;
     gap: 36px;
     overflow-x: auto;
+    overflow-y: hidden; /* sideways only: stops the row being dragged up and down */
     scrollbar-width: none;
   }
 
@@ -283,8 +284,45 @@
       padding-right: 40px;
     }
 
+    /* Phones: two smaller cards a row, so the page is about half as long */
     .vant-lg__grid {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .vant-lg__grid .vant-lc__body {
+      gap: 5px;
+      padding: 10px 10px 12px;
+    }
+
+    .vant-lg__grid .vant-lc__title {
+      font-size: 15px;
+    }
+
+    .vant-lg__grid .vant-lc__name {
+      font-size: 12px;
+    }
+
+    .vant-lg__grid .vant-lc__price {
+      font-size: 14px;
+    }
+
+    .vant-lg__grid .vant-lc__foot {
+      padding-top: 4px;
+    }
+
+    .vant-lg__grid .vant-lc__line {
+      top: 12px;
+    }
+
+    .vant-lg__grid .vant-lc__media img {
+      inset: 34px 6% 0;
+      width: 88%;
+      height: calc(100% - 34px);
+    }
+
+    .vant-lg__grid .vant-badge {
+      font-size: 12px;
     }
   }
 {% endstylesheet %}

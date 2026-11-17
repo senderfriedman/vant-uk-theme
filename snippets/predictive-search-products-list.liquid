@@ -84,15 +84,47 @@
       </ul>
     </div>
   {% else %}
+    {%- liquid
+      # Vänt: swatches and inspiration placeholders are left out of the product results.
+      # Count what is left first, so the Products heading never sits above an empty list.
+      assign limit = limit | default: 8
+      assign vant_sw = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip
+      assign vant_visible = 0
+      assign vant_swatch_hits = 0
+      assign vant_first_swatch = ''
+      for product in products limit: limit
+        assign vant_pt = product.type | downcase | strip
+        if vant_pt == vant_sw
+          assign vant_swatch_hits = vant_swatch_hits | plus: 1
+          if vant_first_swatch == blank
+            assign vant_first_swatch = product.handle
+          endif
+        elsif vant_pt != 'inspiration'
+          assign vant_visible = vant_visible | plus: 1
+        endif
+      endfor
+      assign vant_swatch_handle = settings.vant_swatch_collection_handle | default: 'order-swatches'
+      assign vant_swatch_page = '/collections/' | append: vant_swatch_handle
+    -%}
+    {%- if vant_swatch_hits > 0 -%}
+      <a
+        class="vant-search-swatches"
+        href="{{ vant_swatch_page }}?colour={{ vant_first_swatch }}"
+      >
+        <span class="vant-search-swatches__text">
+          <strong>Fabric swatches</strong>
+          {{ vant_swatch_hits }} matching {% if vant_swatch_hits == 1 %}colour{% else %}colours{% endif %}. See and order swatches
+        </span>
+        {% render 'vant-arrow' %}
+      </a>
+    {%- endif -%}
+    {%- if vant_visible > 0 -%}
     <h4 class="predictive-search-results__title">
       {{ title }}
     </h4>
     <ul
       class="predictive-search-results__list predictive-search-results__wrapper-products list-unstyled"
     >
-      {% liquid
-        assign limit = limit | default: 8
-      %}
       {% for product in products limit: limit %}
         {%- assign vant_pt = product.type | downcase | strip -%}{%- assign vant_sw = settings.vant_swatch_product_type | default: 'swatch' | downcase | strip -%}{%- if vant_pt == 'inspiration' or vant_pt == vant_sw -%}{%- continue -%}{%- endif -%}
         <li
@@ -110,5 +142,6 @@
         </li>
       {% endfor %}
     </ul>
+    {%- endif -%}
   {% endif %}
 </div>
