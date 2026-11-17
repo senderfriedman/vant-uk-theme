@@ -28,7 +28,7 @@
           "type": "video",
           "settings": {
             "youtube_id": "g2ugde7Zth8",
-            "label": "Play fitting video"
+            "label": "Watch the fitting video (1 min)"
           }
         },
         "b2": {
@@ -98,8 +98,8 @@
           "type": "step",
           "settings": {
             "illustration": "hook",
-            "title": "Hook on the panels",
-            "text": "<p>Hook the panels onto the brackets, starting with the bottom row.</p>"
+            "title": "Click on the panels",
+            "text": "<p>Click the panels onto the brackets, starting with the bottom row.</p>"
           }
         },
         "b11": {

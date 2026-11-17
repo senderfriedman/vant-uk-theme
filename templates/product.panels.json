@@ -39,7 +39,7 @@
         "diagram_note": "Each bracket holds 2 panels high. For a single row or 3 panels high, trim the bracket to size with a hacksaw.",
         "gallery_video": "shopify://files/videos/vant-simplemount-animation.mp4",
         "gallery_video_caption": "Patented SimpleMount fixing · secure aluminium wall brackets",
-        "facts": "Size | [size] wide × high · [panels] panels\nIn the box | [boxes] panels, with brackets and all fixings\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
+        "facts": "Size | [size] wide × high · [panels] panels\nIn the box | [boxes] panels, with brackets and all fixings"
       },
       "blocks": {
         "d1": {
@@ -74,7 +74,7 @@
           "type": "detail",
           "settings": {
             "title": "Care",
-            "text": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
+            "text": "<p>Vintage faux leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
           }
         },
         "d6": {
@@ -132,7 +132,7 @@
         "heading": "How it goes up",
         "youtube_id": "g2ugde7Zth8",
         "film_label": "",
-        "play_label": "Watch the video",
+        "play_label": "Watch the fitting video (1 min)",
         "link_label": "See fitting instructions",
         "link": "/pages/fitting-guide",
         "padding_top": 72,
@@ -150,7 +150,7 @@
           "type": "step",
           "settings": {
             "title": "Click the panels on",
-            "text": "<p>Each panel hooks onto the brackets. A box of four goes up in about five minutes.</p>"
+            "text": "<p>Each panel clicks onto the brackets. A box of four goes up in about five minutes.</p>"
           }
         },
         "p3": {

@@ -31,7 +31,7 @@
         "size_labels": "Gold\nChrome",
         "help_link_label": "",
         "crumb_2_link": "shopify://collections/bench",
-        "facts": "Size | 137cm long × 45cm deep × 44cm high · 10cm padded seat\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
+        "facts": "Size | 137cm long × 45cm deep × 44cm high · 10cm padded seat"
       },
       "blocks": {
         "d1": {
@@ -59,7 +59,7 @@
           "type": "detail",
           "settings": {
             "title": "Care",
-            "text": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede and weave: vacuum with a soft brush and spot-clean gently.</p>"
+            "text": "<p>Vintage faux leather and metallic: wipe with a damp cloth. Velvet, micro suede and weave: vacuum with a soft brush and spot-clean gently.</p>"
           }
         },
         "d5": {

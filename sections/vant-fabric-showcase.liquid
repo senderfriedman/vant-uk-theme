@@ -76,7 +76,7 @@
           endif
           assign fabric = p.variants.first.option1
           if fabric == 'Leather'
-            assign fabric = 'Vintage Leather'
+            assign fabric = 'Vintage Faux Leather'
           endif
           assign fabric_key = fabric | downcase | strip
           if exclude contains fabric_key
@@ -101,7 +101,7 @@
                   endif
                   assign f = p.variants.first.option1
                   if f == 'Leather'
-                    assign f = 'Vintage Leather'
+                    assign f = 'Vintage Faux Leather'
                   endif
                   if f != fabric
                     continue

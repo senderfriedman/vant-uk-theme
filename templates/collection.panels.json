@@ -33,7 +33,7 @@
         "l2": {
           "type": "logo",
           "settings": {
-            "name": "Netflix · Queer Eye",
+            "name": "Netflix’s Queer Eye",
             "image": "shopify://shop_images/logo--netflix.png"
           }
         },
@@ -187,7 +187,7 @@
         "heading": "How it goes up",
         "youtube_id": "g2ugde7Zth8",
         "film_label": "",
-        "play_label": "Watch the video",
+        "play_label": "Watch the fitting video (1 min)",
         "link_label": "See fitting instructions",
         "link": "/pages/fitting-guide",
         "padding_top": 80,
@@ -205,7 +205,7 @@
           "type": "step",
           "settings": {
             "title": "Click the panels on",
-            "text": "<p>Each panel hooks onto the brackets. A box of four goes up in about five minutes.</p>"
+            "text": "<p>Each panel clicks onto the brackets. A box of four goes up in about five minutes.</p>"
           }
         },
         "p3": {
@@ -314,7 +314,7 @@
           "type": "question",
           "settings": {
             "question": "How do I clean them?",
-            "answer": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
+            "answer": "<p>Vintage faux leather and metallic: wipe with a damp cloth. Velvet, micro suede, weave and bouclé: vacuum with a soft brush and spot-clean gently.</p>"
           }
         },
         "q7": {

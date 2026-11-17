@@ -47,7 +47,7 @@
         "l2": {
           "type": "logo",
           "settings": {
-            "name": "Netflix · Queer Eye",
+            "name": "Netflix’s Queer Eye",
             "image": "shopify://shop_images/logo--netflix.png"
           }
         },
@@ -168,7 +168,7 @@
       "settings": {
         "image": "shopify://shop_images/vant-film-installation-cover.jpg",
         "youtube_id": "g2ugde7Zth8",
-        "play_label": "Watch the film · 1 min",
+        "play_label": "Watch the fitting video (1 min)",
         "media_position": "left",
         "heading": "Fitted in an afternoon",
         "text": "<p>Padded panels click onto aluminium brackets. No tradesperson needed.</p>",
@@ -344,7 +344,7 @@
         "eyebrow": "Our patented fixing",
         "heading": "How SimpleMount holds it",
         "youtube_id": "g2ugde7Zth8",
-        "film_label": "Watch the fitting film",
+        "film_label": "Watch the fitting video (1 min)",
         "padding_top": 80,
         "padding_bottom": 80
       },

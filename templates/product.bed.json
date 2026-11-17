@@ -31,7 +31,7 @@
         "padding_bottom": 64,
         "size_labels": "Double\nKing\nSuper King",
         "help_link_label": "",
-        "facts": "Mattress | Not included\nAssembly | Easy to assemble, no tools needed\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
+        "facts": "Mattress | Not included\nAssembly | Easy to assemble, no tools needed"
       },
       "blocks": {
         "d1": {
@@ -66,7 +66,7 @@
           "type": "detail",
           "settings": {
             "title": "Care",
-            "text": "<p>Vintage leather and metallic: wipe with a damp cloth. Velvet, micro suede and weave: vacuum with a soft brush and spot-clean gently.</p>"
+            "text": "<p>Vintage faux leather and metallic: wipe with a damp cloth. Velvet, micro suede and weave: vacuum with a soft brush and spot-clean gently.</p>"
           }
         },
         "d6": {

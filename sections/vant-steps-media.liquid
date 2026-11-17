@@ -14,7 +14,7 @@
       {%- elsif section.settings.image != blank -%}
         {{ section.settings.image | image_url: width: 1800 | image_tag: widths: '600, 900, 1200, 1800', sizes: '(min-width: 750px) 70vw, 100vw', loading: 'lazy', class: 'vant-img-cover' }}
         {%- if section.settings.layout == 'stacked' and section.settings.youtube_id != blank -%}
-          <button type="button" class="vant-vf__play vant-steps__play" data-vant-video="{{ section.settings.youtube_id | escape }}" aria-label="Play the fitting film">
+          <button type="button" class="vant-vf__play vant-steps__play" data-vant-video="{{ section.settings.youtube_id | escape }}" aria-label="Play the fitting video">
             <span class="vant-vf__play-icon"><svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 3v10l8-5z"/></svg></span>
             {%- if section.settings.play_label != blank -%}<span class="vant-vf__play-label">{{ section.settings.play_label }}</span>{%- endif -%}
           </button>
@@ -282,13 +282,13 @@
       "type": "text",
       "id": "film_label",
       "label": "Film button",
-      "default": "Watch the fitting film"
+      "default": "Watch the fitting video (1 min)"
     },
     {
       "type": "text",
       "id": "play_label",
       "label": "Label on the picture's play button (stacked layout)",
-      "default": "Watch the video"
+      "default": "Watch the fitting video (1 min)"
     },
     {
       "type": "text",
