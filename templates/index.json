@@ -389,24 +389,24 @@
           "type": "look",
           "settings": {
             "image": "shopify://shop_images/vant-style-taupe-velvet.webp",
-            "caption": "Taupe velvet",
-            "link": "shopify://collections/pre-configured-layouts"
+            "caption": "Taupe",
+            "link": "/products/vant-panel-pack-of-4-panels-30-x-46?colour=velvet-sand-storm"
           }
         },
         "g2": {
           "type": "look",
           "settings": {
             "image": "shopify://shop_images/vant-style-dark-velvet.webp",
-            "caption": "Dark velvet",
-            "link": "shopify://collections/pre-configured-layouts"
+            "caption": "Dark",
+            "link": "/products/vant-panel-pack-of-4-panels-30-x-46?colour=velvet-black"
           }
         },
         "g3": {
           "type": "look",
           "settings": {
             "image": "shopify://shop_images/vant-style-charcoal-velvet.webp",
-            "caption": "Charcoal velvet",
-            "link": "shopify://collections/pre-configured-layouts"
+            "caption": "Charcoal",
+            "link": "/products/vant-panel-pack-of-4-panels-30-x-46?colour=velvet-gothic-grey"
           }
         }
       },
