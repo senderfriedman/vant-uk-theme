@@ -1314,16 +1314,17 @@
   }
 
   .vant-pdp__facts {
-    margin: 18px 0 0;
-    padding: 2px 16px;
+    margin: 16px 0 0;
+    padding: 0 12px;
     background: #f6f4f2;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.45;
   }
 
   .vant-pdp__fact {
     position: relative;
-    padding: 12px 0 12px 34px;
+    padding: 7px 0 7px 28px;
     border-top: 1px solid #e4e0dd;
   }
 
@@ -1334,26 +1335,30 @@
   .vant-pdp__fact-icon {
     position: absolute;
     inset-inline-start: 0;
-    top: 12px;
+    top: 7px;
     color: #2e2a2b;
     line-height: 0;
   }
 
   .vant-pdp__fact-icon .vant-icon {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
 
   .vant-pdp__fact dt {
+    display: inline;
     font-weight: 500;
     color: #2e2a2b;
-    margin-bottom: 2px;
+  }
+
+  .vant-pdp__fact dt::after {
+    content: ':';
   }
 
   .vant-pdp__fact dd {
-    margin: 0;
+    display: inline;
+    margin: 0 0 0 4px;
     color: #5c5657;
-    line-height: 1.5;
   }
 
   .vant-pdp__fact dd a {
