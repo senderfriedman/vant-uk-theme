@@ -57,7 +57,7 @@
       const isDesigned = (path) => designedRx.some((rx) => rx.test(normalise(path)));
 
       const ignoredPath = (path) =>
-        /^\/(cart\/(add|change|update|clear)|checkout|checkouts|services|apps|tools|wpm|cdn)/.test(path);
+        /^\/(cart\/(add|change|update|clear)|checkout|checkouts|services|apps|tools|wpm|cdn|account|customer_authentication|customer_identity)/.test(path);
 
       // Rewrite a link to its new-template version, keeping any extra query (colour, variant…)
       const mapped = (url) => {
@@ -131,14 +131,8 @@
         (event) => {
           if (event.defaultPrevented || event.button !== 0) return;
 
-          // Account sign-in (Shopify's account button)
-          const account = event.target.closest && event.target.closest('shopify-account, .account-button');
-          if (account) {
-            event.preventDefault();
-            event.stopPropagation();
-            show('Account and sign-in', '');
-            return;
-          }
+          // Account sign-in is live (Shopify's own pages), so the account button is never blocked
+          if (event.target.closest && event.target.closest('shopify-account, .account-button')) return;
 
           const a = event.target.closest && event.target.closest('a[href]');
           if (!a || a.closest('[data-vant-preview-dialog]')) return;
