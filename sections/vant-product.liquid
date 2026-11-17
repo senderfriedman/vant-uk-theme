@@ -526,7 +526,30 @@
               assign fvalue = fvalue | replace: '[size]', fact_size | replace: '[width]', fact_width | replace: '[panels]', f[4] | replace: '[boxes]', box_text
             -%}
             {%- if flabel != blank and fvalue != blank -%}
-              <div class="vant-pdp__fact"><dt>{{ flabel }}</dt><dd>{{ fvalue }}</dd></div>
+              {%- liquid
+                assign fkey = flabel | downcase
+                assign ficon = ''
+                case fkey
+                  when 'size'
+                    assign ficon = 'ruler'
+                  when 'in the box'
+                    assign ficon = 'box'
+                  when 'delivery'
+                    assign ficon = 'delivery'
+                  when 'returns'
+                    assign ficon = 'returns'
+                  when 'assembly'
+                    assign ficon = 'tools'
+                  when 'mattress'
+                    assign ficon = 'bed'
+                  when 'warranty'
+                    assign ficon = 'warranty'
+                endcase
+              -%}
+              <div class="vant-pdp__fact">
+                <dt>{%- if ficon != blank -%}<span class="vant-pdp__fact-icon">{% render 'vant-icon', icon: ficon %}</span>{%- endif -%}{{ flabel }}</dt>
+                <dd>{{ fvalue }}</dd>
+              </div>
             {%- endif -%}
           {%- endfor -%}
         </dl>
@@ -1292,26 +1315,51 @@
 
   .vant-pdp__facts {
     margin: 18px 0 0;
-    padding: 0;
-    display: grid;
-    gap: 8px;
+    padding: 2px 16px;
+    background: #f6f4f2;
+    border-radius: 6px;
     font-size: 14px;
   }
 
   .vant-pdp__fact {
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 12px;
+    position: relative;
+    padding: 12px 0 12px 34px;
+    border-top: 1px solid #e4e0dd;
+  }
+
+  .vant-pdp__fact:first-child {
+    border-top: 0;
+  }
+
+  .vant-pdp__fact-icon {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 12px;
+    color: #2e2a2b;
+    line-height: 0;
+  }
+
+  .vant-pdp__fact-icon .vant-icon {
+    width: 22px;
+    height: 22px;
   }
 
   .vant-pdp__fact dt {
     font-weight: 500;
     color: #2e2a2b;
+    margin-bottom: 2px;
   }
 
   .vant-pdp__fact dd {
     margin: 0;
     color: #5c5657;
+    line-height: 1.5;
+  }
+
+  .vant-pdp__fact dd a {
+    color: #2e2a2b;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .vant-pdp__details {

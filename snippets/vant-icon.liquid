@@ -1,6 +1,6 @@
 {%- doc -%}
   Thin line icons for Vänt sections.
-  @param {string} icon - delivery | swatch | bracket | returns | warranty | phone | mail | layers | padding | batting | grid | book | tools | tag | person | box
+  @param {string} icon - delivery | swatch | bracket | returns | warranty | phone | mail | layers | padding | batting | grid | book | tools | tag | person | box | ruler | bed
 {%- enddoc -%}
 <svg class="vant-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   {%- case icon -%}
@@ -34,6 +34,10 @@
       <path d="m12 4 8.5 4.5L12 13 3.5 8.5z"/><path d="m3.5 12.5 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5"/>
     {%- when 'padding' -%}
       <rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9.5h8M8 14.5h8"/>
+    {%- when 'ruler' -%}
+      <path d="M3.5 15.5 15.5 3.5l5 5-12 12z"/><path d="m7 12 1.8 1.8M9.5 9.5l2.5 2.5M12 7l1.8 1.8M14.5 4.5 17 7"/>
+    {%- when 'bed' -%}
+      <path d="M3.5 19.5v-10M3.5 15.5h17v4M20.5 15.5v-3a2 2 0 0 0-2-2h-8v5"/><circle cx="7" cy="12.5" r="1.8"/>
     {%- when 'batting' -%}
       <path d="M3.5 8c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0M3.5 12c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0M3.5 16c2.8-2 5.7 2 8.5 0s5.7 2 8.5 0"/>
     {%- else -%}
