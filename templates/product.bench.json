@@ -166,9 +166,21 @@
         "jdgm_widget": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
+        },
+        "us_note": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Includes reviews from Vänt customers in the USA.</p>",
+            "width": "100%",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font_size": "0.875rem",
+            "text_color": "#5c5657"
+          }
         }
       },
       "block_order": [
+        "us_note",
         "jdgm_widget"
       ],
       "settings": {
