@@ -342,7 +342,7 @@
         "video": "shopify://files/videos/vant-simplemount-animation.mp4",
         "pause_label": "Pause animation",
         "eyebrow": "Meet SimpleMount, our patented fixing",
-        "heading": "How it fixes to your wall",
+        "heading": "How SimpleMount holds it",
         "youtube_id": "g2ugde7Zth8",
         "film_label": "Watch the fitting film",
         "padding_top": 80,
@@ -535,7 +535,8 @@
         "r2",
         "r3",
         "r4"
-      ]
+      ],
+      "disabled": true
     },
     "band": {
       "type": "vant-cta-band",
