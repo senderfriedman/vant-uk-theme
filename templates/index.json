@@ -118,7 +118,7 @@
           "settings": {
             "collection": "panels",
             "title": "Headboard walls",
-            "price_text": "from £160",
+            "price_text": "from £169",
             "product": "victoria-layout-60-x-46",
             "colour": "Champagne",
             "image_fit": "cover"
@@ -129,7 +129,7 @@
           "settings": {
             "collection": "platform-beds",
             "title": "Beds",
-            "price_text": "from £619",
+            "price_text": "from £679",
             "image": "shopify://shop_images/vant-furniture-room-saddle-brown.webp",
             "image_fit": "cover"
           }
@@ -139,7 +139,7 @@
           "settings": {
             "collection": "table",
             "title": "Bedside tables",
-            "price_text": "from £289.99",
+            "price_text": "from £279",
             "product": "vant-night-stand",
             "image_fit": "cover"
           }
@@ -149,7 +149,7 @@
           "settings": {
             "collection": "bench",
             "title": "Bed benches",
-            "price_text": "from £269",
+            "price_text": "from £279",
             "product": "vant-upholstered-bed-bench-burnished-brass",
             "colour": "Champagne",
             "image_fit": "cover"
@@ -239,7 +239,7 @@
             "product": "romulus-layout-39-x-46",
             "dimension": "91cm",
             "title": "Single bed",
-            "price_text": "from £165",
+            "price_text": "from £189",
             "link_label": "Shop Single",
             "link": "/collections/pre-configured-layouts?bed=single"
           }
@@ -251,7 +251,7 @@
             "dimension": "152cm",
             "badge": "Most popular",
             "title": "Double & King beds",
-            "price_text": "from £160",
+            "price_text": "from £169",
             "link_label": "Shop Double & King",
             "link": "/collections/pre-configured-layouts?bed=double-king"
           }
@@ -262,7 +262,7 @@
             "product": "midas-layout-78-x-46",
             "dimension": "183cm",
             "title": "Super King beds",
-            "price_text": "from £165",
+            "price_text": "from £189",
             "link_label": "Shop Super King",
             "link": "/collections/pre-configured-layouts?bed=super-king"
           }
@@ -273,7 +273,7 @@
             "product": "the-new-yorker-layout-117-x-69",
             "dimension": "Up to 305cm",
             "title": "Feature walls",
-            "price_text": "from £330",
+            "price_text": "from £369",
             "link_label": "Shop feature walls",
             "link": "/collections/pre-configured-layouts?bed=feature-walls"
           }
