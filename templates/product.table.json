@@ -28,7 +28,7 @@
         "size_labels": "",
         "help_link_label": "",
         "crumb_2_link": "shopify://collections/table",
-        "facts": "Size | 62cm wide × 46cm deep × 56cm high · 25kg\nAssembly | Arrives fully assembled"
+        "facts": "Size | 62cm wide × 46cm deep × 56cm high · 25kg\nAssembly | Arrives fully assembled\nDelivery | Free GB delivery · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty"
       },
       "blocks": {
         "d1": {
@@ -71,14 +71,16 @@
           "settings": {
             "title": "Delivery",
             "text": "<p>Free delivery to England, Scotland and Wales. We don’t currently deliver to Northern Ireland. Dispatched the next working day and delivered in 3–5 working days.</p>"
-          }
+          },
+          "disabled": true
         },
         "d7": {
           "type": "detail",
           "settings": {
             "title": "Returns & warranty",
             "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
-          }
+          },
+          "disabled": true
         },
         "d8": {
           "type": "detail",
