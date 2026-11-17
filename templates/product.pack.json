@@ -148,7 +148,7 @@
           "type": "step",
           "settings": {
             "title": "Click the panels on",
-            "text": "<p>Each panel clicks onto the brackets. A box of four goes up in about five minutes.</p>"
+            "text": "<p>Each panel clicks onto the brackets.</p>"
           }
         },
         "p3": {
