@@ -164,6 +164,16 @@
     {%- comment -%} Vänt: the Back button closes pop-ups and drawers instead of leaving the page {%- endcomment -%}
     <script src="{{ 'vant-back-close.js' | asset_url }}" defer></script>
     <script src="{{ 'vant-chat-lift.js' | asset_url }}" defer></script>
+    <script>
+      window.VantPage = {
+        type: {{ request.page_type | json }},
+        suffix: {{ template.suffix | json }},
+        handle: {{ collection.handle | default: page.handle | default: product.handle | json }},
+        productType: {{ product.type | json }},
+        productTitle: {{ product.title | json }}
+      };
+    </script>
+    <script src="{{ 'vant-clarity.js' | asset_url }}" defer></script>
   </body>
 </html>
 

@@ -55,6 +55,8 @@ async function add(items, source = document.body) {
       error.isCartError = true;
       throw error;
     }
+    // Tell analytics (vant-clarity.js) what was added.
+    document.dispatchEvent(new CustomEvent('vant:added', { detail: { items: (result && result.items) || [] } }));
     return cart;
   } catch (error) {
     if (!error.isCartError) deferred.reject(error);
