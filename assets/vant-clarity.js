@@ -96,7 +96,14 @@
     'toggle',
     function (e) {
       var d = e.target;
-      if (d && d.open && d.classList && d.classList.contains('vant-faq__item')) event('faq_opened');
+      if (!d || !d.open || !d.classList) return;
+      if (d.classList.contains('vant-faq__item')) event('faq_opened');
+      else if (d.classList.contains('vant-pdp__detail')) {
+        // Product detail tabs: "Fire safety" -> opened_fire_safety
+        var summary = d.querySelector('summary');
+        var name = summary ? summary.textContent.trim().toLowerCase().replace(/[^a-z]+/g, '_').replace(/^_|_$/g, '') : '';
+        if (name) event('opened_' + name.slice(0, 30));
+      }
     },
     true
   );
