@@ -109,12 +109,18 @@
   );
 
   // ---- Basket drawer opened ----
+  // The drawer markup can be re-rendered, so watch the whole page for a dialog opening.
   function watchDrawer() {
-    var dialog = document.querySelector('cart-drawer-component dialog, .theme-drawer__dialog[aria-labelledby="cart-drawer-heading"]');
-    if (!dialog || !window.MutationObserver) return;
-    new MutationObserver(function () {
-      if (dialog.open) event('basket_opened');
-    }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+    if (!window.MutationObserver || !document.body) return;
+    new MutationObserver(function (records) {
+      for (var i = 0; i < records.length; i++) {
+        var el = records[i].target;
+        if (el.open && el.getAttribute && el.getAttribute('aria-labelledby') === 'cart-drawer-heading') {
+          event('basket_opened');
+          return;
+        }
+      }
+    }).observe(document.body, { attributes: true, attributeFilter: ['open'], subtree: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchDrawer);
   else watchDrawer();
