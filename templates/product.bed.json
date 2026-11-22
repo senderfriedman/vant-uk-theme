@@ -40,7 +40,7 @@
         "padding_bottom": 64,
         "size_labels": "Double\nKing\nSuper King",
         "help_link_label": "",
-        "facts": "Mattress | Not included\nAssembly | Easy to assemble, no tools needed\nDelivery | Free GB delivery, exc. Northern Ireland · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty · <a href=\"/pages/order-information#returns\">How returns work</a>"
+        "facts": "Mattress | Not included\nAssembly | Easy to assemble, no tools needed\nDelivery | Free GB delivery, exc. Northern Ireland · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty · <a href=\"/pages/delivery-returns#returns\">How returns work</a>"
       },
       "blocks": {
         "d1": {
@@ -90,7 +90,7 @@
           "type": "detail",
           "settings": {
             "title": "Returns & warranty",
-            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
+            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/delivery-returns#returns\">Delivery & returns</a> for how.</p>"
           },
           "disabled": true
         },

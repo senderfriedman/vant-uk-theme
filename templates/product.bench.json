@@ -40,7 +40,7 @@
         "size_labels": "Gold\nChrome",
         "help_link_label": "",
         "crumb_2_link": "shopify://collections/bench",
-        "facts": "Size | 137cm long × 45cm deep × 44cm high · 10cm padded seat\nDelivery | Free GB delivery, exc. Northern Ireland · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty · <a href=\"/pages/order-information#returns\">How returns work</a>"
+        "facts": "Size | 137cm long × 45cm deep × 44cm high · 10cm padded seat\nDelivery | Free GB delivery, exc. Northern Ireland · dispatched next working day, delivered in 3–5 working days\nReturns | 14-day returns · 1-year warranty · <a href=\"/pages/delivery-returns#returns\">How returns work</a>"
       },
       "blocks": {
         "d1": {
@@ -83,7 +83,7 @@
           "type": "detail",
           "settings": {
             "title": "Returns & warranty",
-            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/order-information#returns\">Delivery & returns</a> for how.</p>"
+            "text": "<p>14 days to change your mind. 1-year warranty. See <a href=\"/pages/delivery-returns#returns\">Delivery & returns</a> for how.</p>"
           },
           "disabled": true
         },

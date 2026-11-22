@@ -18,7 +18,7 @@
         "breadcrumb_label": "Headboard walls",
         "eyebrow": "Upholstered wall panels",
         "heading": "Your headboard wall, your way.",
-        "text": "<p>Padded panels on secure wall brackets. Choose your own boxes, or pick a ready-made layout.</p><p>From £160 a box · Free GB delivery</p>",
+        "text": "<p>Padded panels on secure wall brackets. Choose your own boxes, or pick a ready-made layout.</p><p>From £169 a box · Free GB delivery</p>",
         "button_label": "",
         "button2_label": "",
         "caption": ""
@@ -99,7 +99,7 @@
             "product": "romulus-layout-39-x-46",
             "dimension": "91cm",
             "title": "Single bed",
-            "price_text": "from £165",
+            "price_text": "from £189",
             "link_label": "Shop Single",
             "link": "/collections/pre-configured-layouts?bed=single"
           }
@@ -111,7 +111,7 @@
             "dimension": "152cm",
             "badge": "Most popular",
             "title": "Double & King beds",
-            "price_text": "from £160",
+            "price_text": "from £169",
             "link_label": "Shop Double & King",
             "link": "/collections/pre-configured-layouts?bed=double-king"
           }
@@ -122,7 +122,7 @@
             "product": "midas-layout-78-x-46",
             "dimension": "183cm",
             "title": "Super King beds",
-            "price_text": "from £165",
+            "price_text": "from £189",
             "link_label": "Shop Super King",
             "link": "/collections/pre-configured-layouts?bed=super-king"
           }
@@ -133,7 +133,7 @@
             "product": "the-new-yorker-layout-117-x-69",
             "dimension": "Up to 305cm",
             "title": "Feature walls",
-            "price_text": "from £330",
+            "price_text": "from £369",
             "link_label": "Shop feature walls",
             "link": "/collections/pre-configured-layouts?bed=feature-walls"
           }
@@ -156,7 +156,7 @@
         "play_label": "",
         "media_position": "left",
         "heading": "Want a custom size? Buy by the box.",
-        "text": "<p>Each box has 4 panels and the brackets to fit them. Add as many as your wall needs.</p><ul><li>76cm × 30cm panels · from £160 a box</li><li>91cm × 30cm panels · from £165 a box</li></ul><p>A Double or King headboard is usually 2 boxes.</p>",
+        "text": "<p>Each box has 4 panels and the brackets to fit them. Add as many as your wall needs.</p><ul><li>76cm × 30cm panels · from £169 a box</li><li>91cm × 30cm panels · from £189 a box</li></ul><p>A Double or King headboard is usually 2 boxes.</p>",
         "button_label": "Shop packs of 4",
         "button_link": "shopify://products/vant-panel-pack-of-4-panels-30-x-46",
         "panel_color": "#F5F3F1",
