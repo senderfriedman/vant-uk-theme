@@ -11,6 +11,38 @@
 
 {%- if settings.vant_bf_on -%}
   {% render 'vant-base' %}
+  {%- comment -%}
+    The bar stays put while the page scrolls, so the codes are on screen at the
+    moment someone decides to buy. Horizon sticks only the nav row, at top -1px,
+    so the nav is pushed down by exactly the bar's height. The -1px is kept
+    because Horizon's sticky-state detection depends on it.
+    The height is fixed here rather than left to the content so that the bar and
+    the nav offset can never disagree. Desktop only: on a phone a frozen bar on
+    top of the frozen nav would take a sixth of the screen, and the bar can run
+    to two lines there, which would break the offset.
+  {%- endcomment -%}
+  {%- assign bar_h = section.settings.padding_top | plus: section.settings.padding_bottom | plus: 20 -%}
+  <style>
+    @media screen and (min-width: 750px) {
+      .vant-bf-bar-section {
+        position: sticky;
+        top: 0;
+        z-index: calc(var(--layer-menu-drawer) + 1);
+      }
+
+      .vant-bf-bar {
+        height: {{ bar_h }}px;
+        padding-block: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .header-section:has(> #header-component[sticky='always']),
+      .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
+        top: {{ bar_h | minus: 1 }}px;
+      }
+    }
+  </style>
   <div
     class="vant-bf-bar"
     style="--vant-bf-bg: {{ section.settings.background_color }}; --vant-bf-fg: {{ section.settings.text_color }}; --vant-bf-pt: {{ section.settings.padding_top }}px; --vant-bf-pb: {{ section.settings.padding_bottom }}px;"
