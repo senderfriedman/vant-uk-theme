@@ -125,9 +125,24 @@
         "bubble_background_color": "#E0262B",
         "bubble_text_color": "#FFFFFF"
       }
+    },
+    "vant_bf_bar": {
+      "type": "vant-bf-bar",
+      "settings": {
+        "label": "Black Friday",
+        "message": "15% off everything with code BLACKFRIDAY15",
+        "message_secondary": "20% off orders over £2,500 with BLACKFRIDAY20",
+        "link_label": "Shop the sale",
+        "link": "shopify://collections/panels",
+        "background_color": "#000000",
+        "text_color": "#FFFFFF",
+        "padding_top": 10,
+        "padding_bottom": 10
+      }
     }
   },
   "order": [
+    "vant_bf_bar",
     "header_announcements_9jGBFp",
     "header_section"
   ]
