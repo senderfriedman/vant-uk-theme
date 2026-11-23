@@ -287,6 +287,8 @@
         {%- if unit != blank %} <span class="vant-pdp__unit">per {{ unit }}</span>{% endif -%}
       </p>
 
+      {% render 'vant-bf-tag', style: 'page' %}
+
       {%- if s.intro != blank -%}<p class="vant-pdp__intro">{{ s.intro }}</p>{%- endif -%}
 
       {%- comment -%} Size switcher: links to the sibling products (e.g. 76cm and 91cm packs) {%- endcomment -%}

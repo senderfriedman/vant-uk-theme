@@ -84,6 +84,7 @@
             <span class="vant-fg__body">
               <span class="vant-fg__title">{{ b.title | default: first.title }}</span>
               <span class="vant-fg__price">{% if varies %}From {% endif %}{{ min_price | money_without_trailing_zeros }}</span>
+              {% render 'vant-bf-tag' %}
               {%- if b.note != blank -%}<span class="vant-fg__note">{{ b.note }}</span>{%- endif -%}
               <span class="vant-fg__go">{% render 'vant-arrow' %}</span>
             </span>

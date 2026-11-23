@@ -1,0 +1,46 @@
+{%- doc -%}
+  The Black Friday tag shown beside a price, on product cards and product pages.
+  Renders nothing at all unless the Black Friday switch is on in Theme settings,
+  so it can be left in place all year.
+
+  It names the code rather than showing a reduced price, because the discount is
+  applied by the code at checkout: the price on screen is still the price the
+  basket will charge.
+
+  @param {string} [style] - "card" (default) or "page" for the longer wording used on a product page.
+
+  @example
+  {% render 'vant-bf-tag' %}
+  {% render 'vant-bf-tag', style: 'page' %}
+{%- enddoc -%}
+
+{%- if settings.vant_bf_on -%}
+  {%- liquid
+    assign bf_text = settings.vant_bf_tag
+    if style == 'page'
+      assign bf_text = settings.vant_bf_note
+    endif
+  -%}
+  {%- if bf_text != blank -%}
+    <span class="vant-bf-tag{% if style == 'page' %} vant-bf-tag--page{% endif %}">{{ bf_text }}</span>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-bf-tag {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+
+  .vant-bf-tag--page {
+    font-size: 13px;
+    padding: 6px 10px;
+    letter-spacing: 0.02em;
+  }
+{% endstylesheet %}

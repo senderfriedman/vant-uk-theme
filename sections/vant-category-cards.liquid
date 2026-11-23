@@ -53,6 +53,7 @@
             <h3 class="vant-cat__title">{{ title }}</h3>
             {%- if block.settings.price_text != blank -%}
               <span class="vant-cat__price">{{ block.settings.price_text }} {% render 'vant-arrow' %}</span>
+              {% render 'vant-bf-tag' %}
             {%- endif -%}
           </div>
         </a>
