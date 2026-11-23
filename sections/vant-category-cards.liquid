@@ -101,10 +101,18 @@
 
   .vant-cat__meta {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
     gap: 12px;
     padding-top: 16px;
+  }
+
+  /* The title and price share a row. The Black Friday tag takes a full line of
+     its own beneath them: squeezed into that row its text cannot wrap, so it
+     runs over the edge of the card and into the next one. */
+  .vant-cat__meta .vant-bf-tag-wrap {
+    flex-basis: 100%;
   }
 
   .vant-cat__title {
