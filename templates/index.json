@@ -25,7 +25,8 @@
         "caption": "Shown: Bouclé Ivory · Cleopatra layout",
         "caption_product": "cleopatra-layout-120-x-92",
         "caption_show_price": true,
-        "caption_suffix": ", delivered free"
+        "caption_suffix": ", delivered free",
+        "hide_during_bf": true
       }
     },
     "trust": {
@@ -615,9 +616,24 @@
         "q5",
         "q6"
       ]
+    },
+    "vant_bf_hero": {
+      "type": "vant-bf-hero",
+      "settings": {
+        "image": "shopify://shop_images/vant-style-dark-velvet.webp",
+        "shade": 60,
+        "height": 620,
+        "eyebrow": "Black Friday",
+        "heading": "15% off everything.",
+        "text": "<p>Every headboard wall, bed, bedside table and bench. Enter the code at checkout.</p>",
+        "button_label": "Shop the sale",
+        "button_link": "shopify://collections/panels",
+        "caption": "Use BLACKFRIDAY15 · 20% off orders over £2,500 with BLACKFRIDAY20"
+      }
     }
   },
   "order": [
+    "vant_bf_hero",
     "hero",
     "trust",
     "categories",

@@ -1,4 +1,6 @@
 {% render 'vant-base' %}
+{%- comment -%} The Black Friday hero takes this one's place on the home page while the sale is on. {%- endcomment -%}
+{%- unless settings.vant_bf_on and section.settings.hide_during_bf -%}
 {%- liquid
   assign desktop_image = section.settings.image
   assign mobile_image = section.settings.mobile_image | default: section.settings.image
@@ -102,6 +104,7 @@
   </div>
 </div>
 
+{%- endunless -%}
 {% stylesheet %}
   .vant-crumbs ol {
     list-style: none;
@@ -265,6 +268,13 @@
   "tag": "section",
   "class": "vant-hero-section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_during_bf",
+      "label": "Hide during Black Friday",
+      "info": "Use on the home page, where the Black Friday hero takes its place.",
+      "default": false
+    },
     {
       "type": "image_picker",
       "id": "image",

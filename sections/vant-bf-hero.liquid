@@ -1,0 +1,270 @@
+{% comment %}
+  Section contract.
+  The Black Friday homepage hero. Renders nothing unless the Black Friday switch
+  in Theme settings is on, so it can sit above the normal hero all year.
+  The normal hero steps aside while this is showing: see its "Hide during Black
+  Friday" setting, which is on for the homepage instance only, so heroes on
+  other pages are untouched.
+  Carries no countdown or end date: the offer runs into Cyber Monday.
+  @example
+  <!-- First section on the home page, above the usual hero -->
+{% endcomment %}
+
+{%- if settings.vant_bf_on -%}
+  {% render 'vant-base' %}
+  {%- liquid
+    assign desktop_image = section.settings.image
+    assign mobile_image = section.settings.mobile_image | default: section.settings.image
+  -%}
+  <div
+    class="vant-bfh"
+    style="--vant-bfh-h: {{ section.settings.height }}px; --vant-bfh-shade: {{ section.settings.shade }};"
+  >
+    <div class="vant-bfh__media">
+      {%- if desktop_image != blank -%}
+        <picture>
+          {%- if section.settings.mobile_image != blank -%}
+            <source
+              media="(max-width: 749px)"
+              srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w"
+              sizes="100vw"
+            >
+          {%- endif -%}
+          {{
+            desktop_image
+            | image_url: width: 2000
+            | image_tag:
+              widths: '750, 1100, 1500, 2000',
+              sizes: '100vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              class: 'vant-img-cover',
+              alt: desktop_image.alt
+          }}
+        </picture>
+      {%- endif -%}
+    </div>
+
+    <div class="vant-bfh__inner">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="vant-bfh__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="vant-bfh__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="vant-bfh__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a class="vant-bfh__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.caption != blank -%}
+        <p class="vant-bfh__caption">{{ section.settings.caption }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-bfh {
+    position: relative;
+    min-height: var(--vant-bfh-h, 620px);
+    display: flex;
+    align-items: center;
+    background: #111010;
+    overflow: hidden;
+  }
+
+  .vant-bfh__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .vant-bfh__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* The photograph is darkened so white type stays readable over any part of
+     it, and so the section reads as the sale rather than as a normal hero. */
+  .vant-bfh__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgb(0 0 0 / calc(var(--vant-bfh-shade, 60) * 1%)) 0%,
+      rgb(0 0 0 / calc(var(--vant-bfh-shade, 60) * 0.85%)) 45%,
+      rgb(0 0 0 / calc(var(--vant-bfh-shade, 60) * 0.45%)) 100%
+    );
+  }
+
+  .vant-bfh__inner {
+    position: relative;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-block: 64px;
+    max-width: 760px;
+    padding-inline: clamp(20px, 5vw, 64px);
+    box-sizing: border-box;
+    margin-inline-end: auto;
+  }
+
+  .vant-bfh__eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 1px solid currentcolor;
+    padding: 4px 10px;
+  }
+
+  .vant-bfh__heading {
+    margin: 0;
+    font-size: 54px;
+    line-height: 1.05;
+    color: inherit;
+  }
+
+  .vant-bfh__text {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+
+  .vant-bfh__text p {
+    margin: 0;
+  }
+
+  .vant-bfh__button {
+    display: inline-block;
+    margin-top: 6px;
+    background: #ffffff;
+    color: #1a1718;
+    font-size: 15px;
+    padding: 14px 26px;
+    text-decoration: none;
+  }
+
+  .vant-bfh__button:hover {
+    background: #e8e4e1;
+  }
+
+  .vant-bfh__caption {
+    margin: 2px 0 0;
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vant-bfh {
+      min-height: 480px;
+    }
+
+    .vant-bfh__inner {
+      padding-block: 48px;
+      gap: 12px;
+    }
+
+    .vant-bfh__heading {
+      font-size: 34px;
+    }
+
+    .vant-bfh__text {
+      font-size: 15px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt Black Friday hero",
+  "tag": "section",
+  "class": "vant-bfh-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only when the Black Friday switch is on in Theme settings > Vänt > Black Friday."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Image (mobile, optional)"
+    },
+    {
+      "type": "range",
+      "id": "shade",
+      "label": "How dark the photo is made",
+      "min": 20,
+      "max": 85,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height",
+      "min": 420,
+      "max": 820,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small label",
+      "default": "Black Friday"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "15% off everything."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Every headboard wall, bed, bedside table and bench. Enter the code at checkout.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button",
+      "default": "Shop the sale"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption under the button",
+      "default": "Use BLACKFRIDAY15 · 20% off orders over £2,500 with BLACKFRIDAY20"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vänt Black Friday hero"
+    }
+  ]
+}
+{% endschema %}
