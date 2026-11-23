@@ -7,6 +7,10 @@
   applied by the code at checkout: the price on screen is still the price the
   basket will charge.
 
+  The tag sits inside a plain block wrapper. Cards lay their contents out as
+  stretching flex or grid children, so without the wrapper the tag is stretched
+  to the full width of the card and reads as a band rather than a badge.
+
   @param {string} [style] - "card" (default) or "page" for the longer wording used on a product page.
 
   @example
@@ -22,11 +26,18 @@
     endif
   -%}
   {%- if bf_text != blank -%}
-    <span class="vant-bf-tag{% if style == 'page' %} vant-bf-tag--page{% endif %}">{{ bf_text }}</span>
+    <span class="vant-bf-tag-wrap">
+      <span class="vant-bf-tag{% if style == 'page' %} vant-bf-tag--page{% endif %}">{{ bf_text }}</span>
+    </span>
   {%- endif -%}
 {%- endif -%}
 
 {% stylesheet %}
+  .vant-bf-tag-wrap {
+    display: block;
+    line-height: 0;
+  }
+
   .vant-bf-tag {
     display: inline-block;
     background: #000000;
