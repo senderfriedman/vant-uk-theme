@@ -39,6 +39,7 @@
           <div class="vant-size__body">
             <h3 class="vant-size__title">{{ block.settings.title }}</h3>
             {%- if block.settings.price_text != blank -%}<p class="vant-size__price">{{ block.settings.price_text }}</p>{%- endif -%}
+            {% render 'vant-bf-tag' %}
             {%- if block.settings.link_label != blank -%}
               <span class="vant-text-link vant-size__link">{{ block.settings.link_label }} {% render 'vant-arrow' %}</span>
             {%- endif -%}

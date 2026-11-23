@@ -48,6 +48,7 @@
       </span>
     {%- endif -%}
     {%- if f[2] != blank -%}<span class="vant-lc__name">{{ f[2] }}</span>{%- endif -%}
+    {% render 'vant-bf-tag' %}
     <span class="vant-lc__foot">
       <span class="vant-lc__price">{% if product.price_varies %}from {% endif %}{{ product.price_min | money_without_trailing_zeros }}</span>
       <span class="vant-lc__go">{% render 'vant-arrow' %}</span>

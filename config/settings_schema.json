@@ -2230,6 +2230,19 @@
         "default": false
       },
       {
+        "type": "text",
+        "id": "vant_bf_tag",
+        "label": "Tag on product cards",
+        "info": "Shown next to the price. Keep it short.",
+        "default": "15% off with code"
+      },
+      {
+        "type": "text",
+        "id": "vant_bf_note",
+        "label": "Line on product pages",
+        "default": "15% off with code BLACKFRIDAY15 at checkout"
+      },
+      {
         "type": "header",
         "content": "Preview helper"
       },
