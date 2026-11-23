@@ -2217,6 +2217,20 @@
       },
       {
         "type": "header",
+        "content": "Black Friday"
+      },
+      {
+        "type": "paragraph",
+        "content": "One switch for everything Black Friday. Turn it off when the offer ends and the site goes back to normal straight away."
+      },
+      {
+        "type": "checkbox",
+        "id": "vant_bf_on",
+        "label": "Show the Black Friday offer across the site",
+        "default": false
+      },
+      {
+        "type": "header",
         "content": "Preview helper"
       },
       {

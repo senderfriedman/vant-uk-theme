@@ -1,0 +1,155 @@
+{% comment %}
+  Section contract.
+  The Black Friday / Cyber Monday sale bar, across the top of every page.
+  Renders nothing at all unless the Black Friday switch in Theme settings is on,
+  so it can sit in the header group all year without showing.
+  Deliberately carries no countdown or end date: the Black Friday offer runs
+  straight into Cyber Monday, so a deadline here would not be true.
+  @example
+  <!-- First section in the header group; switched on in Theme settings > Vänt > Black Friday -->
+{% endcomment %}
+
+{%- if settings.vant_bf_on -%}
+  {% render 'vant-base' %}
+  <div
+    class="vant-bf-bar"
+    style="--vant-bf-bg: {{ section.settings.background_color }}; --vant-bf-fg: {{ section.settings.text_color }}; --vant-bf-pt: {{ section.settings.padding_top }}px; --vant-bf-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="vant-bf-bar__inner">
+      {%- if section.settings.label != blank -%}
+        <span class="vant-bf-bar__label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.message != blank -%}
+        <span class="vant-bf-bar__message">{{ section.settings.message }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.message_secondary != blank -%}
+        <span class="vant-bf-bar__message vant-bf-bar__message--extra">{{ section.settings.message_secondary }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.link != blank and section.settings.link_label != blank -%}
+        <a class="vant-bf-bar__link" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-bf-bar {
+    background: var(--vant-bf-bg, #000000);
+    color: var(--vant-bf-fg, #ffffff);
+    padding-block: var(--vant-bf-pt, 10px) var(--vant-bf-pb, 10px);
+    padding-inline: 20px;
+  }
+
+  .vant-bf-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 14px;
+    max-width: 1400px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .vant-bf-bar__label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid currentcolor;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  .vant-bf-bar__message {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .vant-bf-bar__link {
+    font-size: 13px;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+
+  /* Phones: the headline offer and the link only. The over-£2,500 tier is the
+     rarer case and would push the bar to three lines on a small screen. */
+  @media screen and (max-width: 749px) {
+    .vant-bf-bar {
+      padding-inline: 14px;
+    }
+
+    .vant-bf-bar__message--extra {
+      display: none;
+    }
+
+    .vant-bf-bar__inner {
+      gap: 4px 10px;
+    }
+
+    .vant-bf-bar__message {
+      font-size: 12px;
+    }
+
+    .vant-bf-bar__link {
+      font-size: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt Black Friday bar",
+  "tag": "section",
+  "class": "vant-bf-bar-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only when the Black Friday switch is on in Theme settings > Vänt > Black Friday."
+    },
+    { "type": "text", "id": "label", "label": "Label", "default": "Black Friday" },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Offer",
+      "default": "15% off everything with code BLACKFRIDAY15"
+    },
+    {
+      "type": "text",
+      "id": "message_secondary",
+      "label": "Second offer",
+      "info": "Hidden on phones to keep the bar to one line.",
+      "default": "20% off orders over £2,500 with BLACKFRIDAY20"
+    },
+    { "type": "text", "id": "link_label", "label": "Link text", "default": "Shop the sale" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#000000" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [{ "name": "Vänt Black Friday bar" }]
+}
+{% endschema %}
