@@ -18,6 +18,7 @@
     {%- endif -%}
     {%- unless s.hide_heading -%}<h1 class="vant-ph__title vant-hl">{{ s.heading | default: page.title }}</h1>{%- endunless -%}
     {%- if s.intro != blank -%}<p class="vant-ph__intro">{{ s.intro }}</p>{%- endif -%}
+    {% render 'vant-bf-band', link_url: '/collections/panels' %}
     {%- if s.show_contact -%}{% render 'vant-contact-line', class: 'vant-ph__contact' %}{%- endif -%}
   </div>
 </div>

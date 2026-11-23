@@ -3,6 +3,7 @@
   class="section section--page-width vant-section vant-band"
   style="--vant-pt: {{ section.settings.padding_top }}px; --vant-pb: {{ section.settings.padding_bottom }}px; --vant-bg: {{ section.settings.background_color }}; --vant-fg: {{ section.settings.text_color }}; --vant-heading: {{ section.settings.text_color }};"
 >
+  {% render 'vant-bf-band', position: 'top', link_url: '/collections/panels' %}
   <div class="vant-band__inner">
     <div>
       {%- if section.settings.heading != blank -%}<h2 class="vant-hl">{{ section.settings.heading }}</h2>{%- endif -%}

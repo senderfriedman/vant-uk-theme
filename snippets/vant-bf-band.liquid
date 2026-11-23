@@ -1,0 +1,59 @@
+{% doc %}
+  The Black Friday offer band. Renders nothing unless the Black Friday switch
+  is on in Theme settings, so it can sit in a section all year.
+  Always solid black: the sections it sits in can be light or dark depending on
+  their own colour settings, so it cannot borrow the background it lands on.
+  @param {string} [position] - Pass 'top' when it leads a section, for spacing.
+  @param {string} [link_url] - Where the "Shop the sale" link points. Omit for no link.
+  @example
+  {% render 'vant-bf-band', link_url: '/collections/panels' %}
+{% enddoc %}
+{%- if settings.vant_bf_on and settings.vant_bf_note != blank -%}
+  <div class="vant-bf-band{% if position == 'top' %} vant-bf-band--top{% endif %}">
+    <span class="vant-bf-band__label">Black Friday</span>
+    <span class="vant-bf-band__text">{{ settings.vant_bf_note }}</span>
+    {%- if link_url != blank -%}
+      <a class="vant-bf-band__link" href="{{ link_url }}">Shop the sale</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-bf-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin-top: 26px;
+    padding: 14px 18px;
+    background: #000000;
+    color: #ffffff;
+    font-size: 14px;
+    /* Keeps an edge when it lands on a dark section. */
+    border: 1px solid rgb(255 255 255 / 0.22);
+  }
+
+  .vant-bf-band--top {
+    margin-top: 0;
+    margin-bottom: 28px;
+  }
+
+  .vant-bf-band__label {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid currentcolor;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  .vant-bf-band__text {
+    flex: 1 1 240px;
+  }
+
+  .vant-bf-band__link {
+    color: inherit;
+    white-space: nowrap;
+    text-underline-offset: 3px;
+  }
+{% endstylesheet %}
