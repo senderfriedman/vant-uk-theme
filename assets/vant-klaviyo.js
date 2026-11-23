@@ -109,24 +109,29 @@
   }
 
   document.addEventListener('vant:added', function (event) {
-    var detail = (event && event.detail) || {};
-    var cart = detail.cart;
+    // Wrapped so a fault in reporting can never stop someone adding to the basket.
+    try {
+      var detail = (event && event.detail) || {};
+      var cart = detail.cart;
 
-    if (cart && cart.items) {
-      send(cart, matchAdded(cart, detail.items));
-      return;
+      if (cart && cart.items) {
+        send(cart, matchAdded(cart, detail.items));
+        return;
+      }
+
+      // Older callers did not pass the basket; ask Shopify for it.
+      fetch('/cart.js', { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
+        .then(function (response) {
+          return response.ok ? response.json() : null;
+        })
+        .then(function (fetched) {
+          if (fetched) send(fetched, matchAdded(fetched, detail.items));
+        })
+        .catch(function () {
+          /* basket unavailable; nothing to report */
+        });
+    } catch (error) {
+      if (window.console) console.warn('[vant-klaviyo] could not report the basket', error);
     }
-
-    // Older callers did not pass the basket; ask Shopify for it.
-    fetch('/cart.js', { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
-      .then(function (response) {
-        return response.ok ? response.json() : null;
-      })
-      .then(function (fetched) {
-        if (fetched) send(fetched, matchAdded(fetched, detail.items));
-      })
-      .catch(function () {
-        /* basket unavailable; nothing to report */
-      });
   });
 })();
