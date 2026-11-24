@@ -37,6 +37,7 @@
           "type": "video",
           "settings": {
             "youtube_id": "g2ugde7Zth8",
+            "image": "shopify://shop_images/vant-film-installation-cover.jpg",
             "label": "Watch the fitting video (1 min)"
           }
         },

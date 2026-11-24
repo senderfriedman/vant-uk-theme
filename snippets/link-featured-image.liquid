@@ -27,6 +27,15 @@
       | image_tag: loading: 'lazy', class: class, sizes: image_sizes
     }}
   {% endif %}
+{% elsif link.type == 'product_link' %}
+  {%- comment -%} Vänt: a product link (e.g. "Packs of 4 panels") shows the product's main image, so its tile is never empty. {%- endcomment -%}
+  {% if link.object.featured_image %}
+    {{
+      link.object.featured_image
+      | image_url: width: 800
+      | image_tag: loading: 'lazy', class: class, sizes: image_sizes, alt: ''
+    }}
+  {% endif %}
 {% elsif link.type == 'collections_link' %}
   {% assign collection_object = collections | where: 'featured_image' | first %}
   {% if collection_object.featured_image %}

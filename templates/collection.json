@@ -53,7 +53,7 @@
             "title": "Feature walls",
             "note": "Bigger walls, up to 234cm high",
             "group": "Headboard walls",
-            "link": "shopify://collections/accent-wall",
+            "link": "/collections/pre-configured-layouts?bed=feature-walls",
             "image_fit": "contain"
           }
         },

@@ -19,8 +19,47 @@
   assign link_label = s.link_label | replace: '[group]', group_name
   assign shown = 0
   assign sorted = source.products | sort: 'price'
+  assign bed_param = g[1] | handleize
 -%}
-{%- if source != blank -%}
+{%- capture cards -%}
+  {%- for p in sorted -%}
+    {%- if product and p.id == product.id -%}{%- continue -%}{%- endif -%}
+    {%- if tag != blank -%}
+      {%- unless p.tags contains tag -%}{%- continue -%}{%- endunless -%}
+    {%- endif -%}
+    {%- if shown >= s.limit -%}{%- break -%}{%- endif -%}
+    {%- assign shown = shown | plus: 1 -%}
+    {% render 'vant-layout-card',
+      product: p,
+      wider_label: s.wider_label,
+      sizes: '(min-width: 1200px) 260px, (min-width: 750px) 30vw, 70vw'
+    %}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if shown == 0 and tag != blank -%}
+  {%- comment -%}
+    No other layout shares this bed size (for example the only Single layout).
+    Show other ready-made layouts instead of an empty row.
+  {%- endcomment -%}
+  {%- liquid
+    assign heading = s.heading | replace: '[group]', s.fallback_name
+    assign link_label = s.link_label | replace: '[group]', s.fallback_name
+    assign bed_param = ''
+  -%}
+  {%- capture cards -%}
+    {%- for p in sorted -%}
+      {%- if product and p.id == product.id -%}{%- continue -%}{%- endif -%}
+      {%- if shown >= s.limit -%}{%- break -%}{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {% render 'vant-layout-card',
+        product: p,
+        wider_label: s.wider_label,
+        sizes: '(min-width: 1200px) 260px, (min-width: 750px) 30vw, 70vw'
+      %}
+    {%- endfor -%}
+  {%- endcapture -%}
+{%- endif -%}
+{%- if source != blank and shown > 0 -%}
   <div
     class="section section--page-width vant-section"
     style="--vant-pt: {{ s.padding_top }}px; --vant-pb: {{ s.padding_bottom }}px;"
@@ -30,23 +69,11 @@
         <div class="vant-section-head"><h2 class="vant-hl">{{ heading }}</h2></div>
       {%- endif -%}
       <div class="vant-lr vant-scroll-row">
-        {%- for p in sorted -%}
-          {%- if product and p.id == product.id -%}{%- continue -%}{%- endif -%}
-          {%- if tag != blank -%}
-            {%- unless p.tags contains tag -%}{%- continue -%}{%- endunless -%}
-          {%- endif -%}
-          {%- if shown >= s.limit -%}{%- break -%}{%- endif -%}
-          {%- assign shown = shown | plus: 1 -%}
-          {% render 'vant-layout-card',
-            product: p,
-            wider_label: s.wider_label,
-            sizes: '(min-width: 1200px) 260px, (min-width: 750px) 30vw, 70vw'
-          %}
-        {%- endfor -%}
+        {{ cards }}
       </div>
       {%- if link_label != blank -%}
         <p class="vant-lr__all">
-          <a class="vant-text-link" href="{{ source.url }}{% if g[1] != blank %}?bed={{ g[1] | handleize }}{% endif %}">{{ link_label }}</a>
+          <a class="vant-text-link" href="{{ source.url }}{% if bed_param != blank %}?bed={{ bed_param }}{% endif %}">{{ link_label }}</a>
         </p>
       {%- endif -%}
     </div>

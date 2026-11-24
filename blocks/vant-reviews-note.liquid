@@ -1,0 +1,38 @@
+{%- doc -%}
+  A short note above the product reviews (e.g. "Includes reviews from Vänt customers in the USA.").
+  It only shows when the product has at least one review, so it never sits alone above an empty space.
+{%- enddoc -%}
+{%- liquid
+  assign vant_rc = product.metafields.reviews.rating_count.value | default: 0 | plus: 0
+-%}
+{%- if vant_rc > 0 and block.settings.text != blank -%}
+  <p class="vant-reviews-note" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
+{%- endif -%}
+
+{% stylesheet %}
+  .vant-reviews-note {
+    width: 100%;
+    margin: 0;
+    font-size: 0.875rem;
+    color: #5c5657;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vänt reviews note",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A short note above the reviews. It only shows on products that have at least one review."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Note",
+      "default": "Includes reviews from Vänt customers in the USA."
+    }
+  ],
+  "presets": [{ "name": "Vänt reviews note" }]
+}
+{% endschema %}
