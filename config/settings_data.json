@@ -200,7 +200,8 @@
       "foreground": "#2E2A2B",
       "color1": "#4A4446",
       "color2": "#DCD8D5"
-    }
+    },
+    "vant_bf_on": true
   },
   "presets": {
     "Horizon": {
