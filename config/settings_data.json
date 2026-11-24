@@ -137,7 +137,7 @@
     "vant_hours": "Mon–Thu 9am–5pm · Fri 9am–2pm",
     "vant_fabric_names": "Boucle | Bouclé\nVelvet | Velvet\nMicro Suede | Micro Suede\nVintage Leather | Vintage Faux Leather\nLeather | Vintage Faux Leather\nWeave | Weave\nMetallic | Metallic\nZigrino | Zigrino",
     "vant_fabric_notes": "Velvet | Material: 100% microfibre velvet\nMicro Suede | Material: 100% microfibre\nVintage Faux Leather | Material: 100% vinyl (faux leather, not real leather)\nWeave | Material: poly-cotton weave\nMetallic | Material: 100% polyurethane",
-    "vant_bf_on": false,
+    "vant_bf_on": true,
     "vant_preview_mode": false,
     "content_for_index": [],
     "blocks": {
