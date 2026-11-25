@@ -194,6 +194,11 @@
           "agent_activator_font_size": 16,
           "agent_border_radius": 24
         }
+      },
+      "12264981854551093274": {
+        "type": "shopify://apps/zigpoll-customer-surveys/blocks/zigpoll-embed/019a552e-a887-7983-9977-f95313668ab3",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_palette": {
